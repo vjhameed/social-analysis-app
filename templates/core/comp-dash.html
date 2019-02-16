@@ -1,0 +1,214 @@
+{% extends 'core/app.html' %}
+
+{% block 'content' %}
+
+<div class="sa-content">
+
+
+    <div class="d-flex w-100 home-header">
+        <div>
+            <h1 class="page-header">Competitive dashboard</h1>
+        </div>
+    </div>
+    <div class="d-flex w-100">
+        <section id="widget-grid" class="w-100">
+            <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
+                data-widget-editbutton="false" role="widget">
+                <div role="content p-0">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class='card card-2 p-3'>
+                                <div class="d-flex w-100">
+                                    <section id="widget-grid" class="w-100">
+                                        <div class="row">
+                                            <div class="col-6 sortable-grid ui-sortable">
+                                                <div class="jarviswidget sot-widget" id="wid-id-0">
+                                                    <div class="widget-body p-0">
+                                                        <h6 class='sec-heads'>Share of Topcs</h6>
+                                                        <p>Last 7 Days</p>
+                                                        <div class="chart-container">
+                                                            <div id="pie-chart" class="chart"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 sortable-grid ui-sortable">
+                                                <div class="jarviswidget rot-widget" id="wid-id-0">
+                                                    <div class="widget-body p-0">
+                                                        <h6 class='sec-heads'>Results Over Time</h6>
+                                                        <p>by topics - Last 7 Days</p>
+                                                        <div class="text-right">
+                                                            <span>Results <span class="results">145.5K</span></h3>
+                                                        </div>
+                                                        <div class="chart-container">
+                                                            <canvas id="bar-chart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 sortable-grid ui-sortable">
+                                                <div class="jarviswidget rve-widget" id="wid-id-0">
+                                                    <div class="widget-body">
+                                                        <h6 class='sec-heads'>Reach vs Engagement</h6>
+                                                        <p>Last 7 Days</p>
+                                                        <div class="chart-container">
+                                                            <canvas id="bubble-chart" class="chart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 sortable-grid ui-sortable">
+                                                <div class="jarviswidget sentiment-widget" id="wid-id-0">
+                                                    <div class="widget-body">
+                                                        <h6 class='sec-heads'>Sentiments</h6>
+                                                        <p>by topics - Last 7 Days</p>
+                                                        <div class="text-right">
+                                                            <span>Results <span class="results">145.5K</span></h3>
+                                                        </div>
+                                                        <div class="chart-container">
+                                                            <canvas id="hbar-chart"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-3'>
+                            <div class="widget-body search-sidebar card card-2 p-3 pt-4 pl-4">
+                                <div class="row" style=''>
+                                    <div class="col-md-12 ">
+                                        <h4 class='filter-man-head'>Search Filters</h4>
+
+                                        <h5 class='filter-heading'>Social Channel</h5>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Facebook</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Twitte</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Instagram</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Youtube</span>
+                                            </label>
+                                        </div>
+
+                                        <h5 class='filter-heading'>Date</h5>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Last Day</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Last 3 Days</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Last Week</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Last 10 Days</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Last Month</span>
+                                            </label>
+                                        </div>
+
+
+                                        <h5 class='filter-heading'>Language</h5>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>English</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>French</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Arabic</span>
+                                            </label>
+                                        </div>
+                                        <div class="vcheck">
+                                            <label>
+                                                <input type="checkbox" class="checkbox style-0" checked="checked">
+                                                <span>Arabizi</span>
+                                            </label>
+                                        </div>
+                                        <h5 class='filter-heading'>Date</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="">From</label>
+                                                <input type='text' name='datefrom' class='form-control' />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">To</label>
+                                                <input type='text' name='dateto' class='form-control' />
+                                            </div>
+                                        </div>
+
+                                        <h5 class='filter-heading'>Sentiment</h5>
+                                        <div class="" style='display:flex;justify-content: space-between'>
+                                            <span class='text-center'>(101) <br> Negative</span>
+                                            <span class='text-center'>(101) <br> Nuetral</span>
+                                            <span class='text-center'>(101) <br> Positive</span>
+                                        </div>
+                                        <input type='range' min='1' max='3' value='1' step='1' class="n n3" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end row -->
+
+        </section>
+    </div>
+</div>
+
+
+{% endblock 'content' %}
+
+
+{% block foot_js %}
+{% endblock foot_js %}

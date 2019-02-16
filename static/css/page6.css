@@ -1,0 +1,21 @@
+.rot-widget h4 {
+  padding: 0;
+  margin: 0;
+}
+
+.rot-widget h4 span {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+
+#bar-chart {
+  overflow: visible;
+  /* padding: 10px !important; */
+  margin-bottom: 2em;
+}
+
+.rot-widget .results, .sentiment-widget .results {
+  font-size: 1.5em;
+  font-weight: bold;
+}

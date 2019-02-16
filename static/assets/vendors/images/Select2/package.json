@@ -1,0 +1,67 @@
+{
+  "_args": [
+    [
+      "Select2@3.5.7",
+      "C:\\wamp\\www\\smartadmin\\SmartAdmin_1_8\\DEVELOPER\\BS4\\HTML_beta\\config"
+    ]
+  ],
+  "_from": "Select2@3.5.7",
+  "_id": "Select2@3.5.7",
+  "_inBundle": false,
+  "_integrity": "sha1-eCWzUmN2VdYf/s33QWl5FmFjeHo=",
+  "_location": "/Select2",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "Select2@3.5.7",
+    "name": "Select2",
+    "escapedName": "Select2",
+    "rawSpec": "3.5.7",
+    "saveSpec": null,
+    "fetchSpec": "3.5.7"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/Select2/-/Select2-3.5.7.tgz",
+  "_spec": "3.5.7",
+  "_where": "C:\\wamp\\www\\smartadmin\\SmartAdmin_1_8\\DEVELOPER\\BS4\\HTML_beta\\config",
+  "author": {
+    "name": "Igor Vaynberg"
+  },
+  "bugs": {
+    "url": "https://github.com/syastrebov/select2/issues"
+  },
+  "description": "Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.",
+  "homepage": "http://ivaynberg.github.io/select2",
+  "jspm": {
+    "main": "select2",
+    "files": [
+      "select2.js",
+      "select2.png",
+      "select2x2.png",
+      "select2.css",
+      "select2-spinner.gif"
+    ],
+    "shim": {
+      "select2": {
+        "imports": [
+          "jquery",
+          "./select2.css!"
+        ],
+        "exports": "$"
+      }
+    },
+    "buildConfig": {
+      "uglify": true
+    }
+  },
+  "main": "select2.js",
+  "name": "Select2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/syastrebov/select2.git"
+  },
+  "version": "3.5.7"
+}

@@ -1,0 +1,59 @@
+{% load static %}
+<!-- ============================================================== -->
+<!-- customizer Panel -->
+<!-- ============================================================== -->
+<div class="sa-aside-left">
+
+  <a href="javascript:void(0)" class="sa-sidebar-shortcut-toggle">
+    <span>Hodos Analytics </span>
+  </a>
+  <div class="sa-left-menu-outer">
+    <ul class="metismenu sa-left-menu" id="menu1">
+      <li class="">
+        <a href="/dashboard" title="Home"><em style='float:right' class="fa fa-home"></em> Home </a>
+      </li><!-- second-level -->
+      <li class="">
+        <a href="#" title="Create A Project" data-toggle='modal' data-target='#createmodal'> Create a Project <em
+            style='float:right' class="fa fa-plus-square-o"></em></a>
+      </li><!-- second-level -->
+      <!-- first-level -->
+      {% for pro in projects %}
+      <li class="">
+        <a class="has-arrow" href="/" title="Dashboard"><span class="fa fa-lg fa-breifcase"></span> <span
+            class="menu-item-parent">{{pro.title}}</span>
+          <b class="collapse-sign">
+            <em class="fa fa-plus-square-o"></em>
+            <em class="fa fa-minus-square-o"></em>
+          </b>
+        </a>
+        <ul aria-expanded="true" class="sa-sub-nav collapse">
+          <!-- second-level -->
+          <li class="active">
+            <a href="/dashboard/brand-dashboard" title="Analytics Dashboard"> Brands Dashboard </a>
+          </li><!-- second-level -->
+          <li class="active">
+            <a href="/dashboard/general-dashboard" title="Analytics Dashboard"> General Dashboard </a>
+          </li><!-- second-level -->
+          <li class="active">
+            <a href="/dashboard/influencer-dashboard" title="Analytics Dashboard"> Influencer Dashboard </a>
+          </li><!-- second-level -->
+          <li class="active">
+            <a href="/dashboard/competitive-dashboard" title="Analytics Dashboard"> Competitive Dashboard </a>
+          </li><!-- second-level -->
+          <li class="active">
+            <a href="/dashboard/mentions-dashboard" title="Analytics Dashboard"> Mentions Dashboard </a>
+          </li><!-- second-level -->
+          <li class="active">
+            <a href=" /dashboard/project-setting" title="Analytics Dashboard"> Project Settings </a>
+          </li><!-- second-level -->
+
+        </ul>
+      </li>
+
+      {% endfor %}
+    </ul>
+  </div>
+  <a href="javascript:void(0)" class="minifyme" onclick="SAtoggleClass(this, 'body', 'minified')">
+    <i class="fa fa-arrow-circle-left hit"></i>
+  </a>
+</div>

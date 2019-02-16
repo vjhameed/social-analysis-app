@@ -1,0 +1,56 @@
+#toppublishers-section {
+  margin-top: 3em;
+}
+
+.tptable thead tr th, .tptable tbody tr td  {
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+  /* white-space: nowrap; */
+}
+
+.tptable tbody tr td .influencer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tptable tbody tr td .influencer .social-icon img {
+  height: 30px;
+  width: 30px;
+  margin-left: 1em;
+}
+
+.tptable tbody tr td .influencer .avatar {
+  font-size: 3em;
+  margin-right: 0.3em;
+}
+
+.tptable tbody tr td:first-child .name {
+  text-align: left;
+}
+
+#pie-chart {
+  overflow: visible;
+}
+
+@media only screen and (max-width: 768px) {
+  .tptable tbody tr td .influencer .avatar {
+    font-size: 2em;
+  }
+
+  .tptable tbody tr td .influencer .social-icon img {
+    width: 15px;
+    height: 15px;
+  }
+
+  #pie-chart {
+    margin-bottom: 215px;
+  }
+
+  .tptable thead tr th, .tptable tbody tr td {
+    padding: 0.5em;
+  }
+
+
+}

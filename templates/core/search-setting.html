@@ -1,0 +1,370 @@
+{% extends 'core/app.html' %}
+
+{% block 'content' %}
+
+<style>
+	.multi-radio h5 {
+		font-weight: bold;
+		font-size: 1.3em;
+		/* margin-bottom: -19px; */
+	}
+
+	.multi-radio [type="radio"]:checked,
+	.multi-radio [type="radio"]:not(:checked) {
+		position: absolute;
+		left: -9999px;
+	}
+
+	.multi-radio [type="radio"]:checked+label,
+	.multi-radio [type="radio"]:not(:checked)+label {
+		position: relative;
+		padding-left: 28px;
+		cursor: pointer;
+		line-height: 20px;
+		display: inline-block;
+		color: #666;
+	}
+
+	.multi-radio [type="radio"]:checked+label:before,
+	.multi-radio [type="radio"]:not(:checked)+label:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 18px;
+		height: 18px;
+		border: 1px solid #ddd;
+		border-radius: 100%;
+		background: #fff;
+	}
+
+	.multi-radio [type="radio"]:checked+label:after,
+	.multi-radio [type="radio"]:not(:checked)+label:after {
+		content: '';
+		width: 10px;
+		height: 11px;
+		background: #3276b1;
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		border-radius: 100%;
+		-webkit-transition: all 0.2s ease;
+		transition: all 0.2s ease;
+	}
+
+	.multi-radio [type="radio"]:not(:checked)+label:after {
+		opacity: 0;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+	}
+
+	.multi-radio [type="radio"]:checked+label:after {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+	}
+
+</style>
+
+<div class="sa-content">
+
+
+	<div class="d-flex w-100 home-header">
+		<div>
+			<h1 class="page-header">Search Settings </h1>
+		</div>
+	</div>
+	<div class="d-flex w-100">
+		<section id="widget-grid" class="w-100">
+			<div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
+				data-widget-editbutton="false" role="widget">
+				<!-- widget options:
+							usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+			
+							data-widget-colorbutton="false"
+							data-widget-editbutton="false"
+							data-widget-togglebutton="false"
+							data-widget-deletebutton="false"
+							data-widget-fullscreenbutton="false"
+							data-widget-custombutton="false"
+							data-widget-collapsed="true"
+							data-widget-sortable="false"
+			
+							-->
+
+				<!-- widget div-->
+				<div role="content">
+
+					<!-- widget edit box -->
+					<!-- end widget edit box -->
+
+					<!-- widget content -->
+					<div class="widget-body card card-2 p-5">
+
+						<div class="widget-body">
+							<ul id="myTab1" class="nav nav-tabs bordered">
+								<li class="nav-item">
+									<a href="#s1" data-toggle="tab" class="nav-link active show"><i class="fa fa-fw fa-lg fa-gear"></i>
+										Keywords</a>
+								</li>
+								<li class="nav-item">
+									<a href="#s3" data-toggle="tab" class="nav-link"><i class="fa fa-fw fa-lg fa-gear"></i>
+										Notification</a>
+								</li>
+								<li class="nav-item">
+									<a href="#s4" data-toggle="tab" class="nav-link"><i class="fa fa-fw fa-lg fa-gear"></i> Facebook</a>
+								</li>
+								<li class="nav-item">
+									<a href="#s5" data-toggle="tab" class="nav-link"><i class="fa fa-fw fa-lg fa-gear"></i> Twitter</a>
+								</li>
+								<li class="nav-item">
+									<a href="#s6" data-toggle="tab" class="nav-link"><i class="fa fa-fw fa-lg fa-gear"></i> Instagram</a>
+								</li>
+
+							</ul>
+
+							<div id="myTabContent1" class="tab-content padding-10">
+								<div class="tab-pane active show p-4" id="s1">
+									<p>
+										<form>
+
+											<div class="row" style="justify-content:center">
+												<div class="col-md-8">
+													<div class="form-group row">
+
+														<h3 class='pl-3 w-100 mb-4'>Project Name</h3>
+														<div class="offset-md-2 col-md-8 pr-2 mb-3">
+															<input class="form-control" placeholder="Project Name" type="text">
+														</div>
+
+														<h3 class='pl-3 w-100 mb-3'>Search Keywords</h3>
+
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Add Keyword" type="text">
+														</div>
+														<div class="col-md-6 pl-2 mb-3">
+															<input class="form-control" placeholder="Exclude Keyword" type="text">
+														</div>
+													</div>
+													<div class="row">
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<h3 class=' w-100 mb-3'>Filter By Location</h3>
+																<select multiple="multiple" id="multiselect1" class="form-control custom-scroll"
+																	title="Click to Select a City">
+																	<option>Amsterdam</option>
+																	<option selected="selected">Atlanta</option>
+																	<option>Baltimore</option>
+																	<option>Boston</option>
+																	<option>Buenos Aires</option>
+																	<option>Calgary</option>
+																	<option selected="selected">Chicago</option>
+																	<option>Denver</option>
+																	<option>Dubai</option>
+																	<option>Frankfurt</option>
+																	<option>Hong Kong</option>
+																	<option>Honolulu</option>
+																	<option>Houston</option>
+																	<option>Kuala Lumpur</option>
+																	<option>London</option>
+																	<option>Los Angeles</option>
+																	<option>Melbourne</option>
+																	<option>Mexico City</option>
+																	<option>Miami</option>
+																	<option>Minneapolis</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<button type='submit' class='btn px-5 py-3	btn-primary ml-auto'
+																style='font-size:1.2em'>SAVE</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</p>
+								</div>
+								<div class="tab-pane p-4" id="s3">
+									<p>
+										<form>
+											<div class="row" style="justify-content:center">
+												<div class="col-md-8">
+													<div class="form-group row" style='align-items:center;flex-direction:column'>
+														<div class="col-md-6 pr-2 mb-3">
+															<input class="form-control" placeholder="Enter Email for Recieving Notifications"
+																type="text">
+														</div>
+														<div class='col-md-6 pr-2 mb-3 multi-radio'>
+															<h5>Select A Frequency of Notifications</h5>
+															<!-- <ul>
+																						<li>
+																						  <input type="radio" id="f-option" name="selector">
+																						  <label for="f-option">Pizza</label>
+																						  
+																						  <div class="check"></div>
+																						</li>
+																						
+																						<li>
+																						  <input type="radio" id="s-option" name="selector">
+																						  <label for="s-option">Bacon</label>
+																						  
+																						  <div class="check"><div class="inside"></div></div>
+																						</li>
+																						
+																						<li>
+																						  <input type="radio" id="t-option" name="selector">
+																						  <label for="t-option">Cats</label>
+																						  
+																						  <div class="check"><div class="inside"></div></div>
+																						</li>
+																					</ul>																					   -->
+															<p>
+																<input type="radio" id="test1" name="radio-group" checked>
+																<label for="test1">Every hour</label>
+															</p>
+															<p>
+																<input type="radio" id="test2" name="radio-group">
+																<label for="test2">Every 4 hours</label>
+															</p>
+															<p>
+																<input type="radio" id="test3" name="radio-group">
+																<label for="test3">Every 8 hours</label>
+															</p>
+															<p>
+																<input type="radio" id="test4" name="radio-group">
+																<label for="test4">Every 12 hours</label>
+															</p>
+															<p>
+																<input type="radio" id="test5" name="radio-group">
+																<label for="test5">Every Day</label>
+															</p>
+															<p>
+																<input type="radio" id="test6" name="radio-group">
+																<label for="test6">Every Week</label>
+															</p>
+														</div>
+														<div class="col-md-12">
+															<button type='submit' class='btn px-5 py-3	btn-primary ml-auto'
+																style='font-size:1.2em'>SAVE</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</p>
+
+								</div>
+								<div class="tab-pane" id="s4">
+									<p>
+										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+										cleanse
+										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+										locavore wolf
+										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+										farm-to-table.
+
+
+									</p>
+								</div>
+								<div class="tab-pane" id="s5">
+									<p>
+										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+										cleanse
+										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+										locavore wolf
+										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+										farm-to-table.
+									</p>
+								</div>
+								<div class="tab-pane" id="s6">
+									<p>
+										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+										cleanse
+										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+										locavore wolf
+										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out
+										farm-to-table.
+									</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- end widget content -->
+
+				</div>
+				<!-- end widget div -->
+
+			</div>
+			<!-- end row -->
+
+		</section>
+	</div>
+</div>
+{% endblock 'content' %}
