@@ -7,7 +7,7 @@ from django.shortcuts import render
 import datetime
 from dateutil.parser import parse
 from accounts.models import Folder
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 import json
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -19,11 +19,47 @@ def HomePageView(request):
     projects = Project.objects.all()
     return render(request,'core/index.html',{"projects":projects})
 
-def SearchSettingView(TemplateView):
+def SearchSettingView(request,proid):
     projects = Project.objects.all()
-    return render(request,'core/search-setting.html',{"projects":projects})
+    project = Project.objects.get(id=proid)
+    
+    if request.POST:
+        if request.POST.get('keywords',False):
+            project.title = request.POST['title']
+            project.key1 = request.POST['key1']        
+            project.key2 = request.POST['key2']        
+            project.key3 = request.POST['key3']        
+            project.key4 = request.POST['key4']        
+            project.key5 = request.POST['key5']        
+            project.key6 = request.POST['key6']        
+            project.key7 = request.POST['key7']        
+            project.key8 = request.POST['key8']        
+            project.key9 = request.POST['key9']        
+            project.key10 = request.POST['key10']        
+            project.exkey1 = request.POST['exkey1']        
+            project.exkey2 = request.POST['exkey2']        
+            project.exkey3 = request.POST['exkey3']        
+            project.exkey4 = request.POST['exkey4']        
+            project.exkey5 = request.POST['exkey5']        
+            project.exkey6 = request.POST['exkey6']        
+            project.exkey7 = request.POST['exkey7']        
+            project.exkey8 = request.POST['exkey8']        
+            project.exkey9 = request.POST['exkey9']        
+            project.exkey10 = request.POST['exkey10']        
+            project.save()
+        elif request.POST.get('notifications',False):
+            project.notification_duration = request.POST['notification_duration']
+            project.notification_email = request.POST['notification_email']
+            project.save()
 
-def GeneralDashboardView(error):
+    return render(request,'core/search-setting.html',{"projects":projects,'pro':project})
+
+def DeleteProject(request,pid):
+    pro = Project.objects.get(id=pid)    
+    pro.delete()
+    return redirect('dashboard')
+
+def GeneralDashboardView(request):
     projects = Project.objects.all()
     return render(request,'core/general.html',{"projects":projects})
 
@@ -47,7 +83,7 @@ def CreateProject(request):
     if request.method == 'POST':
         pro = Project()
         pro.title = request.POST['project_name']
-        pro.notification_duration = 7
+        pro.notification_duration = 8
         pro.save()
     return redirect('dashboard')
         

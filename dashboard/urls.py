@@ -1,11 +1,12 @@
 from django.urls import path, re_path
-from dashboard.views import SearchSettingView, GeneralDashboardView, BrandDashboard, CompetitiveDashboard, InfluencerDashboard, MentionsDashboard, CreateProject, HomePageView
+from dashboard.views import SearchSettingView, GeneralDashboardView, BrandDashboard, CompetitiveDashboard, InfluencerDashboard, MentionsDashboard, CreateProject, HomePageView, DeleteProject
 
 
 urlpatterns = [
     path('', HomePageView, name='dashboard'),
     path('brand-dashboard', BrandDashboard, name='brand-dashboard'),
-    path('project-setting', SearchSettingView, name='project-setting'),
+    re_path(r'^project-setting/(?P<proid>\d+)/$', SearchSettingView, name='project-setting'),
+    re_path(r'^delete-project/(?P<pid>\d+)/$', DeleteProject, name='delete-project'),
     path('general-dashboard', GeneralDashboardView, name='searchoutput'),
     path('competitive-dashboard', CompetitiveDashboard, name='comp-dashboard'),
     path('influencer-dashboard', InfluencerDashboard, name='inf-dashboard'),
