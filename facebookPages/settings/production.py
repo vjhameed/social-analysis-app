@@ -112,36 +112,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'facebookPages.wsgi.application'
 
-# import dj_database_url
+import dj_database_url
 
 
 DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': os.environ.get('DB_NAME', 'fbapp'),
-        # 'USER': os.environ.get('DB_USER', 'postgres'),
-        # 'PASSWORD': os.environ.get('DB_PASSWORD', '123456789'),
-        # 'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        # 'PORT': os.environ.get('DB_PORT', '5432'),
-        # 'TEST': {
-        #     'NAME': 'test_default',
-        #     'USER': 'postgres',
-        #     'PASSWORD': 'postgres',
-        #     'HOST': 'db',
-        #     'PORT': 5432
-        # },
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'searchfb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+
 }
 
-# DATABASES['default'] = dj_database_url.parse('postgres://kqebugsnblygyz:3b8dc9893854efdad4c1c168a0d0c808fdb21148f05579e2e2a1f6341d1c8dc6@ec2-54-225-237-84.compute-1.amazonaws.com:5432/ddm46ae4njdfgv', conn_max_age=600)
+DATABASES['default'] = dj_database_url.parse('postgres://kqebugsnblygyz:3b8dc9893854efdad4c1c168a0d0c808fdb21148f05579e2e2a1f6341d1c8dc6@ec2-54-225-237-84.compute-1.amazonaws.com:5432/ddm46ae4njdfgv', conn_max_age=600)
 
 
 # Password validation
