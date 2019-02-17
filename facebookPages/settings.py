@@ -112,7 +112,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'facebookPages.wsgi.application'
 
-# import dj_database_url
+import dj_database_url
 
 
 DATABASES = {
