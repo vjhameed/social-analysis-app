@@ -3,7 +3,7 @@
 }
 
 .tptable thead tr th, .tptable tbody tr td  {
-  padding: 1em;
+  padding: 1em !important;
   text-align: center;
   vertical-align: middle;
   /* white-space: nowrap; */

@@ -112,7 +112,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'facebookPages.wsgi.application'
 
-import dj_database_url
+# import dj_database_url
 
 
 DATABASES = {
@@ -131,17 +131,17 @@ DATABASES = {
         #     'PORT': 5432
         # },
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'searchfb',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'searchfb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
 
-DATABASES['default'] = dj_database_url.parse('postgres://kqebugsnblygyz:3b8dc9893854efdad4c1c168a0d0c808fdb21148f05579e2e2a1f6341d1c8dc6@ec2-54-225-237-84.compute-1.amazonaws.com:5432/ddm46ae4njdfgv', conn_max_age=600)
+# DATABASES['default'] = dj_database_url.parse('postgres://kqebugsnblygyz:3b8dc9893854efdad4c1c168a0d0c808fdb21148f05579e2e2a1f6341d1c8dc6@ec2-54-225-237-84.compute-1.amazonaws.com:5432/ddm46ae4njdfgv', conn_max_age=600)
 
 
 # Password validation

@@ -121,7 +121,8 @@
                                             {% for pro in projects %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
-                                                <td><a href="/project" style='color: green'>{{pro.title}}</a></td>
+                                                <td><a href="{% url 'project-setting' proid=pro.id %}"
+                                                        style='color: green'>{{pro.title}}</a></td>
                                                 <td style='color: green'>{{ pro.created_at|date:'Y-m-d' }}</td>
                                                 <td style='padding-top: 1.6em !important;'>
                                                     <a href="{% url 'project-setting' proid=pro.id %}"

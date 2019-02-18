@@ -64,6 +64,64 @@
 		transform: scale(1);
 	}
 
+	.styled-checkbox {
+		position: absolute;
+		opacity: 0;
+	}
+
+	.styled-checkbox+label {
+		position: relative;
+		cursor: pointer;
+		padding: 0;
+		color: #666;
+		margin-bottom: 8px
+	}
+
+	.styled-checkbox+label:before {
+		content: '';
+		margin-right: 10px;
+		display: inline-block;
+		vertical-align: text-top;
+		width: 20px;
+		height: 20px;
+		background: white;
+		box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12)
+	}
+
+	.styled-checkbox:hover+label:before {
+		background: #3276b1;
+	}
+
+	.styled-checkbox:focus+label:before {
+		box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+	}
+
+	.styled-checkbox:checked+label:before {
+		background: #3276b1;
+	}
+
+	.styled-checkbox:disabled+label {
+		color: #b8b8b8;
+		cursor: auto;
+	}
+
+	.styled-checkbox:disabled+label:before {
+		box-shadow: none;
+		background: #ddd;
+	}
+
+	.styled-checkbox:checked+label:after {
+		content: '';
+		position: absolute;
+		left: 5px;
+		top: 9px;
+		background: white;
+		width: 2px;
+		height: 2px;
+		box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+		transform: rotate(45deg);
+	}
+
 </style>
 
 <div class="sa-content">
@@ -114,18 +172,10 @@
 										Notification</a>
 								</li>
 								<li class="nav-item">
-									<a href="#s4" data-toggle="tab" class="nav-link"><i
-											class="fa fa-fw fa-lg fa-gear"></i> Facebook</a>
+									<a href="#s2" data-toggle="tab" class="nav-link"><i
+											class="fa fa-fw fa-lg fa-gear"></i>
+										Sources</a>
 								</li>
-								<li class="nav-item">
-									<a href="#s5" data-toggle="tab" class="nav-link"><i
-											class="fa fa-fw fa-lg fa-gear"></i> Twitter</a>
-								</li>
-								<li class="nav-item">
-									<a href="#s6" data-toggle="tab" class="nav-link"><i
-											class="fa fa-fw fa-lg fa-gear"></i> Instagram</a>
-								</li>
-
 							</ul>
 
 							<div id="myTabContent1" class="tab-content padding-10">
@@ -356,46 +406,66 @@
 									</p>
 
 								</div>
-								<div class="tab-pane" id="s4">
+								<div class="tab-pane" id="s2">
 									<p>
-										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before
-										they sold out master
-										cleanse
-										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan
-										DIY, art party
-										locavore wolf
-										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi
-										before they sold out
-										farm-to-table.
+										<form method='POST' action="{% url 'project-setting' proid=pro.id %}">
+											{% csrf_token %}
+											<input type="hidden" name="sources" value=1>
+											<div class="row" style="justify-content:center">
+												<div class="col-md-8">
+													<div class="form-group row"
+														style='align-items:center;flex-direction:column'>
+														<div class='col-md-6 pr-2 mb-3 multi-radio'>
+															<h5>Check Sources</h5>
+															<ul class="unstyled centered p-0">
+																<li>
+																	<input class="styled-checkbox"
+																		id="styled-checkbox-1" type="checkbox"
+																		name="fb_source" {% if pro.fb_source == '1' %}
+																		checked {% endif %} value='1'>
+																	<label for="styled-checkbox-1">Facebook</label>
+																</li>
+
+																<li>
+																	<input class="styled-checkbox"
+																		id="styled-checkbox-2" type="checkbox"
+																		name="inst_source"
+																		{% if pro.inst_source == '1' %} checked
+																		{% endif %} value='1'>
+																	<label for="styled-checkbox-2">Instagram</label>
+																</li>
+
+																<li>
+																	<input class="styled-checkbox"
+																		id="styled-checkbox-3" type="checkbox"
+																		name="twit_source"
+																		{% if pro.twit_source == '1' %} checked
+																		{% endif %} value='1'>
+																	<label for="styled-checkbox-3">Twitter</label>
+																</li>
+
+																<li>
+																	<input class="styled-checkbox"
+																		id="styled-checkbox-4" type="checkbox"
+																		name="you_source" {% if pro.you_source == '1' %}
+																		checked {% endif %} value='1'>
+																	<label for="styled-checkbox-4">Youtube</label>
+																</li>
 
 
+															</ul>
+														</div>
+														<div class="col-md-12">
+															<button type='submit'
+																class='btn px-5 py-3	btn-primary ml-auto'
+																style='font-size:1.2em'>SAVE</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
 									</p>
-								</div>
-								<div class="tab-pane" id="s5">
-									<p>
-										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before
-										they sold out master
-										cleanse
-										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan
-										DIY, art party
-										locavore wolf
-										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi
-										before they sold out
-										farm-to-table.
-									</p>
-								</div>
-								<div class="tab-pane" id="s6">
-									<p>
-										Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before
-										they sold out master
-										cleanse
-										gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan
-										DIY, art party
-										locavore wolf
-										cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi
-										before they sold out
-										farm-to-table.
-									</p>
+
 								</div>
 							</div>
 						</div>

@@ -26,6 +26,10 @@ class Project(models.Model):
     exkey10 = models.CharField(max_length=255,blank='true')
     notification_duration = models.IntegerField(blank='true')
     notification_email = models.CharField(blank='true',max_length=255)
+    fb_source = models.BooleanField(default=0)
+    inst_source = models.BooleanField(default=0)
+    you_source = models.BooleanField(default=0)
+    twit_source = models.BooleanField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
 # Create your models here

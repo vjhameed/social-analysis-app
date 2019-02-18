@@ -1,6 +1,9 @@
 {% extends 'core/app.html' %}
 
+{% load static %}
+
 {% block 'content' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page7.css' %}">
 
 <div class="sa-content">
 
@@ -52,7 +55,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -73,7 +76,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -94,7 +97,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -115,7 +118,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -136,7 +139,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -157,7 +160,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -178,7 +181,7 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -199,7 +202,49 @@
                                         Kaise Ryan, Sound good, you
                                       </div>
                                       <div class="social-icon">
-                                        <img src="youtubeicon.jpg" alt="">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>1</td>
+                                  <td>50.2M</td>
+                                  <td>25.1M</td>
+                                  <td>1.5M</td>
+                                  <td>1.5M</td>
+                                </tr>
+
+                                <tr>
+                                  <td>
+                                    <div class="influencer">
+                                      <div class="avatar">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                      </div>
+                                      <div class="name">
+                                        Kaise Ryan, Sound good, you
+                                      </div>
+                                      <div class="social-icon">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>1</td>
+                                  <td>50.2M</td>
+                                  <td>25.1M</td>
+                                  <td>1.5M</td>
+                                  <td>1.5M</td>
+                                </tr>
+
+                                <tr>
+                                  <td>
+                                    <div class="influencer">
+                                      <div class="avatar">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                      </div>
+                                      <div class="name">
+                                        Kaise Ryan, Sound good, you
+                                      </div>
+                                      <div class="social-icon">
+                                        <img src="{% static 'images/youtubeicon.jpg' %}" alt="">
                                       </div>
                                     </div>
                                   </td>
@@ -214,7 +259,7 @@
                           </div>
                           <div class="col-3">
                             <h3 class="mt-0 text-center">Unique Authors by Media Types</h3>
-                            <div id="pie-chart-inf" style='height:360px' class="chart"></div>
+                            <div id="pie-chart" style='height:210px' class="chart"></div>
                           </div>
                         </div>
                       </div>
@@ -226,120 +271,8 @@
                 </div>
               </div>
             </div>
-<div class='col-md-3'>
-  <div class="widget-body search-sidebar card card-2 p-3 pt-4 pl-4">
-    <div class="row" style=''>
-      <div class="col-md-12 ">
-        <h4 class='filter-man-head'>Search Filters</h4>
 
-        <h5 class='filter-heading'>Social Channel</h5>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Facebook</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Twitte</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Instagram</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Youtube</span>
-          </label>
-        </div>
-
-        <h5 class='filter-heading'>Date</h5>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Last Day</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Last 3 Days</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Last Week</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Last 10 Days</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Last Month</span>
-          </label>
-        </div>
-
-
-        <h5 class='filter-heading'>Language</h5>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>English</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>French</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Arabic</span>
-          </label>
-        </div>
-        <div class="vcheck">
-          <label>
-            <input type="checkbox" class="checkbox style-0" checked="checked">
-            <span>Arabizi</span>
-          </label>
-        </div>
-        <h5 class='filter-heading'>Date</h5>
-        <div class="row">
-          <div class="col-md-6">
-            <label for="">From</label>
-            <input type='text' name='datefrom' class='form-control' />
-          </div>
-          <div class="col-md-6">
-            <label for="">To</label>
-            <input type='text' name='dateto' class='form-control' />
-          </div>
-        </div>
-
-        <h5 class='filter-heading'>Sentiment</h5>
-        <div class="" style='display:flex;justify-content: space-between'>
-          <span class='text-center'>(101) <br> Negative</span>
-          <span class='text-center'>(101) <br> Nuetral</span>
-          <span class='text-center'>(101) <br> Positive</span>
-        </div>
-        <input type='range' min='1' max='3' value='1' step='1' class="n n3" />
-
-      </div>
-    </div>
-  </div>
-</div>
+            {% include 'core/includes/search-sidebar.html' %}
 
           </div>
           <!-- end widget content -->
@@ -354,10 +287,10 @@
   </div>
 </div>
 
-
 {% endblock 'content' %}
 
 
 {% block foot_js %}
+<script src="{% static 'js/page7.js' %}"></script>
 
 {% endblock foot_js %}

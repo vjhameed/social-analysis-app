@@ -51,6 +51,12 @@ def SearchSettingView(request,proid):
             project.notification_duration = request.POST['notification_duration']
             project.notification_email = request.POST['notification_email']
             project.save()
+        elif request.POST.get('sources',False):
+            project.fb_source = request.POST.get('fb_source',0)
+            project.inst_source = request.POST.get('inst_source',0)
+            project.twit_source = request.POST.get('twit_source',0)
+            project.you_source = request.POST.get('you_source',0)
+            project.save()            
 
     return render(request,'core/search-setting.html',{"projects":projects,'pro':project})
 

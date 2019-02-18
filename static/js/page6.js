@@ -5,8 +5,8 @@ if ($('#pie-chart').length) {
   var series = 5;
   for (var i = 0; i < series; i++) {
     data_pie[i] = {
-      label : "Series" + (i + 1),
-      data : Math.floor(Math.random() * 100) + 1
+      label: "Series" + (i + 1),
+      data: Math.floor(Math.random() * 100) + 1
     }
   }
   data_pie[0].label = "Emirates"
@@ -16,35 +16,35 @@ if ($('#pie-chart').length) {
   data_pie[4].label = "Alitalia"
 
   $.plot($("#pie-chart"), data_pie, {
-    series : {
-      pie : {
-        show : true,
-        innerRadius : 0.5,
-        radius : 1,
-        label : {
-          show : true,
-          radius : 2 / 3,
-          formatter : function(label, series) {
-            return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' +  Math.round(series.percent) + '%</div>';
+    series: {
+      pie: {
+        show: true,
+        innerRadius: 0.5,
+        radius: 1,
+        label: {
+          show: true,
+          radius: 2 / 3,
+          formatter: function (label, series) {
+            return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' + Math.round(series.percent) + '%</div>';
           },
-          threshold : 0.1
+          threshold: 0.1
         }
       }
     },
-    legend : {
-      show : true,
-      noColumns : 1, // number of colums in legend table
-      labelFormatter : null, // fn: string -> string
-      labelBoxBorderColor : "#000", // border color for the little label boxes
-      container : null, // container (as jQuery object) to put legend in, null means default on top of graph
-      position : "ne", // position of default legend container within plot
-      margin : [5, 10], // distance from grid edge to default legend container within plot
-      backgroundColor : "#efefef", // null means auto-detect
-      backgroundOpacity : 1 // set to 0 to avoid background
+    legend: {
+      show: true,
+      noColumns: 1, // number of colums in legend table
+      labelFormatter: null, // fn: string -> string
+      labelBoxBorderColor: "#000", // border color for the little label boxes
+      container: null, // container (as jQuery object) to put legend in, null means default on top of graph
+      position: "ne", // position of default legend container within plot
+      margin: [5, 10], // distance from grid edge to default legend container within plot
+      backgroundColor: "#efefef", // null means auto-detect
+      backgroundOpacity: 1 // set to 0 to avoid background
     },
-    grid : {
-      hoverable : true,
-      clickable : true
+    grid: {
+      hoverable: true,
+      clickable: true
     },
   });
 
@@ -121,10 +121,10 @@ if ($('#pie-chart').length) {
 /* end sin chart */
 
 
-window.onload = function() {
+window.onload = function () {
   // Bar Chart Starts
 
-  
+
   // Bar Chart Data
   var barChartData = {
     labels: ['5 Aug', '6 Aug', '7 Aug', '8 Aug', '9 Aug', '10 Aug', '11 Aug'],
@@ -184,7 +184,7 @@ window.onload = function() {
   // Bar Chart Ends
 
   // Horizontal Bar Chart Starts
-  
+
   // Bar Chart Data
   var hbarChartData = {
     labels: ['Emirates', 'Air France', 'KLM', 'Lufthansa', 'Alitalia'],
@@ -203,7 +203,7 @@ window.onload = function() {
     }]
 
   };
-  
+
   var ctx = document.getElementById('hbar-chart').getContext('2d');
   window.myBar = new Chart(ctx, {
     type: 'horizontalBar',
@@ -299,25 +299,25 @@ window.onload = function() {
       },
       tooltips: {
         callbacks: {
-           label: function(t, d) {
-              return d.datasets[t.datasetIndex].label + ' : ' + t.xLabel + ' results, ' + t.yLabel + ' engagements';
-           }
+          label: function (t, d) {
+            return d.datasets[t.datasetIndex].label + ' : ' + t.xLabel + ' results, ' + t.yLabel + ' engagements';
+          }
         }
       },
       title: {
         display: false,
         text: ''
       }, scales: {
-        yAxes: [{ 
+        yAxes: [{
           ticks: {
-            callback: function(value, index, values) {
+            callback: function (value, index, values) {
               return value + 'G';
             },
             max: 400
           }
           // scaleLabel: {
-            // display: true,
-            // labelString: "Happiness"
+          // display: true,
+          // labelString: "Happiness"
           // }
         }],
         xAxes: [{
@@ -325,12 +325,12 @@ window.onload = function() {
             max: 100000
           }
           // scaleLabel: {
-            // display: true,
-            // labelString: "GDP (PPP)"
+          // display: true,
+          // labelString: "GDP (PPP)"
           // }
         }]
       }
     }
-});
-    // Bubble Chart End
+  });
+  // Bubble Chart End
 };
