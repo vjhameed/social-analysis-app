@@ -85,6 +85,10 @@ def MentionsDashboard(request):
     projects = Project.objects.all()
     return render(request,'core/mentions.html',{"projects":projects})
 
+def HashDashboard(request):
+    projects = Project.objects.all()
+    return render(request,'core/hashdash.html',{"projects":projects})
+
 def CreateProject(request):
     if request.method == 'POST':
         pro = Project()

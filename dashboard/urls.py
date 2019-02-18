@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from dashboard.views import SearchSettingView, GeneralDashboardView, BrandDashboard, CompetitiveDashboard, InfluencerDashboard, MentionsDashboard, CreateProject, HomePageView, DeleteProject
+from dashboard.views import SearchSettingView, GeneralDashboardView, BrandDashboard, CompetitiveDashboard, InfluencerDashboard, MentionsDashboard, CreateProject, HomePageView, DeleteProject,HashDashboard
 
 
 urlpatterns = [
@@ -11,7 +11,9 @@ urlpatterns = [
     path('competitive-dashboard', CompetitiveDashboard, name='comp-dashboard'),
     path('influencer-dashboard', InfluencerDashboard, name='inf-dashboard'),
     path('mentions-dashboard', MentionsDashboard, name='men-dashboard'),
+    path('hash-dashboard', HashDashboard, name='hash-dashboard'),
     path('create-project', CreateProject, name='create-project'),
+
     # path('page', PageView.as_view(), name='page'),
     # path('comment', PageView.as_view(), name='comment'),
     # path('comment', CommentView.as_view(), name='comment'),

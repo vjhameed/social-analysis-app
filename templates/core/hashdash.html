@@ -1,5 +1,7 @@
 {% extends 'core/app.html' %}
 
+{% load static %}
+
 {% block 'content' %}
 
 <style>
@@ -19,6 +21,91 @@
         font-weight: 500;
     }
 
+    .nuetral-number {
+        color: orange;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .nuetral-positive {
+        color: green;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .nuetral-negative {
+        color: #f44336;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    #graph-B {
+        margin: 0 !important
+    }
+
+    .page-header span {
+        color: gray;
+        font-size: 0.75em;
+        margin-left: 10px;
+    }
+
+    .progress-bars>div:first-child {
+        margin-top: 20px
+    }
+
+    .progress-bars p {
+        font-size: 1.4em;
+    }
+
+    .progress-bars>div>p:first-child {
+        margin: 0;
+        padding-top: 4px
+    }
+
+    .progress-bars .number-pro {
+        font-size: 1.6em;
+    }
+
+    .pro-bar-container {
+        width: 100%;
+        height: 15px;
+        background: gainsboro;
+    }
+
+    .pro-bar-container .pro-progress {
+        background-color: #1e88e5;
+    }
+
+    .influent-side p {
+        margin-bottom: 2px !important
+    }
+
+    .hash-section.selected {
+        color: #0FB36C;
+        border-radius: 10px;
+        border-color: #0FB36C
+    }
+
+    .hash-section {
+        color: darkgray;
+        width: 11.11%;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid white;
+    }
+
+    .hash-section i {
+        font-size: 3em
+    }
+
+    .hash-section h5 {
+        font-weight: bold;
+        font-size: 1.5em
+    }
+
 </style>
 
 <div class="sa-content container">
@@ -26,7 +113,7 @@
 
     <div class="d-flex w-100 home-header">
         <div>
-            <h1 class="page-header">Search Output </h1>
+            <h1 class="page-header">#Metoo</h1>
         </div>
     </div>
     <div class="d-flex w-100">
@@ -34,48 +121,109 @@
             <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
                 data-widget-editbutton="false" role="widget">
                 <div role="content">
-
-                    <!-- widget edit box -->
-                    <!-- end widget edit box -->
-
-                    <!-- widget content -->
                     <div class="row">
-                        <div class="col-md-9 pr-2">
-                            <div class="widget-body card card-2 p-5 pt-3 mb-2">
+
+                        <div class="col-md-12">
+                            <div class="widget-body card card-2 p-3 mb-2">
                                 <div class="row" style=''>
-                                    <h3 class='mt-0 d-inline-block'>Keywords : </h3> <span
-                                        class='search-keyword'>Keyword</span>
-                                    <span class='search-keyword'>Keyword</span> <span
-                                        class='search-keyword'>Keyword</span>
-                                    <span class='search-keyword'>Keyword</span>
-                                    <div class="w-100"></div>
                                     <div class="col-md-12 text-center">
                                         <!-- <canvas id="barChart" height="80"></canvas> -->
                                         <div class="positive">
-                                            Positive
+                                            Number of mentions
                                         </div>
                                         <div class="negative">
-                                            Negative
+                                            Social Media Reach
                                         </div>
                                         <div id="linechart" class="chart"></div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-9 pr-2">
                             <div class="row">
 
-                                <div class="col-md-6">
-                                    <div class="widget-body card card-2 p-3">
-                                        <h6 class='sec-heads'>Sentiment</h6>
-                                        <canvas id="doughnutChartSentiment" height="220"></canvas>
+                                <div class='col-md-12'>
+                                    <div class="widget-body card card-2 p-3 mb-2">
+                                        <div class="row d-flex px-3" style=''>
+                                            <div class="hash-section selected px-2 py-4">
+                                                <i class="fa fa-globe"></i>
+                                                <p class='mb-0'>All</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-facebook"></i>
+                                                <p class='mb-0'>Facebook</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-twitter"></i>
+                                                <p class='mb-0'>Twitter</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-instagram"></i>
+                                                <p class='mb-0'>Instagram</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-video-camera"></i>
+                                                <p class='mb-0'>Video</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-newspaper-o"></i>
+                                                <p class='mb-0'>News</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-comments"></i>
+                                                <p class='mb-0'>Forum</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-rss"></i>
+                                                <p class='mb-0'>Blogs</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-share"></i>
+                                                <p class='mb-0'>Web</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="widget-body card card-2 p-3">
-                                        <h6 class='sec-heads'>Mentions</h6>
-                                        <canvas id="doughnutChart" height="220"></canvas>
+                                <div class='col-md-12'>
+                                    <div class="card card-2 p-3 mb-2">
+                                        <div class="row d-flex px-3 justify-content-between" style=''>
+                                            <div class="input-group" style="width:35%">
+                                                <input class="form-control" type="text" placeholder="Search...">
+                                                <div class="input-group-append">
+                                                    <button class="btn sa-btn-primary" type="button">
+                                                        <i class="fa fa-search"></i> Search
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <ul class="pagination justify-content-center m-0 pt-2">
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">Previous</a></li>
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="javascript:void(0);">1</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">2</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">3</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">Next</a></li>
+                                            </ul>
+
+                                        </div>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-12">
                                     <div class="widget-body card card-2 p-0 mt-2" style='position:relative'>
@@ -391,6 +539,7 @@
                                 </div>
                             </div>
                         </div>
+
                         {% include 'core/includes/search-sidebar.html' %}
 
 
@@ -411,6 +560,12 @@
 
 {% block foot_js %}
 <script>
+
+    $('.hash-section').click(function () {
+        $('.hash-section').removeClass('selected')
+        $(this).addClass('selected')
+    })
+
     var randomScalingFactor = function () {
         return Math.round(Math.random() * 100);
         //return 0;
@@ -609,74 +764,6 @@
     }
 
     linechart();
-
-
-    var DoughtnutConfig = {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    0
-                ],
-                backgroundColor: [
-                    "#F7464A",
-                    "#46BFBD",
-                    "#FDB45C",
-                    "#7e9d3a",
-                    "silver"
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "Facebook " + randomScalingFactor(),
-                "Twitter " + randomScalingFactor(),
-                "Instagram " + randomScalingFactor(),
-                "Youtube " + randomScalingFactor(),
-                "Total Mentions " + randomScalingFactor(),
-            ]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'top',
-            }
-        }
-    };
-
-    window.myDoughnut = new Chart(document.getElementById("doughnutChart"), DoughtnutConfig);
-
-    var DoughtnutConfig = {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                ],
-                backgroundColor: [
-                    "#F7464A",
-                    "#46BFBD",
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "Negative " + randomScalingFactor(),
-                "Positive " + randomScalingFactor(),
-            ]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'top',
-            }
-        }
-    };
-
-    window.myDoughnut = new Chart(document.getElementById("doughnutChartSentiment"), DoughtnutConfig);
 
 </script>
 {% endblock foot_js %}
