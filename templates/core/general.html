@@ -19,9 +19,32 @@
         font-weight: 500;
     }
 
+    .hash-section.selected {
+        color: #0FB36C;
+        border-radius: 10px;
+        border-color: #0FB36C
+    }
+
+    .hash-section {
+        color: darkgray;
+        width: 11.11%;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid white;
+    }
+
+    .hash-section i {
+        font-size: 3em
+    }
+
+    .hash-section h5 {
+        font-weight: bold;
+        font-size: 1.5em
+    }
+
 </style>
 
-<div class="sa-content container">
+<div class="sa-content ">
 
 
     <div class="d-flex w-100 home-header">
@@ -62,6 +85,60 @@
                                 </div>
                             </div>
                             <div class="row">
+
+                                <div class='col-md-12'>
+                                    <div class="widget-body card card-2 p-3 mb-2">
+                                        <div class="row d-flex px-3" style=''>
+                                            <div class="hash-section selected px-2 py-4">
+                                                <i class="fa fa-globe"></i>
+                                                <p class='mb-0'>All</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-facebook"></i>
+                                                <p class='mb-0'>Facebook</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-twitter"></i>
+                                                <p class='mb-0'>Twitter</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-instagram"></i>
+                                                <p class='mb-0'>Instagram</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-video-camera"></i>
+                                                <p class='mb-0'>Video</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-newspaper-o"></i>
+                                                <p class='mb-0'>News</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-comments"></i>
+                                                <p class='mb-0'>Forum</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-rss"></i>
+                                                <p class='mb-0'>Blogs</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                            <div class="hash-section px-2 py-4">
+                                                <i class="fa fa-share"></i>
+                                                <p class='mb-0'>Web</p>
+                                                <h5 class='m-0'>2121</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-md-6">
                                     <div class="widget-body card card-2 p-3">
@@ -411,6 +488,29 @@
 
 {% block foot_js %}
 <script>
+
+    $('.hash-section').click(function () {
+        $('.hash-section').removeClass('selected')
+        $(this).addClass('selected')
+    })
+
+    var randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+        //return 0;
+    };
+    var randomColorFactor = function () {
+        return Math.round(Math.random() * 255);
+    };
+    var randomColor = function (opacity) {
+        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (
+            opacity || '.3') + ')';
+    };
+
+    var myRandomNumber = function () {
+        return (Math.floor((Math.random() * 80) + 400))
+    }
+
+
     var randomScalingFactor = function () {
         return Math.round(Math.random() * 100);
         //return 0;
