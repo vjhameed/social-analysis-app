@@ -190,15 +190,15 @@ window.onload = function () {
     labels: ['Emirates', 'Air France', 'KLM', 'Lufthansa', 'Alitalia'],
     datasets: [{
       label: 'Positive',
-      backgroundColor: "#4DA74D",
+      backgroundColor: "#30415D",
       data: [30, 50, 40, 60, 10, 10, 80]
     }, {
       label: 'Neutral',
-      backgroundColor: "#EDC240",
+      backgroundColor: "#CF6766",
       data: [20, 40, 50, 20, 60, 80, 15]
     }, {
       label: 'Negative',
-      backgroundColor: "#CB4B4B",
+      backgroundColor: "#414141",
       data: [50, 10, 10, 20, 30, 10, 5]
     }]
 

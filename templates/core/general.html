@@ -5,7 +5,7 @@
 <style>
     .positive {
         color: white;
-        background: #6595b4;
+        background: #30415D;
         display: inline-block;
         padding: 0.4em 0.9em;
         font-weight: 500;
@@ -13,21 +13,22 @@
 
     .negative {
         color: white;
-        background: #FF9F01;
+        background: #CF6766;
         display: inline-block;
         padding: 0.4em 0.9em;
         font-weight: 500;
     }
 
     .hash-section.selected {
-        color: #0FB36C;
+        color: #fe994a;
         border-radius: 10px;
-        border-color: #0FB36C
+        border-color: #fe994a
     }
 
     .hash-section {
         color: darkgray;
         width: 11.11%;
+        min-width: 88px;
         text-align: center;
         cursor: pointer;
         border: 1px solid white;
@@ -87,6 +88,34 @@
                             <div class="row">
 
                                 <div class='col-md-12'>
+                                    <div class="card card-2 p-3 mb-2">
+                                        <div class="row d-flex px-3 justify-content-between" style=''>
+                                            <div class="input-group" style="width:35%">
+                                                <input class="form-control" type="text" placeholder="Search...">
+                                                <div class="input-group-append">
+                                                    <button class="btn sa-btn-primary" type="button">
+                                                        <i class="fa fa-search"></i> Search
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <ul class="pagination justify-content-center m-0 pt-2">
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">Previous</a></li>
+                                                <li class="page-item active"><a class="page-link"
+                                                        href="javascript:void(0);">1</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">2</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">3</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="javascript:void(0);">Next</a></li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class='col-md-12'>
                                     <div class="widget-body card card-2 p-3 mb-2">
                                         <div class="row d-flex px-3" style=''>
                                             <div class="hash-section selected px-2 py-4">
@@ -110,49 +139,33 @@
                                                 <h5 class='m-0'>2121</h5>
                                             </div>
                                             <div class="hash-section px-2 py-4">
-                                                <i class="fa fa-video-camera"></i>
+                                                <i class="fa fa-youtube"></i>
                                                 <p class='mb-0'>Video</p>
-                                                <h5 class='m-0'>2121</h5>
-                                            </div>
-
-                                            <div class="hash-section px-2 py-4">
-                                                <i class="fa fa-newspaper-o"></i>
-                                                <p class='mb-0'>News</p>
-                                                <h5 class='m-0'>2121</h5>
-                                            </div>
-                                            <div class="hash-section px-2 py-4">
-                                                <i class="fa fa-comments"></i>
-                                                <p class='mb-0'>Forum</p>
-                                                <h5 class='m-0'>2121</h5>
-                                            </div>
-                                            <div class="hash-section px-2 py-4">
-                                                <i class="fa fa-rss"></i>
-                                                <p class='mb-0'>Blogs</p>
-                                                <h5 class='m-0'>2121</h5>
-                                            </div>
-                                            <div class="hash-section px-2 py-4">
-                                                <i class="fa fa-share"></i>
-                                                <p class='mb-0'>Web</p>
                                                 <h5 class='m-0'>2121</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="widget-body card card-2 p-3">
+                                                <h6 class='sec-heads'>Sentiment</h6>
+                                                <canvas id="doughnutChartSentiment" height="220"></canvas>
+                                            </div>
+                                        </div>
 
-                                <div class="col-md-6">
-                                    <div class="widget-body card card-2 p-3">
-                                        <h6 class='sec-heads'>Sentiment</h6>
-                                        <canvas id="doughnutChartSentiment" height="220"></canvas>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="widget-body card card-2 p-3">
+                                                <h6 class='sec-heads'>Mentions</h6>
+                                                <canvas id="doughnutChart" height="220"></canvas>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="widget-body card card-2 p-3">
-                                        <h6 class='sec-heads'>Mentions</h6>
-                                        <canvas id="doughnutChart" height="220"></canvas>
-                                    </div>
-                                </div>
+
 
                                 <div class="col-md-12">
                                     <div class="widget-body card card-2 p-0 mt-2" style='position:relative'>
@@ -698,7 +711,7 @@
                     borderColor: $chrt_border_color,
                 },
                 tooltip: true,
-                colors: [$chrt_second, $chrt_third],
+                colors: ['#30415D', '#CF6766'],
 
             };
 
@@ -758,8 +771,8 @@
                     randomScalingFactor(),
                 ],
                 backgroundColor: [
-                    "#F7464A",
-                    "#46BFBD",
+                    "#CF6766",
+                    "#30415D",
                 ],
                 label: 'Dataset 1'
             }],

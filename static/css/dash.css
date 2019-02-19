@@ -1,3 +1,9 @@
+.sa-content{
+    padding: 1em !important;
+}
+
+
+
 .jarviswidget>div {
     border: none;
     padding-left: 0;
@@ -53,16 +59,16 @@ input {
     margin-left: -21px;
     margin-bottom: 0px;
     color: white;
-    background: #3276b1;
+    background: #30415D;
 }
 
 .search-keyword {
     padding: 0.3em 0.6em;
-    color: #1e88e5;
+    color: #30415D;
     background: white;
     display: inline-block;
     height: 28px;
-    border: 1px solid #1e88e5;
+    border: 1px solid #30415D;
     margin: 0px 6px;
     font-weight: 600;
 }
@@ -358,7 +364,7 @@ input[type='range'].n:after {
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    background: #2788d0;
+    background: #30415D;
     position: absolute;
     right: 0;
 }
@@ -370,7 +376,7 @@ input[type='range'].n:before {
     left: 0;
     right: 0.8em;
     height: 1em;
-    background: radial-gradient(circle at 0.5em 50%, #2788d0 0.3125em, #2788d0 0.3125em, #2788d0 0.5em, transparent 0.5em), linear-gradient(90deg, transparent 0, #2788d0 0) repeat-x 0 50%;
+    background: radial-gradient(circle at 0.5em 50%, #30415D 0.3125em, #30415D 0.3125em, #30415D 0.5em, transparent 0.5em), linear-gradient(90deg, transparent 0, #30415D 0) repeat-x 0 50%;
     box-sizing: border-box;
 }
 
@@ -483,4 +489,20 @@ table thead th{
 
 table td, table th{
     padding: 2em 1em 0.5em 1em !important
+}
+
+.btn-primary,.sa-btn-primary{
+    background-color: #30415D !important
+}
+
+.page-item.active .page-link{
+    color: white !important;
+    border-color:#30415D;
+    background-color: #30415D !important
+}
+
+@media (max-width:768px){
+    .row{
+        margin:0px !important
+    }
 }
