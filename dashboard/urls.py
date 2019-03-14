@@ -1,19 +1,23 @@
 from django.urls import path, re_path
-from dashboard.views import SearchSettingView, GeneralDashboardView, BrandDashboard, CompetitiveDashboard, InfluencerDashboard, MentionsDashboard, CreateProject, HomePageView, DeleteProject,HashDashboard
+from dashboard.views import HomePageView, CrisisPageView, IntentPageView, GuardPageView, ReputationView, FinanceView, ArabiziView, EntityView, TopicView,SentimentView,DeleteProject,CreateProject,MainView,UserTokenView
 
 
 urlpatterns = [
     path('', HomePageView, name='dashboard'),
-    path('brand-dashboard', BrandDashboard, name='brand-dashboard'),
-    re_path(r'^project-setting/(?P<proid>\d+)/$', SearchSettingView, name='project-setting'),
+    re_path(r'^main/(?P<pid>\d+)/$', MainView, name='main'),
+    path('sentiment', SentimentView, name='sentiment'),
+    path('crisis', CrisisPageView, name='crisis'),
+    path('intent', IntentPageView, name='intent'),
+    path('guard', GuardPageView, name='guard'),
+    path('reputation', ReputationView, name='reputation'),
+    path('finance', FinanceView, name='finance'),
+    path('arabizi', ArabiziView, name='arabizi'),
+    path('entity', EntityView, name='entity'),
+    path('topic', TopicView, name='topic'),
     re_path(r'^delete-project/(?P<pid>\d+)/$', DeleteProject, name='delete-project'),
-    path('general-dashboard', GeneralDashboardView, name='searchoutput'),
-    path('competitive-dashboard', CompetitiveDashboard, name='comp-dashboard'),
-    path('influencer-dashboard', InfluencerDashboard, name='inf-dashboard'),
-    path('mentions-dashboard', MentionsDashboard, name='men-dashboard'),
-    path('hash-dashboard', HashDashboard, name='hash-dashboard'),
     path('create-project', CreateProject, name='create-project'),
 
+    path('usertoken', UserTokenView, name='topic'),
     # path('page', PageView.as_view(), name='page'),
     # path('comment', PageView.as_view(), name='comment'),
     # path('comment', CommentView.as_view(), name='comment'),

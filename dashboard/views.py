@@ -2,289 +2,124 @@ from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-from dashboard.utils import *
+# from dashboard.utils import *
 from django.shortcuts import render
 import datetime
 from dateutil.parser import parse
-from accounts.models import Folder
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 import json
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from dashboard.models import Project
+from dashboard.models import Project, Usertoken, Pagetoken, Comment
+import requests
 
 
+def MainView(request,pid):
+    pro = Project.objects.get(id=pid)
+    comments = Comment.objects.filter(project=pro)
+    return render(request,'core/main.html',{'comments':comments})
 
 def HomePageView(request):
     projects = Project.objects.all()
     return render(request,'core/index.html',{"projects":projects})
 
-def SearchSettingView(request,proid):
-    projects = Project.objects.all()
-    project = Project.objects.get(id=proid)
-    
-    if request.POST:
-        if request.POST.get('keywords',False):
-            project.title = request.POST['title']
-            project.key1 = request.POST['key1']        
-            project.key2 = request.POST['key2']        
-            project.key3 = request.POST['key3']        
-            project.key4 = request.POST['key4']        
-            project.key5 = request.POST['key5']        
-            project.key6 = request.POST['key6']        
-            project.key7 = request.POST['key7']        
-            project.key8 = request.POST['key8']        
-            project.key9 = request.POST['key9']        
-            project.key10 = request.POST['key10']        
-            project.exkey1 = request.POST['exkey1']        
-            project.exkey2 = request.POST['exkey2']        
-            project.exkey3 = request.POST['exkey3']        
-            project.exkey4 = request.POST['exkey4']        
-            project.exkey5 = request.POST['exkey5']        
-            project.exkey6 = request.POST['exkey6']        
-            project.exkey7 = request.POST['exkey7']        
-            project.exkey8 = request.POST['exkey8']        
-            project.exkey9 = request.POST['exkey9']        
-            project.exkey10 = request.POST['exkey10']        
-            project.save()
-        elif request.POST.get('notifications',False):
-            project.notification_duration = request.POST['notification_duration']
-            project.notification_email = request.POST['notification_email']
-            project.save()
-        elif request.POST.get('sources',False):
-            project.fb_source = request.POST.get('fb_source',0)
-            project.inst_source = request.POST.get('inst_source',0)
-            project.twit_source = request.POST.get('twit_source',0)
-            project.you_source = request.POST.get('you_source',0)
-            project.save()            
+def SentimentView(request):
+    return render(request,'core/sentiment.html')
 
-    return render(request,'core/search-setting.html',{"projects":projects,'pro':project})
+def CrisisPageView(request):
+    return render(request,'core/crisis.html')
+
+def IntentPageView(request):
+    return render(request,'core/intent.html')
+
+def GuardPageView(request):
+    return render(request,'core/guard.html')
+
+def ReputationView(request):
+    return render(request,'core/reputation.html')
+
+def FinanceView(request):
+    return render(request,'core/finance.html')
+
+def ArabiziView(request):
+    return render(request,'core/arabizi.html')
+
+def EntityView(request):
+    return render(request,'core/entity.html')
+
+def TopicView(request):
+    return render(request,'core/topic.html')
 
 def DeleteProject(request,pid):
     pro = Project.objects.get(id=pid)    
     pro.delete()
-    return redirect('dashboard')
-
-def GeneralDashboardView(request):
-    projects = Project.objects.all()
-    return render(request,'core/general.html',{"projects":projects})
-
-def BrandDashboard(request):
-    projects = Project.objects.all()
-    return render(request,'core/branddash.html',{"projects":projects})
-
-def CompetitiveDashboard(request):
-    projects = Project.objects.all()
-    return render(request,'core/comp-dash.html',{"projects":projects})
-
-def InfluencerDashboard(request):
-    projects = Project.objects.all()
-    return render(request,'core/inf-dash.html',{"projects":projects})
-
-def MentionsDashboard(request):
-    projects = Project.objects.all()
-    return render(request,'core/mentions.html',{"projects":projects})
-
-def HashDashboard(request):
-    projects = Project.objects.all()
-    return render(request,'core/hashdash.html',{"projects":projects})
+    return redirect('/dashboard')
 
 def CreateProject(request):
     if request.method == 'POST':
         pro = Project()
         pro.title = request.POST['project_name']
         pro.notification_duration = 8
+        pro.user = request.user
         pro.save()
-    return redirect('dashboard')
+        mainurl = '/dashboard/main/{}'.format(pro.id)  
+        pages = Pagetoken.objects.filter(user_id=request.user.id)
+        for page in pages:
+            tokenurl = "https://graph.facebook.com/{0}/feed?access_token={1}".format(page.page_id,page.page_access_token)
+            r = requests.get(tokenurl)
+            pk = json.loads(r.content)
+            for post in pk['data']:
+                post_id = post['id']            
+                tokenurl = "https://graph.facebook.com/{0}/comments?access_token={1}".format(post['id'],page.page_access_token)
+                r = requests.get(tokenurl)
+                comments = json.loads(r.content)
+                for com in comments['data']:
+                    date = com['created_time'].split('T')
+                    d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
+                    d2 = datetime.datetime.now()
+                    delta = d2 - d1
+                    if(delta.days <= 2)
+                        newcom = Comment()
+                        newcom.message = com['message']
+                        newcom.comment_id = com['id']
+                        newcom.created_at = com['created_time']
+                        newcom.project = pro
+                        newcom.save()
+
+        return redirect(mainurl)
+    return redirect('/')
+
+
+def UserTokenView(request): 
+
+    tok = json.loads(request.body.decode('utf-8'))
+    token = tok['token']
+    tokenurl = "https://graph.facebook.com/v3.2/oauth/access_token?grant_type=fb_exchange_token&client_id=250604469198313&client_secret=b08af79b04bffcd4d55671cdabc61b43&fb_exchange_token={}".format(token)
+    r = requests.get(tokenurl)
+    pk = json.loads(r.content)
+    newtoken = pk['access_token']
+    pageurl = "https://graph.facebook.com/v3.2/me/accounts?access_token={0}".format(newtoken)
+    r = requests.get(pageurl)
+    pk = json.loads(r.content)
+    Pagetoken.objects.filter(user_id=request.user.id).delete()
+    for item in pk['data']:
+        usertoken = Pagetoken()
+        usertoken.page_access_token = item['access_token']
+        usertoken.page_id = item['id']
+        usertoken.user = request.user
+        usertoken.save()
+    try:
+        fbuser = Usertoken.objects.get(user_id=request.user.id)
+        fbuser.access_token = newtoken
+        fbuser.save()
+        return JsonResponse({'status':newtoken})
+    except Usertoken.DoesNotExist:
+        usertoken = Usertoken()
+        usertoken.access_token = newtoken
+        usertoken.user = request.user
+        usertoken.save()
+        return JsonResponse({'status':newtoken})
+    
         
 
 
-        
-
-# class PageView(TemplateView):
-#     template_name = 'core/Page.html'
-
-#     def render_to_response(self, context, **response_kwargs):
-#         if context is None:
-#             url = reverse("logout")
-#             return redirect(url, args=(), kwargs={})
-#         return super(PageView, self).render_to_response(
-#             context, **response_kwargs
-#         )
-
-#     def get_context_data(self, **kwargs):
-#         context = super(PageView, self).get_context_data(**kwargs)
-#         try:
-#             comments = self.request.session['comments']
-#             del self.request.session['comments']
-#         except Exception as e:
-#             pass
-#         if 'page' in self.request.path:
-#             context['redirect']='page'
-#         else:
-#             context['redirect'] = 'comments'
-#         user = self.request.user
-#         try:
-#             context['pages'] = getUserPages(user.fb_token)
-#         except Exception as e:
-#             if str(e) == "facebook":
-#                return None
-
-#             print("something went wrong")
-#             context['pages']= []
-#         return context
-
-# class PageDetailView(TemplateView):
-#     template_name = 'core/PageDetail.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(PageDetailView, self).get_context_data(**kwargs)
-#         user = self.request.user
-#         page_id = self.kwargs.get('page_id')
-#         page_token = self.request.GET.get('token')
-#         try:
-#             context['page'] = getPageDetail(page_id, page_token)
-#             posts = getPagePosts(page_id, page_token)
-#             list=[]
-#             comments_list = []
-#             for post in posts:
-#                 comments = getPostComments(post['id'], page_token)
-#                 comments_list.extend(comments)
-#                 list.append({
-#                     'post': post,
-#                     'comments': comments
-#                 })
-
-#             context['objs'] = list
-#             self.request.session['comments'] = comments_list
-#             self.request.session['page_token'] = context['page']['access_token']
-#         except Exception as e:
-#             if str(e) == "facebook":
-#                 return None
-#             print("something went wrong")
-#             context['pages']= []
-#         return context
-
-#     def render_to_response(self, context, **response_kwargs):
-#         if context is None:
-#             url = reverse("logout")
-#             return redirect(url, args=(), kwargs={})
-#         return super(PageDetailView, self).render_to_response(
-#             context, **response_kwargs
-#         )
-
-
-
-# class CommentDetailView(TemplateView):
-#     template_name = 'core/CommentDetail.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(CommentDetailView, self).get_context_data(**kwargs)
-#         user = self.request.user
-#         page_id = self.kwargs.get('page_id')
-#         token = self.request.GET.get('token')
-#         context['filter'] = '7days'
-#         try:
-#             comments = self.request.session['comments']
-#             context['comments'] = comments
-#             return context
-#         except Exception as e:
-#             pass
-#         try:
-#             page = getPageDetail(page_id, token)
-#             page_token = page['access_token']
-#             posts = getPagePosts(page_id, page_token)
-#             comments = []
-#             for post in posts:
-#                 comment = getPostComments(post['id'], page_token)
-#                 comments.extend(comment)
-#             context['comments'] = comments
-#             self.request.session['comments'] = comments
-#         except Exception as e:
-#             if str(e) == "facebook":
-#                 return None
-#             context['comments']= []
-#         return context
-
-
-
-#     def post(self, request, *args, **kwargs):
-#         try:
-#             start = self.request.POST.get('start_date')
-#             end = self.request.POST.get('end_date')
-#             filter_type = self.request.POST.get('filter_type')
-#             start_date = parse(start)
-#             end_date = parse(end)
-#             filter = []
-#             context = {}
-#             comments = self.request.session['comments']
-#             if filter_type == 'all':
-#                 context['comments'] = comments
-#                 context['filter'] = filter_type
-#                 return render(self.request, self.template_name, context)
-#             if filter_type == '':
-#                 context['start_date'] = start
-#                 context['end_date'] = end
-#             for comment in comments:
-#                 date = parse(comment['created_time'])
-#                 date = date.replace(tzinfo=None)
-#                 if(date >= start_date and date<=end_date):
-#                     filter.append(comment)
-#             context['comments'] = filter
-#             context['filter'] = filter_type
-#             return render(self.request, self.template_name, context)
-
-#         except Exception as e:
-#             if str(e) == "facebook":
-#                 return None
-#             context = {}
-#             context['comments'] = []
-#             return render(self.request, self.template_name, context)
-
-#     def render_to_response(self, context, **response_kwargs):
-#         if context is None:
-#             url = reverse("logout")
-#             return redirect(url, args=(), kwargs={})
-#         return super(CommentDetailView, self).render_to_response(
-#             context, **response_kwargs
-#         )
-
-# class FolderView(TemplateView):
-#     template_name = 'core/Folder.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(FolderView, self).get_context_data(**kwargs)
-#         user = self.request.user
-#         context['folders'] = Folder.objects.filter(user=user)
-#         return context
-
-#     def post(self, request, *args, **kwargs):
-#         data = self.request.POST.get('data')
-#         name = self.request.POST.get('name')
-#         user = self.request.user
-#         if name and data:
-#             try:
-#                 Folder.objects.create(user=user, name=name, data=json.loads(data))
-#                 payload = {'success': True}
-#                 return HttpResponse(json.dumps(payload), content_type='application/json')
-#             except Exception as e:
-#                 payload = {'success': False}
-#                 return HttpResponse(json.dumps(payload), content_type='application/json')
-#         else:
-#             payload = {'success': False, 'message': 'request parameters missing'}
-#             return HttpResponse(json.dumps(payload), content_type='application/json')
-
-
-# class FolderDetailView(TemplateView):
-#     template_name = 'core/FolderDetail.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(FolderDetailView, self).get_context_data(**kwargs)
-#         user = self.request.user
-#         folder_id = self.kwargs.get('folder_id')
-#         try:
-#             context['folder'] = Folder.objects.get(id=folder_id, user=user)
-#         except Exception as e:
-#             print("something went wrong")
-#             context['folder']= []
-#         return context

@@ -66,6 +66,14 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+LOGIN_EXEMPT_URLS = (
+    r'^login$',
+    r'^signup$',
+    r'^reset$',
+    r'^change/password$',
+    r'^activate$',
+)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'dashboard.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'facebookPages.urls'
@@ -104,7 +113,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages',               
             ],
         },
     },
@@ -133,7 +142,7 @@ DATABASES = {
     # }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'searchfb',
+    #     'NAME': 'searchapp',
     #     'USER': 'root',
     #     'PASSWORD': '',
     #     'HOST': 'localhost',
@@ -141,7 +150,7 @@ DATABASES = {
     # }
 }
 
-DATABASES['default'] = dj_database_url.parse('postgres://kqebugsnblygyz:3b8dc9893854efdad4c1c168a0d0c808fdb21148f05579e2e2a1f6341d1c8dc6@ec2-54-225-237-84.compute-1.amazonaws.com:5432/ddm46ae4njdfgv', conn_max_age=600)
+DATABASES['default'] = dj_database_url.parse('postgres://jbubgbhpfbqqom:36bb1ca6f434c39f9566b9b69592050ea4b62f6c26c319697a13869130e43fdd@ec2-184-73-153-64.compute-1.amazonaws.com:5432/d6cnh865ap5r2p', conn_max_age=600)
 
 
 # Password validation

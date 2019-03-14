@@ -37,7 +37,7 @@ input {
 
 .page-header {
     font-size: 2.2em;
-    margin-bottom: 0px !important;
+    margin-bottom: 10px !important;
 }
 
 .filter-heading {
@@ -54,7 +54,7 @@ input {
 .filter-man-head {
     font-weight: 500;
     font-size: 1.8em;
-    margin: -19px -15px;
+    margin: 0px -15px;
     padding: 9px;
     margin-left: -21px;
     margin-bottom: 0px;
@@ -332,6 +332,10 @@ section.mention-box .options a {
     background: white !important
 }
 
+.sa-content-wrapper{
+    padding-bottom: 5em;
+}
+
 .sec-heads {
     margin-bottom: 5px;
     border-bottom: 1px solid gainsboro;
@@ -505,4 +509,43 @@ table td, table th{
     .row{
         margin:0px !important
     }
+}
+
+.subheading-text{
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.top-side > div:first-child > span:first-child{
+    font-size: 1.5em    ;
+    font-weight: 600
+}
+
+.top-side > div:first-child > span:first-child + p{
+    font-weight: 600
+}
+
+.top-side > div:last-child > span{
+    font-size: 3.8em;
+    margin-top: -17px;
+    display: block;
+    margin-right: 30px;
+    font-weight: 700
+}
+
+.positive {
+    color: white;
+    background: #30415D;
+    display: inline-block;
+    padding: 0.4em 0.9em;
+    font-weight: 500;
+}
+
+.negative {
+    color: white;
+    background: #F7464A;
+    display: inline-block;
+    padding: 0.4em 0.9em;
+    font-weight: 500;
 }

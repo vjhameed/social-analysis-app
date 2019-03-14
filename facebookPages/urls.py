@@ -7,7 +7,7 @@ from facebookPages.views import HomePage
 urlpatterns = [
     path('', HomePage),
     path('admin/', admin.site.urls),
-    path('account/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
     path('facebook/', include('facebook.urls')),
     path('dashboard/', include('dashboard.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\

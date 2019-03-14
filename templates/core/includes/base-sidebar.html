@@ -12,49 +12,92 @@
       <li class="">
         <a href="/dashboard" title="Home"><em style='float:right' class="fa fa-home"></em> Home </a>
       </li><!-- second-level -->
-      <li class="">
-        <a href="#" title="Create A Project" data-toggle='modal' data-target='#createmodal'> Create a Project <em
-            style='float:right' class="fa fa-plus-square-o"></em></a>
-      </li><!-- second-level -->
-      <!-- first-level -->
-      {% for pro in projects %}
-      <li class="">
-        <a class="has-arrow" href="/" title="Dashboard"><span class="fa fa-lg fa-breifcase"></span> <span
-            class="menu-item-parent">{{pro.title}}</span>
+      <li class="top-menu-invisible ">
+        <!-- first-level -->
+        <a class="has-arrow" href="#" title="SmartAdmin Intel"><span class="fa fa-lg fa-fw fa-cube text-blue"></span>
+          <span class="menu-item-parent">Analysis</span>
           <b class="collapse-sign">
             <em class="fa fa-plus-square-o"></em>
             <em class="fa fa-minus-square-o"></em>
           </b>
         </a>
         <ul aria-expanded="true" class="sa-sub-nav collapse">
-          <!-- second-level -->
-          <!-- <li class="active">
-            <a href="/dashboard/brand-dashboard" title="Analytics Dashboard"> Brands Dashboard </a>
-          </li> -->
-
-          <li class="active">
-            <a href="/dashboard/general-dashboard" title="Analytics Dashboard"> General Dashboard </a>
+          <li>
+            <a href="/dashboard/sentiment" title="Analytics Dashboard"> Sentiment Analysis </a>
           </li><!-- second-level -->
-          <li class="active">
-            <a href="/dashboard/hash-dashboard" title="Analytics Dashboard"> Hashtag Dashboard </a>
+          <li>
+            <a href="/dashboard/arabizi" title="Analytics Dashboard"> Arabizi Analysis </a>
           </li><!-- second-level -->
-          <li class="active">
-            <a href="/dashboard/influencer-dashboard" title="Analytics Dashboard"> Influencer Dashboard </a>
+          <li>
+            <a href="/dashboard/crisis" title="Analytics Dashboard"> Crisis Analysis </a>
           </li><!-- second-level -->
-          <li class="active">
-            <a href="/dashboard/competitive-dashboard" title="Analytics Dashboard"> Competitive Dashboard </a>
+          <li>
+            <a href="/dashboard/intent" title="Analytics Dashboard"> Intent Analysis </a>
           </li><!-- second-level -->
-          <li class="active">
-            <a href="/dashboard/mentions-dashboard" title="Analytics Dashboard"> Mentions Dashboard </a>
-          </li><!-- second-level -->
-          <li class="active">
-            <a href="{% url 'project-setting' proid=pro.id %}" title="Analytics Dashboard"> Project Settings </a>
-          </li><!-- second-level -->
-
         </ul>
       </li>
 
-      {% endfor %}
+      <li class="top-menu-invisible ">
+        <!-- first-level -->
+        <a class="has-arrow" href="#" title="SmartAdmin Intel"><span class="fa fa-lg fa-fw fa-cube text-blue"></span>
+          <span class="menu-item-parent">Dashboards</span>
+          <b class="collapse-sign">
+            <em class="fa fa-plus-square-o"></em>
+            <em class="fa fa-minus-square-o"></em>
+          </b>
+        </a>
+        <ul aria-expanded="true" class="sa-sub-nav collapse">
+          <li>
+            <a href="/dashboard/finance" title="Analytics Dashboard"> Finance Analysis </a>
+          </li><!-- second-level -->
+          <li>
+            <a href="/dashboard/entity" title="Analytics Dashboard"> Entity Analysis </a>
+          </li><!-- second-level -->
+          <li>
+            <a href="/dashboard/guard" title="Analytics Dashboard"> Guard Analysis </a>
+          </li><!-- second-level -->
+          <li>
+            <a href="/dashboard/reputation" title="Analytics Dashboard"> Reputation Analysis </a>
+          </li><!-- second-level -->
+          <li>
+            <a href="/dashboard/topic" title="Analytics Dashboard"> Topics Analysis </a>
+          </li><!-- second-level -->
+        </ul>
+      </li>
+
+
+      <li class="">
+        <a href="#" title="Create A Project" data-toggle='modal' data-target='#createmodal'> Create a Project <em
+            style='float:right' class="fa fa-plus-square-o"></em></a>
+      </li><!-- second-level -->
+      <!-- first-level -->
+
+      </li>
+      <li class="top-menu-invisible ">
+        <!-- first-level -->
+        <a class="has-arrow" href="#" title="SmartAdmin Intel"><span class="fa fa-lg fa-fw fa-cube text-blue"></span>
+          <span class="menu-item-parent">Projects</span>
+          <b class="collapse-sign">
+            <em class="fa fa-plus-square-o"></em>
+            <em class="fa fa-minus-square-o"></em>
+          </b>
+        </a>
+        <ul aria-expanded="true" class="sa-sub-nav collapse">
+          {% for pro in projects %}
+          <li class="">
+            <a href="/dashboard/main/{{pro.id}}" title="Project"><span class="fa fa-lg fa-breifcase"></span>
+              <span>{{pro.title}}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+
+      </li>
+      <li class="">
+        <a href="/accounts/logout" title="Project"><span class="fa fa-lg fa-user"></span>&nbsp&nbsp&nbsp
+          <span>Logout</span>
+        </a>
+      </li>
     </ul>
   </div>
   <a href="javascript:void(0)" class="minifyme" onclick="SAtoggleClass(this, 'body', 'minified')">

@@ -1,0 +1,22 @@
+.container-fluid{
+    padding: 20px;
+}
+
+.fb-logo{
+    color: #fff;
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.chk-box{
+    text-align: center;
+}
+
+.footer {
+    padding: 15px 20px;
+    font-size: .65rem;
+}
+
+.page-breadcrumb .page-title {
+    font-weight: 400;
+}

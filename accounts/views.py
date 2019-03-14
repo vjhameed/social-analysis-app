@@ -29,7 +29,7 @@ class ManualLoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super(ManualLoginView, self).get_context_data(**kwargs)
-        context['facebook_app_id'] = os.environ.get('FACEBOOK_APP_ID', '458477201328890')
+        context['facebook_app_id'] = os.environ.get('FACEBOOK_APP_ID', '188312881935144')
         return context
 
     def get_success_url(self, fallback_url=None, **kwargs):
@@ -54,14 +54,14 @@ class SignUpView(generic.CreateView):
         user.is_active = True
         user.save()
 
-        # current_site = get_current_site(self.request)
-        # mail_subject = 'Activate your account.'
-        # message = render_to_string('acc_active_email.html', {
-        #     'user': user,
-        #     'domain': current_site.domain,
-        #     'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode("utf-8"),
-        #     'token': account_activation_token.make_token(user),
-        # })
+        current_site = get_current_site(self.request)
+        mail_subject = 'Activate your account.'
+        message = render_to_string('acc_active_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode("utf-8"),
+            'token': account_activation_token.make_token(user),
+        })
         # to_email = form.cleaned_data.get('email')
         # email = EmailMessage(
         #     mail_subject, message, to=[to_email]
@@ -71,6 +71,7 @@ class SignUpView(generic.CreateView):
         messages.success(
             self.request, 'Please confirm your email address to complete the registration')
         return redirect(self.success_url)
+
 
 def activate(request, uidb64, token):
     try:
