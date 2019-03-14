@@ -78,7 +78,7 @@ def CreateProject(request):
                     d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
                     d2 = datetime.datetime.now()
                     delta = d2 - d1
-                    if(delta.days <= 2)
+                    if delta.days <= 2:
                         newcom = Comment()
                         newcom.message = com['message']
                         newcom.comment_id = com['id']
@@ -120,6 +120,9 @@ def UserTokenView(request):
         usertoken.save()
         return JsonResponse({'status':newtoken})
     
-        
+def sentimentAnalysis(request,pid):
+    pro = Project.objects.get(id=pid)
+    comments = Comment.objects.filter(project=pro)
+
 
 
