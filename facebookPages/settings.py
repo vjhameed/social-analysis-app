@@ -68,7 +68,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_EXEMPT_URLS = (
     r'^login$',
-    r'^signup$',
+    r'^accounts/signup$',
     r'^reset$',
     r'^change/password$',
     r'^activate$',
