@@ -17,7 +17,7 @@ import requests
 def MainView(request,pid):
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
-    return render(request,'core/main.html',{'comments':comments})
+    return render(request,'core/main.html',{'comments':comments,'project':pro})
 
 def HomePageView(request):
     projects = Project.objects.all()
