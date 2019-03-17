@@ -1,23 +1,23 @@
 from django.urls import path, re_path
-from dashboard.views import HomePageView, CrisisPageView, IntentPageView, GuardPageView, ReputationView, FinanceView, ArabiziView, EntityView, TopicView,SentimentView,DeleteProject,CreateProject,MainView,UserTokenView
+from dashboard import views
 
 
 urlpatterns = [
-    path('', HomePageView, name='dashboard'),
-    re_path(r'^main/(?P<pid>\d+)/$', MainView, name='main'),
-    path('sentiment', SentimentView, name='sentiment'),
-    path('crisis', CrisisPageView, name='crisis'),
-    path('intent', IntentPageView, name='intent'),
-    path('guard', GuardPageView, name='guard'),
-    path('reputation', ReputationView, name='reputation'),
-    path('finance', FinanceView, name='finance'),
-    path('arabizi', ArabiziView, name='arabizi'),
-    path('entity', EntityView, name='entity'),
-    path('topic', TopicView, name='topic'),
-    re_path(r'^delete-project/(?P<pid>\d+)/$', DeleteProject, name='delete-project'),
-    path('create-project', CreateProject, name='create-project'),
+    path('', views.HomePageView, name='dashboard'),
+    re_path(r'^main/(?P<pid>\d+)/$', views.MainView, name='main'),
+    path('sentiment', views.SentimentView, name='sentiment'),
+    path('crisis', views.CrisisPageView, name='crisis'),
+    path('intent', views.IntentPageView, name='intent'),
+    path('guard', views.GuardPageView, name='guard'),
+    path('reputation', views.ReputationView, name='reputation'),
+    path('finance', views.FinanceView, name='finance'),
+    path('arabizi', views.ArabiziView, name='arabizi'),
+    path('entity', views.EntityView, name='entity'),
+    path('topic', views.TopicView, name='topic'),
+    re_path(r'^delete-project/(?P<pid>\d+)/$', views.DeleteProject, name='delete-project'),
+    path('create-project', views.CreateProject, name='create-project'),
 
-    path('usertoken', UserTokenView, name='topic'),
+    path('usertoken', views.UserTokenView, name='topic'),
     # path('page', PageView.as_view(), name='page'),
     # path('comment', PageView.as_view(), name='comment'),
     # path('comment', CommentView.as_view(), name='comment'),
