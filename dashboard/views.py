@@ -14,13 +14,14 @@ from dashboard.models import Project, Usertoken, Pagetoken, Comment
 import requests
 from .tasks import fetchUserData
 import time
+from django.core import serializers
 
 
 def MainView(request,pid):
     pro = Project.objects.get(id=pid)
-    comments = Comment.objects.filter(project=pro)
-
-    return render(request,'core/main.html',{'comments':comments,'project':pro})
+    projects = Project.objects.all()
+    comments = Comment.objects.filter(project=pro)  
+    return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects})
 
 def HomePageView(request):
     projects = Project.objects.all()
@@ -66,7 +67,8 @@ def CreateProject(request):
         pro.user = request.user
         pro.save()
         mainurl = '/dashboard/main/{}'.format(pro.id)  
-        fetchUserData.delay(request.user.id)
+        proid = pro.id
+        fetchUserData.delay(request.user.id,proid)
         time.sleep(20)
         return redirect(mainurl)
     return redirect('/')
@@ -86,5 +88,25 @@ def sentimentAnalysis(request,pid):
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
 
+def FilterView(request):
+    params = json.loads(request.body)
+    print(params)
+    com = {}
+    project = Project.objects.get(id=24)    
+    comments = Comment.objects.filter(project_id=project.id)
+    if len(params['social']) > 0:
+        comments = comments.filter(source__in=params['social'])
 
+    if len(params['lng']) > 0:
+        comments = comments.filter(language__in=params['lng'])
+
+    if len(params['gen']) > 0:
+        comments = comments.filter(gender__in=params['gen'])
+
+    # if len(params['date']) > 0:
+    #     comments = comments.filter(source__in=params['lng'])
+
+
+    data = serializers.serialize("json", comments)
+    return JsonResponse(data,safe=False)
 

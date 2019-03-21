@@ -1,133 +1,196 @@
-<div class='col-md-3 mt-4 pt-2'>
-    <div class="row top-side mb-3">
-        <div class="col-md-7">
-            <span class="text-muted">
-                Brand Index
-            </span>
-            <p class='m-0 p-0'>
-                Jan, 16 20190
-            </p>
-        </div>
-        <div class="col-md-5">
-            <span class='text-danger'>
-                38%
-            </span>
-        </div>
+<div class="col-md-3 mt-4 pt-2">
+  <div class="row top-side mb-3">
+    <div class="col-md-7">
+      <span class="text-muted">
+        Brand Index
+      </span>
+      <p class="m-0 p-0">
+        Jan, 16 20190
+      </p>
     </div>
+    <div class="col-md-5">
+      <span class="text-danger">
+        38%
+      </span>
+    </div>
+  </div>
 
-    <div class="widget-body search-sidebar card card-2 px-3 pb-3 pl-4 pt-0 mt-0">
-        <div class="row" style=''>
-            <div class="col-md-12 ">
+  <div class="widget-body search-sidebar card card-2 px-3 pb-3 pl-4 pt-0 mt-0">
+    <div class="row" style="">
+      <div class="col-md-12 ">
+        <h4 class="filter-man-head">Search Filters</h4>
+        <input type="hidden" name="pro_id" value="{{ project.id }}" />
+        <h5 class="filter-heading">Social Channel</h5>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 social-check"
+              name="social-channel"
+              value="fb"
+            />
+            <span>Facebook</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 social-check"
+              name="social-channel"
+              value="twit"
+            />
+            <span>Twitter</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 social-check"
+              name="social-channel"
+              value="insta"
+            />
+            <span>Instagram</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 social-check"
+              name="social-channel"
+              value="youtube"
+            />
+            <span>Youtube</span>
+          </label>
+        </div>
 
-                <h4 class='filter-man-head'>Search Filters</h4>
+        <h5 class="filter-heading">Date</h5>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 date-check"
+              name="timeframe"
+              value="1"
+            />
+            <span>Last Day</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 date-check"
+              name="timeframe"
+              value="3"
+            />
+            <span>Last 3 Days</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 date-check"
+              name="timeframe"
+              value="7"
+            />
+            <span>Last Week</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 date-check"
+              name="timeframe"
+              value="10"
+            />
+            <span>Last 10 Days</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 date-check"
+              name="timeframe"
+              value="30"
+            />
+            <span>Last Month</span>
+          </label>
+        </div>
 
-                <h5 class='filter-heading'>Social Channel</h5>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Facebook</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Twitte</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Instagram</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Youtube</span>
-                    </label>
-                </div>
+        <h5 class="filter-heading">Date</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">From</label>
+            <input type="text" name="datefrom" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="">To</label>
+            <input type="text" name="dateto" class="form-control" />
+          </div>
+        </div>
 
-                <h5 class='filter-heading'>Date</h5>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Last Day</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Last 3 Days</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Last Week</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Last 10 Days</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Last Month</span>
-                    </label>
-                </div>
+        <h5 class="filter-heading">Language</h5>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 lang-check"
+              name="language"
+              value="en"
+            />
+            <span>English (101)</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 lang-check"
+              name="language"
+              value="fr"
+            />
+            <span>French (101)</span>
+          </label>
+        </div>
 
-                <h5 class='filter-heading'>Date</h5>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="">From</label>
-                        <input type='text' name='datefrom' class='form-control' />
-                    </div>
-                    <div class="col-md-6">
-                        <label for="">To</label>
-                        <input type='text' name='dateto' class='form-control' />
-                    </div>
-                </div>
+        <h5 class="filter-heading">Gender</h5>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 gender-check"
+              value="male"
+              name="gender"
+            />
+            <span>Male</span>
+          </label>
+        </div>
+        <div class="vcheck">
+          <label>
+            <input
+              type="checkbox"
+              class="checkbox style-0 gender-check"
+              value="female"
+              name="gender"
+            />
+            <span>Female</span>
+          </label>
+        </div>
 
-                <h5 class='filter-heading'>Language</h5>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>English (101)</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>French (101)</span>
-                    </label>
-                </div>
-
-                <h5 class='filter-heading'>Gender</h5>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Male</span>
-                    </label>
-                </div>
-                <div class="vcheck">
-                    <label>
-                        <input type="checkbox" class="checkbox style-0" checked="checked">
-                        <span>Female</span>
-                    </label>
-                </div>
-
-                <!-- <h5 class='filter-heading'>Sentiment</h5>
+        <!-- <h5 class='filter-heading'>Sentiment</h5>
                 <div class="" style='display:flex;justify-content: space-between'>
                     <span class='text-center'>(101) <br> Negative</span>
                     <span class='text-center'>(101) <br> NEUTRAL</span>
                     <span class='text-center'>(101) <br> Positive</span>
                 </div>
                 <input type='range' min='1' max='3' value='1' step='1' class="n n3" /> -->
-
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

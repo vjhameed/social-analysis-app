@@ -18,6 +18,10 @@ class Pagetoken(models.Model):
 
 class Comment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    source = models.CharField(max_length=255)
     message = models.TextField()
     comment_id = models.CharField(max_length=255)
+    gender = models.CharField(max_length=255)
+    language = models.CharField(max_length=255)
+    sentiment = models.CharField(max_length=255)
     created_at = models.CharField(max_length=255)

@@ -140,17 +140,17 @@ DATABASES = {
         #     'PORT': 5432
         # },
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'searchapp',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'searchapp',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
 
-DATABASES['default'] = dj_database_url.parse('postgres://jbubgbhpfbqqom:36bb1ca6f434c39f9566b9b69592050ea4b62f6c26c319697a13869130e43fdd@ec2-184-73-153-64.compute-1.amazonaws.com:5432/d6cnh865ap5r2p', conn_max_age=600)
+# DATABASES['default'] = dj_database_url.parse('postgres://jbubgbhpfbqqom:36bb1ca6f434c39f9566b9b69592050ea4b62f6c26c319697a13869130e43fdd@ec2-184-73-153-64.compute-1.amazonaws.com:5432/d6cnh865ap5r2p', conn_max_age=600)
 
 
 # Password validation

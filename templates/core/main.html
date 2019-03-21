@@ -1,434 +1,477 @@
-{% extends 'core/app.html' %}
+{% extends 'core/app.html' %} {% load static %} {% block 'content' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page6.css' %}" />
 
-{% load static %}
-
-{% block 'content' %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/page6.css' %}">
-
-<style>
-
-</style>
+<style></style>
 
 <div class="sa-content ">
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="d-flex w-100 home-header">
-                <div>
-                    <h1 class="page-header">{{project.title}} </h1>
-                </div>
-            </div>
-
-
-            <div class="d-flex w-100">
-                <section id="widget-grid" class="w-100">
-                    <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
-                        data-widget-editbutton="false" role="widget">
-                        <div role="content" class='pt-0'>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {% for comment in comments %}
-                                    <div class="widget-body card card-2 p-0 mt-2" style='position:relative'>
-                                        <section class="mention mention-box mention-site-4"
-                                            id="mention_result_34364582556">
-                                            <div class="header">
-                                                <div class="avatar" id="mention_avatar_34364582556">
-                                                    <a onclick="groupsTitle(34364582556,4)" target="_blank"
-                                                        href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
-                                                        <img src="https://yt3.ggpht.com/a-/AAuE7mCOOTSrYLJYDswtTHGmiJSXEjL9UP2TRmkLNA=s88-mo-c-c0xffffffff-rj-k-no"
-                                                            onerror="imgError(34364582556)">
-                                                        <span class="play-button">
-                                                            <i class="fa fa-youtube-play"></i>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="author">
-                                                    <div class="mention-title-box">
-                                                        <a id="mention_title_34364582556"
-                                                            onclick="setResultAsVisited(34364582556,4)" target="_blank"
-                                                            href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
-                                                            <i class="fa fa-youtube"></i>KSIOlajidebtHD
-                                                        </a>
-                                                    </div>
-                                                    <p class="followers-count">
-                                                        <span class="followers-count-no">5.9m</span> Followers
-                                                    </p>
-                                                    <div class="visited-box" id="visited-box-34364582556">
-
-                                                    </div>
-                                                    <span class="mention-source"><i class="fa fa-calendar"></i>
-                                                        {{comment.created_at}}
-                                                    </span>
-                                                </div>
-                                                <ul class="mention-information" id="mention-information-34364582556">
-                                                    <li>
-                                                        <a onclick="setResultAsVisited(34364582556,4)" target="_blank"
-                                                            href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
-                                                            class="mention-source mention_source"
-                                                            hidden_source_url="http://www.youtube.com/channel/UCGmnsW623G1r-Chmo5RB4Yw"><i
-                                                                class="fa fa-share-alt"></i> youtube.com
-                                                        </a>
-                                                    </li>
-                                                    <li class="score">
-                                                        Influencer Score: <strong>10/10</strong>
-                                                        <div class="influence-score">
-                                                            <span style="width:100%"></span>
-                                                        </div>
-                                                    </li>
-                                                    <li id="li-mention-sentiment-34364582556">
-                                                        <select id="mention-sentiment-34364582556"
-                                                            name="mention-sentiment-34364582556" class="sentiment"
-                                                            onchange="javascript:setSentimentInDB(34364582556, this.value)">
-                                                            <option selected="" value="0">Neutral</option>
-                                                            <option value="1">Positive</option>
-                                                            <option value="2">Negative</option>
-                                                        </select>
-                                                    </li>
-                                                    <li class="social-stats">
-                                                        <p class="likes"><i class="fa fa-thumbs-o-up"></i>
-                                                            122422</p>
-                                                        <p class="likes"><i class="fa fa-thumbs-o-down"></i>
-                                                            2361</p>
-                                                        <p class="comments"><i class="fa fa-comment-o"></i> 8451
-                                                        </p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="description">
-                                                <p class="mention_text w-75" id="mention_text_34364582556">
-                                                    {{comment.message}}
-                                                </p>
-                                                <a id="groupButtonResult_34364582556" href=",[-666]);"></a>
-                                                <li class="added-groups groupsListResult"
-                                                    id="groupsListResult_34364582556" style="display:none;">
-                                                </li>
-                                            </div>
-                                        </section>
-                                    </div>
-
-                                    {% endfor %}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- end widget div -->
-
-                    </div>
-                    <!-- end row -->
-
-                </section>
-            </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="d-flex w-100 home-header">
+        <div>
+          <h1 class="page-header">{{ project.title }}</h1>
         </div>
+      </div>
 
-        {% include 'core/includes/search-sidebar.html' %}
+      <div class="d-flex w-100">
+        <section id="widget-grid" class="w-100">
+          <div
+            class="jarviswidget jarviswidget-sortable"
+            id="wid-id-0"
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            role="widget"
+          >
+            <div role="content" class="pt-0">
+              <div class="row">
+                <div class="col-md-12 comment-container">
+                  {% for comment in comments %}
+                  <div
+                    class="widget-body card card-2 p-0 mt-2"
+                    style="position:relative"
+                  >
+                    <section
+                      class="mention mention-box mention-site-4"
+                      id="mention_result_34364582556"
+                    >
+                      <div class="header">
+                        <div class="avatar" id="mention_avatar_34364582556">
+                          <a
+                            onclick="groupsTitle(34364582556,4)"
+                            target="_blank"
+                            href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
+                          >
+                            <img
+                              src="https://yt3.ggpht.com/a-/AAuE7mCOOTSrYLJYDswtTHGmiJSXEjL9UP2TRmkLNA=s88-mo-c-c0xffffffff-rj-k-no"
+                              onerror="imgError(34364582556)"
+                            />
+                            <span class="play-button">
+                              <i class="fa fa-youtube-play"></i>
+                            </span>
+                          </a>
+                        </div>
+                        <div class="author">
+                          <div class="mention-title-box">
+                            <a
+                              id="mention_title_34364582556"
+                              onclick="setResultAsVisited(34364582556,4)"
+                              target="_blank"
+                              href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
+                            >
+                              <i class="fa fa-youtube"></i>KSIOlajidebtHD
+                            </a>
+                          </div>
+                          <p class="followers-count">
+                            <span class="followers-count-no">5.9m</span>
+                            Followers
+                          </p>
+                          <div
+                            class="visited-box"
+                            id="visited-box-34364582556"
+                          ></div>
+                          <span class="mention-source"
+                            ><i class="fa fa-calendar"></i>
+                            {{ comment.created_at }}
+                          </span>
+                        </div>
+                        <ul
+                          class="mention-information"
+                          id="mention-information-34364582556"
+                        >
+                          <li>
+                            <a
+                              onclick="setResultAsVisited(34364582556,4)"
+                              target="_blank"
+                              href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
+                              class="mention-source mention_source"
+                              hidden_source_url="http://www.youtube.com/channel/UCGmnsW623G1r-Chmo5RB4Yw"
+                              ><i class="fa fa-share-alt"></i> youtube.com
+                            </a>
+                          </li>
+                          <li class="score">
+                            Influencer Score: <strong>10/10</strong>
+                            <div class="influence-score">
+                              <span style="width:100%"></span>
+                            </div>
+                          </li>
+                          <li id="li-mention-sentiment-34364582556">
+                            <select
+                              id="mention-sentiment-34364582556"
+                              name="mention-sentiment-34364582556"
+                              class="sentiment"
+                              onchange="javascript:setSentimentInDB(34364582556, this.value)"
+                            >
+                              <option selected="" value="0">Neutral</option>
+                              <option value="1">Positive</option>
+                              <option value="2">Negative</option>
+                            </select>
+                          </li>
+                          <li class="social-stats">
+                            <p class="likes">
+                              <i class="fa fa-thumbs-o-up"></i> 122422
+                            </p>
+                            <p class="likes">
+                              <i class="fa fa-thumbs-o-down"></i> 2361
+                            </p>
+                            <p class="comments">
+                              <i class="fa fa-comment-o"></i> 8451
+                            </p>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="description">
+                        <p
+                          class="mention_text w-75"
+                          id="mention_text_34364582556"
+                        >
+                          {{ comment.message }}
+                        </p>
+                        <a
+                          id="groupButtonResult_34364582556"
+                          href=",[-666]);"
+                        ></a>
+                        <li
+                          class="added-groups groupsListResult"
+                          id="groupsListResult_34364582556"
+                          style="display:none;"
+                        ></li>
+                      </div>
+                    </section>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <!-- end widget div -->
+          </div>
+          <!-- end row -->
+        </section>
+      </div>
     </div>
+
+    {% include 'core/includes/search-sidebar.html' %}
+  </div>
 </div>
-{% endblock 'content' %}
-
-
-{% block foot_js %}
+{% endblock 'content' %} {% block foot_js %}
 <script>
+  $(".hash-section").click(function() {
+    $(".hash-section").removeClass("selected");
+    $(this).addClass("selected");
+  });
 
-    $('.hash-section').click(function () {
-        $('.hash-section').removeClass('selected')
-        $(this).addClass('selected')
-    })
+  var randomScalingFactor = function() {
+    return Math.round(Math.random() * 100);
+    //return 0;
+  };
+  var randomColorFactor = function() {
+    return Math.round(Math.random() * 255);
+  };
+  var randomColor = function(opacity) {
+    return (
+      "rgba(" +
+      randomColorFactor() +
+      "," +
+      randomColorFactor() +
+      "," +
+      randomColorFactor() +
+      "," +
+      (opacity || ".3") +
+      ")"
+    );
+  };
 
-    var randomScalingFactor = function () {
-        return Math.round(Math.random() * 100);
-        //return 0;
-    };
-    var randomColorFactor = function () {
-        return Math.round(Math.random() * 255);
-    };
-    var randomColor = function (opacity) {
-        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (
-            opacity || '.3') + ')';
-    };
+  var myRandomNumber = function() {
+    return Math.floor(Math.random() * 80 + 400);
+  };
 
-    var myRandomNumber = function () {
-        return (Math.floor((Math.random() * 80) + 400))
-    }
+  var randomScalingFactor = function() {
+    return Math.round(Math.random() * 100);
+    //return 0;
+  };
+  var randomColorFactor = function() {
+    return Math.round(Math.random() * 255);
+  };
+  var randomColor = function(opacity) {
+    return (
+      "rgba(" +
+      randomColorFactor() +
+      "," +
+      randomColorFactor() +
+      "," +
+      randomColorFactor() +
+      "," +
+      (opacity || ".3") +
+      ")"
+    );
+  };
 
+  var myRandomNumber = function() {
+    return Math.floor(Math.random() * 80 + 400);
+  };
 
-    var randomScalingFactor = function () {
-        return Math.round(Math.random() * 100);
-        //return 0;
-    };
-    var randomColorFactor = function () {
-        return Math.round(Math.random() * 255);
-    };
-    var randomColor = function (opacity) {
-        return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (
-            opacity || '.3') + ')';
-    };
+  /* flot chart colors default */
+  var $chrt_border_color = "#efefef";
+  var $chrt_grid_color = "#DDD";
+  var $chrt_main = "#E24913"; /* red       */
+  var $chrt_second = "#6595b4"; /* blue      */
+  var $chrt_third = "#FF9F01"; /* orange    */
+  var $chrt_fourth = "#7e9d3a"; /* green     */
+  var $chrt_fifth = "#BD362F"; /* dark red  */
+  var $chrt_mono = "#000";
 
-    var myRandomNumber = function () {
-        return (Math.floor((Math.random() * 80) + 400))
-    }
+  var linechart = function() {
+    if ($("#linechart").length) {
+      var d = [
+        [1197068400000, myRandomNumber()],
+        [1197154800000, myRandomNumber()],
+        [1197241200000, myRandomNumber()],
+        [1197327600000, myRandomNumber()],
+        [1197414000000, myRandomNumber()],
+        [1197500400000, myRandomNumber()],
+        [1197586800000, myRandomNumber()],
+        [1197673200000, myRandomNumber()],
+        [1197759600000, myRandomNumber()],
+        [1197846000000, myRandomNumber()],
+        [1197932400000, myRandomNumber()],
+        [1198018800000, myRandomNumber()],
+        [1198105200000, myRandomNumber()],
+        [1198191600000, myRandomNumber()],
+        [1198450800000, myRandomNumber()],
+        [1198537200000, myRandomNumber()],
+        [1198623600000, myRandomNumber()],
+        [1198710000000, myRandomNumber()],
+        [1198796400000, myRandomNumber()],
+        [1198882800000, myRandomNumber()],
+        [1198969200000, myRandomNumber()],
+        [1199055600000, myRandomNumber()],
+        [1199142000000, myRandomNumber()],
+        [1199228400000, myRandomNumber()],
+        [1199314800000, myRandomNumber()],
+        [1199401200000, myRandomNumber()],
+        [1199487600000, myRandomNumber()],
+        [1199574000000, myRandomNumber()],
+        [1199660400000, myRandomNumber()],
+        [1199746800000, myRandomNumber()],
+        [1199833200000, myRandomNumber()],
+        [1199919600000, myRandomNumber()],
+        [1200006000000, myRandomNumber()],
+        [1200092400000, myRandomNumber()],
+        [1200178800000, myRandomNumber()],
+        [1200265200000, myRandomNumber()],
+        [1200351600000, myRandomNumber()],
+        [1200438000000, myRandomNumber()],
+        [1200524400000, myRandomNumber()],
+        [1200610800000, myRandomNumber()],
+        [1200697200000, myRandomNumber()],
+        [1200783600000, myRandomNumber()],
+        [1200870000000, myRandomNumber()],
+        [1200956400000, myRandomNumber()],
+        [1201042800000, myRandomNumber()],
+        [1201129200000, myRandomNumber()],
+        [1201215600000, 900]
+      ];
 
-    /* flot chart colors default */
-    var $chrt_border_color = "#efefef";
-    var $chrt_grid_color = "#DDD"
-    var $chrt_main = "#E24913"; /* red       */
-    var $chrt_second = "#6595b4"; /* blue      */
-    var $chrt_third = "#FF9F01"; /* orange    */
-    var $chrt_fourth = "#7e9d3a"; /* green     */
-    var $chrt_fifth = "#BD362F"; /* dark red  */
-    var $chrt_mono = "#000";
+      var e = [
+        [1197068400000, 400],
+        [1197154800000, myRandomNumber()],
+        [1197241200000, myRandomNumber()],
+        [1197327600000, myRandomNumber()],
+        [1197414000000, myRandomNumber()],
+        [1197500400000, myRandomNumber()],
+        [1197586800000, myRandomNumber()],
+        [1197673200000, myRandomNumber()],
+        [1197759600000, myRandomNumber()],
+        [1197846000000, myRandomNumber()],
+        [1197932400000, myRandomNumber()],
+        [1198018800000, myRandomNumber()],
+        [1198105200000, 400],
+        [1198191600000, myRandomNumber()],
+        [1198450800000, myRandomNumber()],
+        [1198537200000, myRandomNumber()],
+        [1198623600000, myRandomNumber()],
+        [1198710000000, myRandomNumber()],
+        [1198796400000, myRandomNumber()],
+        [1198882800000, myRandomNumber()],
+        [1198969200000, myRandomNumber()],
+        [1199055600000, myRandomNumber()],
+        [1199142000000, myRandomNumber()],
+        [1199228400000, myRandomNumber()],
+        [1199314800000, myRandomNumber()],
+        [1199401200000, myRandomNumber()],
+        [1199487600000, myRandomNumber()],
+        [1199574000000, 400],
+        [1199660400000, myRandomNumber()],
+        [1199746800000, myRandomNumber()],
+        [1199833200000, myRandomNumber()],
+        [1199919600000, myRandomNumber()],
+        [1200006000000, myRandomNumber()],
+        [1200092400000, myRandomNumber()],
+        [1200178800000, myRandomNumber()],
+        [1200265200000, myRandomNumber()],
+        [1200351600000, myRandomNumber()],
+        [1200438000000, myRandomNumber()],
+        [1200524400000, myRandomNumber()],
+        [1200610800000, myRandomNumber()],
+        [1200697200000, myRandomNumber()],
+        [1200783600000, myRandomNumber()],
+        [1200870000000, 400],
+        [1200956400000, myRandomNumber()],
+        [1201042800000, myRandomNumber()],
+        [1201129200000, myRandomNumber()],
+        [1201215600000, 500]
+      ];
 
-    var linechart = function () {
-        if ($("#linechart").length) {
-            var d = [
-                [1197068400000, myRandomNumber()],
-                [1197154800000, myRandomNumber()],
-                [1197241200000, myRandomNumber()],
-                [1197327600000, myRandomNumber()],
-                [1197414000000, myRandomNumber()],
-                [1197500400000, myRandomNumber()],
-                [1197586800000, myRandomNumber()],
-                [1197673200000, myRandomNumber()],
-                [1197759600000, myRandomNumber()],
-                [1197846000000, myRandomNumber()],
-                [1197932400000, myRandomNumber()],
-                [1198018800000, myRandomNumber()],
-                [1198105200000, myRandomNumber()],
-                [1198191600000, myRandomNumber()],
-                [1198450800000, myRandomNumber()],
-                [1198537200000, myRandomNumber()],
-                [1198623600000, myRandomNumber()],
-                [1198710000000, myRandomNumber()],
-                [1198796400000, myRandomNumber()],
-                [1198882800000, myRandomNumber()],
-                [1198969200000, myRandomNumber()],
-                [1199055600000, myRandomNumber()],
-                [1199142000000, myRandomNumber()],
-                [1199228400000, myRandomNumber()],
-                [1199314800000, myRandomNumber()],
-                [1199401200000, myRandomNumber()],
-                [1199487600000, myRandomNumber()],
-                [1199574000000, myRandomNumber()],
-                [1199660400000, myRandomNumber()],
-                [1199746800000, myRandomNumber()],
-                [1199833200000, myRandomNumber()],
-                [1199919600000, myRandomNumber()],
-                [1200006000000, myRandomNumber()],
-                [1200092400000, myRandomNumber()],
-                [1200178800000, myRandomNumber()],
-                [1200265200000, myRandomNumber()],
-                [1200351600000, myRandomNumber()],
-                [1200438000000, myRandomNumber()],
-                [1200524400000, myRandomNumber()],
-                [1200610800000, myRandomNumber()],
-                [1200697200000, myRandomNumber()],
-                [1200783600000, myRandomNumber()],
-                [1200870000000, myRandomNumber()],
-                [1200956400000, myRandomNumber()],
-                [1201042800000, myRandomNumber()],
-                [1201129200000, myRandomNumber()],
-                [1201215600000, 900]
-            ];
+      for (var i = 0; i < d.length; ++i) d[i][0] += 60 * 60 * 1000;
 
-            var e = [
-                [1197068400000, 400],
-                [1197154800000, myRandomNumber()],
-                [1197241200000, myRandomNumber()],
-                [1197327600000, myRandomNumber()],
-                [1197414000000, myRandomNumber()],
-                [1197500400000, myRandomNumber()],
-                [1197586800000, myRandomNumber()],
-                [1197673200000, myRandomNumber()],
-                [1197759600000, myRandomNumber()],
-                [1197846000000, myRandomNumber()],
-                [1197932400000, myRandomNumber()],
-                [1198018800000, myRandomNumber()],
-                [1198105200000, 400],
-                [1198191600000, myRandomNumber()],
-                [1198450800000, myRandomNumber()],
-                [1198537200000, myRandomNumber()],
-                [1198623600000, myRandomNumber()],
-                [1198710000000, myRandomNumber()],
-                [1198796400000, myRandomNumber()],
-                [1198882800000, myRandomNumber()],
-                [1198969200000, myRandomNumber()],
-                [1199055600000, myRandomNumber()],
-                [1199142000000, myRandomNumber()],
-                [1199228400000, myRandomNumber()],
-                [1199314800000, myRandomNumber()],
-                [1199401200000, myRandomNumber()],
-                [1199487600000, myRandomNumber()],
-                [1199574000000, 400],
-                [1199660400000, myRandomNumber()],
-                [1199746800000, myRandomNumber()],
-                [1199833200000, myRandomNumber()],
-                [1199919600000, myRandomNumber()],
-                [1200006000000, myRandomNumber()],
-                [1200092400000, myRandomNumber()],
-                [1200178800000, myRandomNumber()],
-                [1200265200000, myRandomNumber()],
-                [1200351600000, myRandomNumber()],
-                [1200438000000, myRandomNumber()],
-                [1200524400000, myRandomNumber()],
-                [1200610800000, myRandomNumber()],
-                [1200697200000, myRandomNumber()],
-                [1200783600000, myRandomNumber()],
-                [1200870000000, 400],
-                [1200956400000, myRandomNumber()],
-                [1201042800000, myRandomNumber()],
-                [1201129200000, myRandomNumber()],
-                [1201215600000, 500]
-            ];
-
-            for (var i = 0; i < d.length; ++i)
-                d[i][0] += 60 * 60 * 1000;
-
-            function weekendAreas(axes) {
-                var markings = [];
-                var d = new Date(axes.xaxis.min);
-                // go to the first Saturday
-                d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
-                d.setUTCSeconds(0);
-                d.setUTCMinutes(0);
-                d.setUTCHours(0);
-                var i = d.getTime();
-                do {
-                    // when we don't set yaxis, the rectangle automatically
-                    // extends to infinity upwards and downwards
-                    markings.push({
-                        xaxis: {
-                            from: i,
-                            to: i + 2 * 24 * 60 * 60 * 1000
-                        }
-                    });
-                    i += 7 * 24 * 60 * 60 * 1000;
-                } while (i < axes.xaxis.max);
-
-                return markings;
+      function weekendAreas(axes) {
+        var markings = [];
+        var d = new Date(axes.xaxis.min);
+        // go to the first Saturday
+        d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7));
+        d.setUTCSeconds(0);
+        d.setUTCMinutes(0);
+        d.setUTCHours(0);
+        var i = d.getTime();
+        do {
+          // when we don't set yaxis, the rectangle automatically
+          // extends to infinity upwards and downwards
+          markings.push({
+            xaxis: {
+              from: i,
+              to: i + 2 * 24 * 60 * 60 * 1000
             }
+          });
+          i += 7 * 24 * 60 * 60 * 1000;
+        } while (i < axes.xaxis.max);
 
-            var options = {
-                xaxis: {
-                    mode: "time",
-                    tickLength: 5
-                },
-                series: {
-                    lines: {
-                        show: true,
-                        lineWidth: 2,
-                        fill: false,
-                        fillColor: {
-                            colors: [{
-                                opacity: 0.1
-                            }, {
-                                opacity: 0.15
-                            }]
-                        }
-                    },
-                    //points: { show: true },
-                    shadowSize: 0
-                },
-                selection: {
-                    mode: "x"
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: $chrt_border_color,
-                    borderWidth: 0,
-                    borderColor: $chrt_border_color,
-                },
-                tooltip: true,
-                colors: ['#30415D', '#CF6766'],
+        return markings;
+      }
 
-            };
-
-            plot_1 = $.plot($("#linechart"), [d, e], options);
-
-
-        };
-    }
-
-    linechart();
-
-    var DoughtnutConfig = {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                ],
-                backgroundColor: [
-                    "#CF6766",
-                    "#30415D",
-                ],
-                label: 'Dataset 1'
-            }],
-            labels: [
-                "Negative " + randomScalingFactor(),
-                "Positive " + randomScalingFactor(),
-            ]
+      var options = {
+        xaxis: {
+          mode: "time",
+          tickLength: 5
         },
-        options: {
-            responsive: true,
-            legend: {
-                position: 'top',
-            }
-        }
-    };
-
-    window.myDoughnut = new Chart(document.getElementById("doughnutChartSentiment"), DoughtnutConfig);
-
-    var hbarChartData = {
-        labels: ['Emirates', 'Air France', 'KLM', 'Lufthansa', 'Alitalia'],
-        datasets: [{
-            label: 'Positive',
-            backgroundColor: "#30415D",
-            data: [30, 50, 40, 60, 10, 10, 80]
-        }, {
-            label: 'Neutral',
-            backgroundColor: "#CF6766",
-            data: [20, 40, 50, 20, 60, 80, 15]
-        }, {
-            label: 'Negative',
-            backgroundColor: "#414141",
-            data: [50, 10, 10, 20, 30, 10, 5]
-        }]
-
-    };
-
-    var ctx = document.getElementById('hbar-chart').getContext('2d');
-    window.myBar = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: hbarChartData,
-        options: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    boxWidth: 20
+        series: {
+          lines: {
+            show: true,
+            lineWidth: 2,
+            fill: false,
+            fillColor: {
+              colors: [
+                {
+                  opacity: 0.1
+                },
+                {
+                  opacity: 0.15
                 }
-            },
-            title: {
-                display: false
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            responsive: true,
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                }],
-                yAxes: [{
-                    stacked: true
-                }]
+              ]
             }
+          },
+          //points: { show: true },
+          shadowSize: 0
+        },
+        selection: {
+          mode: "x"
+        },
+        grid: {
+          hoverable: true,
+          clickable: true,
+          tickColor: $chrt_border_color,
+          borderWidth: 0,
+          borderColor: $chrt_border_color
+        },
+        tooltip: true,
+        colors: ["#30415D", "#CF6766"]
+      };
+
+      plot_1 = $.plot($("#linechart"), [d, e], options);
+    }
+  };
+
+  linechart();
+
+  var DoughtnutConfig = {
+    type: "doughnut",
+    data: {
+      datasets: [
+        {
+          data: [randomScalingFactor(), randomScalingFactor()],
+          backgroundColor: ["#CF6766", "#30415D"],
+          label: "Dataset 1"
         }
-    });
+      ],
+      labels: [
+        "Negative " + randomScalingFactor(),
+        "Positive " + randomScalingFactor()
+      ]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: "top"
+      }
+    }
+  };
+
+  window.myDoughnut = new Chart(
+    document.getElementById("doughnutChartSentiment"),
+    DoughtnutConfig
+  );
+
+  var hbarChartData = {
+    labels: ["Emirates", "Air France", "KLM", "Lufthansa", "Alitalia"],
+    datasets: [
+      {
+        label: "Positive",
+        backgroundColor: "#30415D",
+        data: [30, 50, 40, 60, 10, 10, 80]
+      },
+      {
+        label: "Neutral",
+        backgroundColor: "#CF6766",
+        data: [20, 40, 50, 20, 60, 80, 15]
+      },
+      {
+        label: "Negative",
+        backgroundColor: "#414141",
+        data: [50, 10, 10, 20, 30, 10, 5]
+      }
+    ]
+  };
+
+  var ctx = document.getElementById("hbar-chart").getContext("2d");
+  window.myBar = new Chart(ctx, {
+    type: "horizontalBar",
+    data: hbarChartData,
+    options: {
+      legend: {
+        position: "bottom",
+        labels: {
+          boxWidth: 20
+        }
+      },
+      title: {
+        display: false
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      responsive: true,
+      scales: {
+        xAxes: [
+          {
+            stacked: true
+          }
+        ],
+        yAxes: [
+          {
+            stacked: true
+          }
+        ]
+      }
+    }
+  });
 </script>
 
 <!-- <script src="{% static 'js/page6.js' %}"></script> -->

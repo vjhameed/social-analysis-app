@@ -133,6 +133,9 @@
       <!-- END .sa-page-header -->
       <div class="sa-page-body">
 
+        <!-- comments clone -->
+        {% include 'core/includes/com-clone.html' %}
+
 
         <!-- BEGIN .sa-aside-left -->
         {% include 'core/includes/base-sidebar.html' %}
@@ -198,6 +201,9 @@
     </div>
     </div>
 
+    <div class="loader d-none">
+      <i class="fa fa-cog fa-spin" aria-hidden="true"></i>
+    </div>
 
     <script src="{% static 'assets/vendors/vendors.bundle.js' %}"></script>
     <script src="{% static 'assets/app/app.bundle.js' %}"></script>
@@ -208,28 +214,20 @@
     <script>
       $('input[name="datefrom"]').daterangepicker();
       $('input[name="dateto"]').daterangepicker();
+      axios.defaults.xsrfCookieName = 'csrftoken'
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"  
 
+      $(function () {
+          $('#menu1').metisMenu();
+        });
     </script>
+
+
+    <script src="{% static 'js/filter.js' %}"></script>
+
     {% block foot_js %}
 
     {% endblock foot_js %}
-
-    <script>
-      $(function () {
-        $('#menu1').metisMenu();
-      });
-
-    </script>
-
-    <script type="text/javascript">
-      /*
-       * RUN PAGE GRAPHS
-       */
-
-      /* TAB 1: UPDATING CHART */
-      // For the demo we use generated data, but normally it would be coming from the server
-
-    </script>
 
   </body>
 

@@ -16,7 +16,7 @@ urlpatterns = [
     path('topic', views.TopicView, name='topic'),
     re_path(r'^delete-project/(?P<pid>\d+)/$', views.DeleteProject, name='delete-project'),
     path('create-project', views.CreateProject, name='create-project'),
-
+    path('filter/results', views.FilterView, name='filter-view'),
     path('usertoken', views.UserTokenView, name='topic'),
     # path('page', PageView.as_view(), name='page'),
     # path('comment', PageView.as_view(), name='comment'),
