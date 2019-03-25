@@ -10,18 +10,29 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 import json
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from dashboard.models import Project, Usertoken, Pagetoken, Comment
+from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
 import requests
-from .tasks import fetchUserData
+from .tasks import fetchUserData, fetchTwitterData
 import time
 from django.core import serializers
+import tweepy #API for twitter
+from django.shortcuts import get_object_or_404
+
+CONSUMER_KEY = '6EbXLDnvPHRqDFXh4OagGA'
+CONSUMER_SECRET = '9WUpSToZroXeJtp2x78FxsZ0UH5mjKDvEEYdYMfWfM'
 
 
 def MainView(request,pid):
     pro = Project.objects.get(id=pid)
     projects = Project.objects.all()
     comments = Comment.objects.filter(project=pro)  
-    return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects})
+    nomale = Comment.objects.filter(gender='male').count()
+    nofemale = Comment.objects.filter(gender='female').count()
+    nopositive = Comment.objects.filter(sentiment='Positive').count()
+    nonegative = Comment.objects.filter(sentiment='Negative').count()
+    nonuetral = Comment.objects.filter(sentiment='Nuetral').count()
+    
+    return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
 def HomePageView(request):
     projects = Project.objects.all()
@@ -69,6 +80,7 @@ def CreateProject(request):
         mainurl = '/dashboard/main/{}'.format(pro.id)  
         proid = pro.id
         fetchUserData.delay(request.user.id,proid)
+        fetchTwitterData.delay(request.user.id,proid)
         time.sleep(20)
         return redirect(mainurl)
     return redirect('/')
@@ -82,7 +94,7 @@ def UserTokenView(request):
     r = requests.get(tokenurl)
     pk = json.loads(r.content)
     newtoken = pk['access_token']
-
+    return JsonResponse('success',safe=False)
     
 def sentimentAnalysis(request,pid):
     pro = Project.objects.get(id=pid)
@@ -90,13 +102,11 @@ def sentimentAnalysis(request,pid):
 
 def FilterView(request):
     params = json.loads(request.body)
-    print(params)
     com = {}
-    project = Project.objects.get(id=24)    
-    comments = Comment.objects.filter(project_id=project.id)
+    project = Project.objects.get(id=params['pro_id'])    
+    comments = Comment.objects.filter(project_id=params['pro_id'])
     if len(params['social']) > 0:
         comments = comments.filter(source__in=params['social'])
-
     if len(params['lng']) > 0:
         comments = comments.filter(language__in=params['lng'])
 
@@ -106,7 +116,44 @@ def FilterView(request):
     # if len(params['date']) > 0:
     #     comments = comments.filter(source__in=params['lng'])
 
-
     data = serializers.serialize("json", comments)
     return JsonResponse(data,safe=False)
 
+def callback(request):
+    verifier = request.GET.get('oauth_verifier')
+    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    token = request.session.get('request_token')
+
+    request.session.delete('request_token')
+    oauth.request_token = token
+
+    oauth.get_access_token(verifier)    
+    try:
+        twit = Usertwittertoken.objects.get(user=request.user.id)
+        newtwit.user = request.user
+        twit.access_key = oauth.access_token
+        twit.access_secret = oauth.access_token_secret
+        twit.save()
+
+    except Usertwittertoken.DoesNotExist:
+        newtwit = Usertwittertoken()
+        newtwit.user = request.user
+        newtwit.access_key = oauth.access_token
+        newtwit.access_secret = oauth.access_token_secret
+        newtwit.save()
+
+    return redirect('/dashboard')
+
+
+def twitterAuth(request):   
+    # start the OAuth process, set up a handler with our details
+    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    # direct the user to the authentication url
+    # if user is logged-in and authorized then transparently goto the callback URL
+    auth_url = oauth.get_authorization_url(True)
+    response = HttpResponseRedirect(auth_url)
+    print(auth_url)
+    # store the request token
+    request.session['request_token'] = oauth.request_token
+    print(response)
+    return response

@@ -1,0 +1,103 @@
+{
+  "created_at": "Thu Mar 21 16:28:01 +0000 2019",
+  "id": 1108767227090796544,
+  "id_str": "1108767227090796544",
+  "text": "We all know that @netflix streaming service allows you to watch award-winning TV shows, movies, documentaries &amp; mor\u2026 https://t.co/TmNDyfUSXH",
+  "truncated": true,
+  "entities": {
+    "hashtags": [],
+    "symbols": [],
+    "user_mentions": [
+      {
+        "screen_name": "netflix",
+        "name": "Netflix US",
+        "id": 16573941,
+        "id_str": "16573941",
+        "indices": [17, 25]
+      }
+    ],
+    "urls": [
+      {
+        "url": "https://t.co/TmNDyfUSXH",
+        "expanded_url": "https://twitter.com/i/web/status/1108767227090796544",
+        "display_url": "twitter.com/i/web/status/1\u2026",
+        "indices": [121, 144]
+      }
+    ]
+  },
+  "source": "<a href=\"https://sproutsocial.com\" rel=\"nofollow\">Sprout Social</a>",
+  "in_reply_to_status_id": null,
+  "in_reply_to_status_id_str": null,
+  "in_reply_to_user_id": null,
+  "in_reply_to_user_id_str": null,
+  "in_reply_to_screen_name": null,
+  "user": {
+    "id": 9475182,
+    "id_str": "9475182",
+    "name": "PyCon",
+    "screen_name": "pycon",
+    "location": "Cleveland, OH",
+    "description": "PyCon 2019 returns May 1\u20139 in Cleveland, OH with talks, tutorials, sprints, and more! Tweet about it! #pycon2019.",
+    "url": "https://t.co/cDA7VmP4hV",
+    "entities": {
+      "url": {
+        "urls": [
+          {
+            "url": "https://t.co/cDA7VmP4hV",
+            "expanded_url": "http://us.pycon.org",
+            "display_url": "us.pycon.org",
+            "indices": [0, 23]
+          }
+        ]
+      },
+      "description": {
+        "urls": []
+      }
+    },
+    "protected": false,
+    "followers_count": 41391,
+    "friends_count": 5,
+    "listed_count": 977,
+    "created_at": "Tue Oct 16 11:17:41 +0000 2007",
+    "favourites_count": 980,
+    "utc_offset": null,
+    "time_zone": null,
+    "geo_enabled": false,
+    "verified": false,
+    "statuses_count": 3731,
+    "lang": "en",
+    "contributors_enabled": false,
+    "is_translator": false,
+    "is_translation_enabled": false,
+    "profile_background_color": "131516",
+    "profile_background_image_url": "http://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_image_url_https": "https://abs.twimg.com/images/themes/theme14/bg.gif",
+    "profile_background_tile": true,
+    "profile_image_url": "http://pbs.twimg.com/profile_images/1034096352366448641/1K7iE1ES_normal.jpg",
+    "profile_image_url_https": "https://pbs.twimg.com/profile_images/1034096352366448641/1K7iE1ES_normal.jpg",
+    "profile_banner_url": "https://pbs.twimg.com/profile_banners/9475182/1535030998",
+    "profile_link_color": "009CBD",
+    "profile_sidebar_border_color": "FFFFFF",
+    "profile_sidebar_fill_color": "DDEEF6",
+    "profile_text_color": "333333",
+    "profile_use_background_image": false,
+    "has_extended_profile": false,
+    "default_profile": false,
+    "default_profile_image": false,
+    "following": false,
+    "follow_request_sent": false,
+    "notifications": false,
+    "translator_type": "none"
+  },
+  "geo": null,
+  "coordinates": null,
+  "place": null,
+  "contributors": null,
+  "is_quote_status": false,
+  "retweet_count": 7,
+  "favorite_count": 28,
+  "favorited": false,
+  "retweeted": false,
+  "possibly_sensitive": false,
+  "lang": "en"
+}

@@ -83,6 +83,25 @@ function makeFilterRequest() {
         $(newcom).removeClass("d-none");
         $(newcom).removeClass("com-clone");
         $(newcom)
+          .find(".com-user-img")
+          .attr("src", el.fields.user_image);
+        if (el.fields.source == "fb")
+          $(newcom)
+            .find(".com-source")
+            .addClass("fa-facebook");
+        else if (el.fields.source == "twit")
+          $(newcom)
+            .find(".com-source")
+            .addClass("fa-twitter");
+
+        $(newcom)
+          .find(".com-user-name")
+          .text(el.fields.user_name);
+        $(newcom)
+          .find(".com-user-follow")
+          .text(el.fields.user_followers);
+
+        $(newcom)
           .find(".com-date")
           .text(el.fields.created_at);
         $(newcom)
@@ -97,3 +116,31 @@ function makeFilterRequest() {
       console.log(resp);
     });
 }
+
+var DoughtnutConfig = {
+  type: "doughnut",
+  data: {
+    datasets: [
+      {
+        data: [randomScalingFactor(), randomScalingFactor()],
+        backgroundColor: ["#CF6766", "#30415D"],
+        label: "Dataset 1"
+      }
+    ],
+    labels: [
+      "Negative " + randomScalingFactor(),
+      "Positive " + randomScalingFactor()
+    ]
+  },
+  options: {
+    responsive: true,
+    legend: {
+      position: "top"
+    }
+  }
+};
+
+window.myDoughnut = new Chart(
+  document.getElementById("doughnutChartSentiment"),
+  DoughtnutConfig
+);

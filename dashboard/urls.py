@@ -18,6 +18,7 @@ urlpatterns = [
     path('create-project', views.CreateProject, name='create-project'),
     path('filter/results', views.FilterView, name='filter-view'),
     path('usertoken', views.UserTokenView, name='topic'),
+    path('twitter-auth', views.twitterAuth, name='twitter_auth'), 			#Authenticate the user views.py -> auth()
     # path('page', PageView.as_view(), name='page'),
     # path('comment', PageView.as_view(), name='comment'),
     # path('comment', CommentView.as_view(), name='comment'),

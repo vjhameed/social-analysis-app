@@ -11,6 +11,11 @@ class Usertoken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     access_token = models.CharField(max_length=255)
 
+class Usertwittertoken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    access_key = models.CharField(max_length=255)
+    access_secret = models.CharField(max_length=255)
+
 class Pagetoken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     page_access_token = models.CharField(max_length=255)
@@ -25,3 +30,6 @@ class Comment(models.Model):
     language = models.CharField(max_length=255)
     sentiment = models.CharField(max_length=255)
     created_at = models.CharField(max_length=255)
+    user_name =  models.CharField(max_length=255)
+    user_image =  models.CharField(max_length=255)
+    user_followers =  models.CharField(max_length=255)

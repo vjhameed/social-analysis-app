@@ -1,15 +1,16 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from facebookPages.views import HomePage
-
+from dashboard import views 
 urlpatterns = [
     path('', HomePage),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('facebook/', include('facebook.urls')),
     path('dashboard/', include('dashboard.urls')),
+    re_path(r'^callback/$', views.callback, name='auth_return'), 		#after Oauth to Twitter it will redirect response to views.py -> callable()
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

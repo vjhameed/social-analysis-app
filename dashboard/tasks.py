@@ -2,17 +2,47 @@ import string
 
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
-from dashboard.models import Project, Usertoken, Pagetoken, Comment
+from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
 from celery import shared_task
 import requests
 from aylienapiclient import textapi
 import json
 import datetime
+from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender
+import re
+
+@shared_task
+def fetchTwitterData(userid,proid):
+    #read tweet from home_timeline
+    twit = Usertwittertoken.objects.get(user_id=userid)
+    api = get_api(twit.access_key,twit.access_secret) #Oauth user
+    public_tweets = api.home_timeline() #get homepage tweets
+    pro = Project.objects.get(id=proid)
+    for twit in public_tweets:
+        obj = twit._json
+
+
+        
+        newcom = Comment()
+        newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', obj['text'])
+        newcom.source = 'twit'
+        newcom.gender = getUserGender(obj['user']['name'])
+        newcom.comment_id = obj['id']
+        newcom.created_at = obj['created_at']                        
+        newcom.language = getLanguage(newcom.message) 
+        newcom.sentiment = getSentiment(newcom.message,newcom.language)  
+        newcom.project = pro
+        newcom.user_name = obj['user']['screen_name']
+        newcom.user_image = obj['user']['profile_image_url_https']
+        newcom.user_followers = obj['user']['followers_count']
+        newcom.save()
+
+    return True
+    # print(public_tweets)
 
 
 @shared_task
 def fetchUserData(userid,proid):
-    client = textapi.Client("115463a5", "d47f781359288eb4d29b6a42485247d2")
     pro = Project.objects.get(id=proid)
     pages = Pagetoken.objects.filter(user_id=userid)
     for page in pages:
@@ -26,7 +56,7 @@ def fetchUserData(userid,proid):
             delta = d2 - d1
             # if 1 ==1 :
             post_id = post['id']            
-            tokenurl = "https://graph.facebook.com/{0}/comments?access_token={1}".format(post['id'],page.page_access_token)
+            tokenurl = "https://graph.facebook.com/{0}/comments?access_token={1}&fields=from,message,attachment,created_time".format(post['id'],page.page_access_token)
             r = requests.get(tokenurl)
             comments = json.loads(r.content)
             for com in comments['data']:
@@ -35,19 +65,19 @@ def fetchUserData(userid,proid):
                 d2 = datetime.datetime.now()
                 delta = d2 - d1
                 # if 1 == 1 :
-                lang = client.Language(com['message'])
-                lang = lang['lang']
-                sent = client.Sentiment(com['message'])
-                sent = sent['polarity']
                 newcom = Comment()
-                newcom.message = com['message']
+                newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', com['message'])
                 newcom.source = 'fb'
                 newcom.gender = 'male'
                 newcom.comment_id = com['id']
                 newcom.created_at = com['created_time']                        
-                newcom.language = lang  
-                newcom.sentiment = sent  
+                newcom.language = getLanguage(newcom.message)  
+                newcom.sentiment = getSentiment(newcom.message ,newcom.language)  
                 newcom.project = pro
+                newcom.user_name = 'name'
+                newcom.user_image = 'img'
+                newcom.user_followers = '123'
+
                 newcom.save()
                            
     return 'fetched all data for a page'
