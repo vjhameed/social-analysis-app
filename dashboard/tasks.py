@@ -8,7 +8,7 @@ import requests
 from aylienapiclient import textapi
 import json
 import datetime
-from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender
+from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender, getIntent,getToxic
 import re
 
 @shared_task
@@ -22,6 +22,7 @@ def fetchTwitterData(userid,proid):
         obj = twit._json
 
 
+        print(obj['text'])
         
         newcom = Comment()
         newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', obj['text'])
@@ -35,6 +36,9 @@ def fetchTwitterData(userid,proid):
         newcom.user_name = obj['user']['screen_name']
         newcom.user_image = obj['user']['profile_image_url_https']
         newcom.user_followers = obj['user']['followers_count']
+        newcom.is_toxic = getToxic(newcom.message)
+        newcom.is_intent = getIntent(newcom.message)
+
         newcom.save()
 
     return True
@@ -77,6 +81,8 @@ def fetchUserData(userid,proid):
                 newcom.user_name = 'name'
                 newcom.user_image = 'img'
                 newcom.user_followers = '123'
+                newcom.is_toxic = getToxic(newcom.message)
+                newcom.is_intent = 'intent'
 
                 newcom.save()
                            

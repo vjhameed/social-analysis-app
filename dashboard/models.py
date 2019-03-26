@@ -33,3 +33,5 @@ class Comment(models.Model):
     user_name =  models.CharField(max_length=255)
     user_image =  models.CharField(max_length=255)
     user_followers =  models.CharField(max_length=255)
+    is_toxic =  models.CharField(max_length=255)
+    is_intent =  models.CharField(max_length=255)

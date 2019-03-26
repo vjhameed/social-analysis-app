@@ -7,8 +7,10 @@ import tweepy
 import xmltodict
 
 
-CONSUMER_KEY = '6EbXLDnvPHRqDFXh4OagGA'
-CONSUMER_SECRET = '9WUpSToZroXeJtp2x78FxsZ0UH5mjKDvEEYdYMfWfM'
+
+CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
+CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
+
 
 def get_api(access_token,access_secret):
 	# set up and return a twitter api object
@@ -26,6 +28,17 @@ def getLanguage(text):
     newstr = newstr.decode()
     newstr = newstr[1:-1]
     return newstr 
+
+def getToxic(text):
+    requrl = "http://95.216.2.224:5033/toxic?comment={}".format(text)
+    resp = requests.get(requrl).json()
+    return resp['is_toxic'] 
+
+def getIntent(text):
+    requrl = "http://95.216.2.224:5033/intent?comment={}".format(text)
+    resp = requests.get(requrl).json()
+    return resp['is_intent'] 
+
 
 def getSentiment(text,lang):
     requrl = "http://95.216.2.224:9000/sentiment/?comment={}&format=json&lan={}".format(text,lang)
@@ -49,11 +62,11 @@ def getUserPages(accessToken):
     return pages.get('data')
 
 def getUserGender(user_name):
-    appurl = 'http://95.216.2.224:5032/reply?name={}&comment=None&isarabic=None&code=gender'.format(user_name)
+    appurl = 'http://95.216.2.224:5033/gender?name={}'.format(user_name)
     pages = requests.get(appurl).json()
     if pages.get('error', False):
         raise Exception('facebook')
-    return pages.get('output')
+    return pages['gender']
 
 
 def getPageDetail(id, token):

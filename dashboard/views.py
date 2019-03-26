@@ -18,8 +18,8 @@ from django.core import serializers
 import tweepy #API for twitter
 from django.shortcuts import get_object_or_404
 
-CONSUMER_KEY = '6EbXLDnvPHRqDFXh4OagGA'
-CONSUMER_SECRET = '9WUpSToZroXeJtp2x78FxsZ0UH5mjKDvEEYdYMfWfM'
+CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
+CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
 
 
 def MainView(request,pid):
@@ -35,20 +35,55 @@ def MainView(request,pid):
     return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
 def HomePageView(request):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(user=request.user)
     return render(request,'core/index.html',{"projects":projects})
 
 def SentimentView(request):
+    
+
     return render(request,'core/sentiment.html')
 
-def CrisisPageView(request):
-    return render(request,'core/crisis.html')
+def CrisisPageView(request,pid):
+    projects = Project.objects.all()
 
-def IntentPageView(request):
-    return render(request,'core/intent.html')
+    pro = Project.objects.get(id=pid)
+    comments = Comment.objects.filter(project=pro)
+    crisiscomments = comments.filter(toxic='Crisis')  
+    notoxcomments = comments.filter(toxic='Not Crisis')    
+    numnotoxcomments = comments.filter(toxic='Not Crisis').count()  
+    numtoxcomments = comments.filter(toxic='Crisis').count()  
+    fbtoxcomments = toxcomments.filter(source='fb').count()
+    twittoxcomments = toxcomments.filter(source='twit').count()
 
-def GuardPageView(request):
-    return render(request,'core/guard.html')
+    return render(request,'core/crisis.html',{'project':pro,'projects':projects,'Crisiss':crisiscomments,'NoToxics':notoxcomments,'numcricomments':numtoxcomments,'numnocricomments':numnotoxcomments,'fbtox':fbtoxcomments,'twittox':twittoxcomments})
+
+def IntentPageView(request,pid):
+    projects = Project.objects.all()
+
+    pro = Project.objects.get(id=pid)
+    comments = Comment.objects.filter(project=pro)
+    toxcomments = comments.filter(toxic='Intent')  
+    notoxcomments = comments.filter(toxic='N')    
+    numnotoxcomments = comments.filter(toxic='Intent').count()  
+    numtoxcomments = comments.filter(toxic='Intent').count()  
+    fbtoxcomments = toxcomments.filter(source='fb').count()
+    twittoxcomments = toxcomments.filter(source='twit').count()
+
+    return render(request,'core/intent.html',{'project':pro,'projects':projects,'Intents':toxcomments,'numnointcomments':numnotoxcomments,'numintcomments':numtoxcomments,'fbtox':fbtoxcomments,'twittox':twittoxcomments})
+
+def GuardPageView(request,pid):
+    projects = Project.objects.all()
+
+    pro = Project.objects.get(id=pid)
+    comments = Comment.objects.filter(project=pro)
+    toxcoms = comments.filter(is_toxic='True')  
+    nontoxcoms = comments.filter(is_toxic='False')    
+    num_non_tox_com = comments.filter(is_toxic='False').count()  
+    num_tox_com = comments.filter(is_toxic='True').count()  
+    fb_tox_com = toxcoms.filter(source='fb').count()
+    twit_tox_com = toxcoms.filter(source='twit').count()
+
+    return render(request,'core/guard.html',{'project':pro,'projects':projects,'comments':toxcoms,'nontoxcom':nontoxcoms,'numnotoxcomments':num_non_tox_com,'numtoxcomments':num_tox_com,'fbtox':fb_tox_com,'twittox':twit_tox_com})
 
 def ReputationView(request):
     return render(request,'core/reputation.html')
@@ -79,7 +114,7 @@ def CreateProject(request):
         pro.save()
         mainurl = '/dashboard/main/{}'.format(pro.id)  
         proid = pro.id
-        fetchUserData.delay(request.user.id,proid)
+        # fetchUserData.delay(request.user.id,proid)
         fetchTwitterData.delay(request.user.id,proid)
         time.sleep(20)
         return redirect(mainurl)
@@ -122,10 +157,11 @@ def FilterView(request):
 def callback(request):
     verifier = request.GET.get('oauth_verifier')
     oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    token = request.session.get('request_token')
+    token = request.session['request_token']
 
     request.session.delete('request_token')
-    oauth.request_token = token
+
+    oauth.request_token = token    
 
     oauth.get_access_token(verifier)    
     try:
@@ -146,14 +182,15 @@ def callback(request):
 
 
 def twitterAuth(request):   
+    request.session.delete('request_token')
     # start the OAuth process, set up a handler with our details
     oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     # direct the user to the authentication url
     # if user is logged-in and authorized then transparently goto the callback URL
     auth_url = oauth.get_authorization_url(True)
     response = HttpResponseRedirect(auth_url)
-    print(auth_url)
+
     # store the request token
     request.session['request_token'] = oauth.request_token
-    print(response)
+    print(request.session['request_token'])
     return response
