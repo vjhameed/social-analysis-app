@@ -114,7 +114,7 @@ def CreateProject(request):
         pro.save()
         mainurl = '/dashboard/main/{}'.format(pro.id)  
         proid = pro.id
-        # fetchUserData.delay(request.user.id,proid)
+        fetchUserData.delay(request.user.id,proid)
         fetchTwitterData.delay(request.user.id,proid)
         time.sleep(20)
         return redirect(mainurl)
