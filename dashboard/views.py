@@ -62,14 +62,14 @@ def IntentPageView(request,pid):
 
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
-    toxcomments = comments.filter(toxic='Intent')  
-    notoxcomments = comments.filter(toxic='N')    
-    numnotoxcomments = comments.filter(toxic='Intent').count()  
-    numtoxcomments = comments.filter(toxic='Intent').count()  
-    fbtoxcomments = toxcomments.filter(source='fb').count()
-    twittoxcomments = toxcomments.filter(source='twit').count()
+    intcoms = comments.filter(is_intent='True')  
+    nonintcoms = comments.filter(is_intent='False')    
+    num_non_int_com = comments.filter(is_intent='False').count()  
+    num_int_com = comments.filter(is_intent='True').count()  
+    fb_tox_com = intcoms.filter(source='fb').count()
+    twit_tox_com = intcoms.filter(source='twit').count()
 
-    return render(request,'core/intent.html',{'project':pro,'projects':projects,'Intents':toxcomments,'numnointcomments':numnotoxcomments,'numintcomments':numtoxcomments,'fbtox':fbtoxcomments,'twittox':twittoxcomments})
+    return render(request,'core/intent.html',{'project':pro,'projects':projects,'comments':intcoms,'nonintcom':nonintcoms,'numnointcomments':num_non_int_com,'numintcomments':num_int_com,'fbtox':fb_tox_com,'twittox':twit_tox_com})
 
 def GuardPageView(request,pid):
     projects = Project.objects.all()

@@ -82,7 +82,7 @@ def fetchUserData(userid,proid):
                 newcom.user_image = 'img'
                 newcom.user_followers = '123'
                 newcom.is_toxic = getToxic(newcom.message)
-                newcom.is_intent = 'intent'
+                newcom.is_intent = getIntent(newcom.message)
 
                 newcom.save()
                            

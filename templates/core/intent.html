@@ -91,7 +91,7 @@
                             <input
                               class="form-control"
                               type="text"
-                              placeholder="Search Intent Comments"
+                              placeholder="Search Toxic Comments"
                             />
                             <div class="input-group-append">
                               <button class="btn sa-btn-primary" type="button">
@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="col-md-12 comment-container">
-                      {% for comment in Intents %}
+                      {% for comment in comments %}
                       <div
                         class="widget-body card card-2 p-0 mt-2"
                         style="position:relative"
@@ -251,287 +251,281 @@
 <script>
 
   $('.hash-section').click(function () {
-      $('.hash-section').removeClass('selected')
-      $(this).addClass('selected')
+    $('.hash-section').removeClass('selected')
+    $(this).addClass('selected')
   })
 
   var filterdata = {
-      lang: [],
-      gender: [],
-      social: [],
-      date: []
+    lang: [],
+    gender: [],
+    social: [],
+    date: []
   };
 
   $(".lang-check").change(function () {
-      $(this).val();
-      if ($(this).is(":checked")) filterdata.lang.push($(this).val());
-      else {
-          var tempvar = filterdata.lang.filter(item => {
-              return item !== $(this).val();
-          });
+    $(this).val();
+    if ($(this).is(":checked")) filterdata.lang.push($(this).val());
+    else {
+      var tempvar = filterdata.lang.filter(item => {
+        return item !== $(this).val();
+      });
 
-          filterdata.lang = tempvar.map(item => item);
-      }
+      filterdata.lang = tempvar.map(item => item);
+    }
 
-      makeFilterRequest();
+    makeFilterRequest();
   });
 
   $(".gender-check").change(function () {
-      $(this).val();
-      if ($(this).is(":checked")) filterdata.gender.push($(this).val());
-      else {
-          var tempvar = filterdata.gender.filter(item => {
-              return item !== $(this).val();
-          });
+    $(this).val();
+    if ($(this).is(":checked")) filterdata.gender.push($(this).val());
+    else {
+      var tempvar = filterdata.gender.filter(item => {
+        return item !== $(this).val();
+      });
 
-          filterdata.gender = tempvar.map(item => item);
-      }
+      filterdata.gender = tempvar.map(item => item);
+    }
 
-      makeFilterRequest();
+    makeFilterRequest();
   });
 
   $(".social-check").change(function () {
-      $(this).val();
-      if ($(this).is(":checked")) filterdata.social.push($(this).val());
-      else {
-          var tempvar = filterdata.social.filter(item => {
-              return item !== $(this).val();
-          });
+    $(this).val();
+    if ($(this).is(":checked")) filterdata.social.push($(this).val());
+    else {
+      var tempvar = filterdata.social.filter(item => {
+        return item !== $(this).val();
+      });
 
-          filterdata.social = tempvar.map(item => item);
-      }
+      filterdata.social = tempvar.map(item => item);
+    }
 
-      makeFilterRequest();
+    makeFilterRequest();
   });
 
   $(".date-check").change(function () {
-      $(this).val();
-      if ($(this).is(":checked")) filterdata.date.push($(this).val());
-      else {
-          var tempvar = filterdata.date.filter(item => {
-              return item !== $(this).val();
-          });
+    $(this).val();
+    if ($(this).is(":checked")) filterdata.date.push($(this).val());
+    else {
+      var tempvar = filterdata.date.filter(item => {
+        return item !== $(this).val();
+      });
 
-          filterdata.date = tempvar.map(item => item);
-      }
+      filterdata.date = tempvar.map(item => item);
+    }
 
-      makeFilterRequest();
+    makeFilterRequest();
   });
 
   function makeFilterRequest() {
-      const project_id = $("input[name=pro_id]").val();
-      $(".loader").removeClass("d-none");
-      axios
-          .post("/dashboard/filter/results", {
-              lng: filterdata.lang,
-              gen: filterdata.gender,
-              social: filterdata.social,
-              date: filterdata.date,
-              pro_id: project_id,
-          })
-          .then(resp => {
-              $(".loader").addClass("d-none");
-              $(".comment-container").empty();
-              var data = JSON.parse(resp.data);
-              var nointent = 0;
-              var nonointent = 0;
-              var fbtox = 0;
-              var twittox = 0;
+    const project_id = $("input[name=pro_id]").val();
+    $(".loader").removeClass("d-none");
+    axios
+      .post("/dashboard/filter/results", {
+        lng: filterdata.lang,
+        gen: filterdata.gender,
+        social: filterdata.social,
+        date: filterdata.date,
+        pro_id: project_id,
+      })
+      .then(resp => {
+        $(".loader").addClass("d-none");
+        $(".comment-container").empty();
+        var data = JSON.parse(resp.data);
+        var nointent = 0;
+        var nonointent = 0;
+        var fbtox = 0;
+        var twittox = 0;
+        $(data).each(function (index, el) {
+          if (el.fields.is_intent == "True") {
+            nointent = nointent + 1
 
-              $(data).each(function (index, el) {
-                  if (el.fields.intent == "Intent") {
-                      nointent = nointent + 1
+            var newcom = $(".com-clone").clone();
+            $(newcom).removeClass("d-none");
+            $(newcom).removeClass("com-clone");
+            $(newcom)
+              .find(".com-user-img")
+              .attr("src", el.fields.user_image);
+            if (el.fields.source == "fb")
+              $(newcom)
+                .find(".com-source")
+                .addClass("fa-facebook");
+            else if (el.fields.source == "twit")
+              $(newcom)
+                .find(".com-source")
+                .addClass("fa-twitter");
 
-                      var newcom = $(".com-clone").clone();
-                      $(newcom).removeClass("d-none");
-                      $(newcom).removeClass("com-clone");
-                      $(newcom)
-                          .find(".com-user-img")
-                          .attr("src", el.fields.user_image);
-                      if (el.fields.source == "fb")
-                          $(newcom)
-                              .find(".com-source")
-                              .addClass("fa-facebook");
-                      else if (el.fields.source == "twit")
-                          $(newcom)
-                              .find(".com-source")
-                              .addClass("fa-twitter");
+            $(newcom)
+              .find(".com-user-name")
+              .text(el.fields.user_name);
+            $(newcom)
+              .find(".com-user-follow")
+              .text(el.fields.user_followers);
 
-                      $(newcom)
-                          .find(".com-user-name")
-                          .text(el.fields.user_name);
-                      $(newcom)
-                          .find(".com-user-follow")
-                          .text(el.fields.user_followers);
+            $(newcom)
+              .find(".com-date")
+              .text(el.fields.created_at);
+            $(newcom)
+              .find(".mention_text")
+              .text(el.fields.message);
+            $(newcom).appendTo(".comment-container");
 
-                      $(newcom)
-                          .find(".com-date")
-                          .text(el.fields.created_at);
-                      $(newcom)
-                          .find(".mention_text")
-                          .text(el.fields.message);
-                      $(newcom).appendTo(".comment-container");
+            if (el.fields.source == 'fb')
+              fbtox = fbtox + 1
+            else if (el.fields.source == 'twit') {
+              twittox = twittox + 1
+            }
+          } else {
+            nonointent = nonointent + 1
+          };
+        });
 
-                      if (el.fields.intent == 'fb')
-                          fbtox = fbtox + 1
+        createCharts(nointent, nonointent, fbtox, twittox)
+      })
+      .catch(resp => {
+        $(".loader").addClass("d-none");
 
-
-
-
-
-                      else if (el.fields.intent == 'twit') {
-                          twittox = twittox + 1
-                      }
-                  } else {
-                  nonotoxic = nonotoxic + 1
-                }
-              });
-
-              createCharts(nointent, nonointent, fbtox, twittox)
-          })
-          .catch(resp => {
-              $(".loader").addClass("d-none");
-
-              console.log(resp);
-          });
+        console.log(resp);
+      });
   }
 
 
-  function createCharts(intent, nointent, fbtox, twittox) {
-      var linechart = function () {
-          if ($("#linechart").length) {
-              var d = [
-                  [1197068400000, myRandomNumber()],
-              ];
+  function createCharts(toxic, notoxic, fbtox, twittox) {
+    var linechart = function () {
+      if ($("#linechart").length) {
+        var d = [
+          [1197068400000, 200],
+        ];
 
-              var e = [
-                  [1197068400000, 400],
-              ];
+        var e = [
+          [1197068400000, 400],
+        ];
 
-              for (var i = 0; i < d.length; ++i)
-                  d[i][0] += 60 * 60 * 1000;
+        for (var i = 0; i < d.length; ++i)
+          d[i][0] += 60 * 60 * 1000;
 
-              function weekendAreas(axes) {
-                  var markings = [];
-                  var d = new Date(axes.xaxis.min);
-                  // go to the first Saturday
-                  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
-                  d.setUTCSeconds(0);
-                  d.setUTCMinutes(0);
-                  d.setUTCHours(0);
-                  var i = d.getTime();
-                  do {
-                      // when we don't set yaxis, the rectangle automatically
-                      // extends to infinity upwards and downwards
-                      markings.push({
-                          xaxis: {
-                              from: i,
-                              to: i + 2 * 24 * 60 * 60 * 1000
-                          }
-                      });
-                      i += 7 * 24 * 60 * 60 * 1000;
-                  } while (i < axes.xaxis.max);
-
-                  return markings;
+        function weekendAreas(axes) {
+          var markings = [];
+          var d = new Date(axes.xaxis.min);
+          // go to the first Saturday
+          d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
+          d.setUTCSeconds(0);
+          d.setUTCMinutes(0);
+          d.setUTCHours(0);
+          var i = d.getTime();
+          do {
+            // when we don't set yaxis, the rectangle automatically
+            // extends to infinity upwards and downwards
+            markings.push({
+              xaxis: {
+                from: i,
+                to: i + 2 * 24 * 60 * 60 * 1000
               }
+            });
+            i += 7 * 24 * 60 * 60 * 1000;
+          } while (i < axes.xaxis.max);
 
-              var options = {
-                  xaxis: {
-                      mode: "time",
-                      tickLength: 5
-                  },
-                  series: {
-                      lines: {
-                          show: true,
-                          lineWidth: 2,
-                          fill: false,
-                          fillColor: {
-                              colors: [{
-                                  opacity: 0.1
-                              }, {
-                                  opacity: 0.15
-                              }]
-                          }
-                      },
-                      //points: { show: true },
-                      shadowSize: 0
-                  },
-                  selection: {
-                      mode: "x"
-                  },
-                  grid: {
-                      hoverable: true,
-                      clickable: true,
-                      tickColor: 'red',
-                      borderWidth: 0,
-                      borderColor: 'blue',
-                  },
-                  tooltip: true,
-                  colors: ['#30415D', '#CF6766'],
+          return markings;
+        }
 
-              };
+        var options = {
+          xaxis: {
+            mode: "time",
+            tickLength: 5
+          },
+          series: {
+            lines: {
+              show: true,
+              lineWidth: 2,
+              fill: false,
+              fillColor: {
+                colors: [{
+                  opacity: 0.1
+                }, {
+                  opacity: 0.15
+                }]
+              }
+            },
+            //points: { show: true },
+            shadowSize: 0
+          },
+          selection: {
+            mode: "x"
+          },
+          grid: {
+            hoverable: true,
+            clickable: true,
+            tickColor: 'red',
+            borderWidth: 0,
+            borderColor: 'blue',
+          },
+          tooltip: true,
+          colors: ['#30415D', '#CF6766'],
 
-              plot_1 = $.plot($("#linechart"), [d, e], options);
+        };
+
+        plot_1 = $.plot($("#linechart"), [d, e], options);
 
 
-          };
+      };
+    }
+
+    linechart();
+
+    var DoughtnutConfig = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [toxic, notoxic],
+          backgroundColor: [
+            "#F7464A",
+            "#46BFBD",
+          ],
+        }],
+        labels: [
+          "Toxic ",
+          "Non Toxic ",
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        }
       }
+    };
 
-      linechart();
+    window.myDoughnut = new Chart(document.getElementById("doughnutChartSentiment"), DoughtnutConfig);
 
-      var DoughtnutConfig = {
-          type: 'doughnut',
-          data: {
-              datasets: [{
-                  data: [intent, nointent],
-                  backgroundColor: [
-                      "#F7464A",
-                      "#46BFBD",
-                  ],
-              }],
-              labels: [
-                  "Intent ",
-                  "Non Intent ",
-              ]
-          },
-          options: {
-              responsive: true,
-              legend: {
-                  position: 'top',
-              }
-          }
-      };
+    var DoughtnutConfig = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [fbtox, twittox],
+          backgroundColor: [
+            "#F7464A",
+            "#46BFBD",
+            "#FDB45C",
+            "#7e9d3a",
+            "silver"
+          ],
+          label: 'Dataset 1'
+        }],
+        labels: [
+          "Facebook ",
+          "Twitter ",
+        ]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        }
+      }
+    };
 
-      window.myDoughnut = new Chart(document.getElementById("doughnutChartSentiment"), DoughtnutConfig);
-
-      var DoughtnutConfig = {
-          type: 'doughnut',
-          data: {
-              datasets: [{
-                  data: [fbtox, twittox],
-                  backgroundColor: [
-                      "#F7464A",
-                      "#46BFBD",
-                      "#FDB45C",
-                      "#7e9d3a",
-                      "silver"
-                  ],
-                  label: 'Dataset 1'
-              }],
-              labels: [
-                  "Facebook ",
-                  "Twitter ",
-              ]
-          },
-          options: {
-              responsive: true,
-              legend: {
-                  position: 'top',
-              }
-          }
-      };
-
-      window.myDoughnut = new Chart(document.getElementById("doughnutChart"), DoughtnutConfig);
+    window.myDoughnut = new Chart(document.getElementById("doughnutChart"), DoughtnutConfig);
   }
 
   createCharts({{ numintcomments }}, {{ numnointcomments }}, {{ fbtox }}, {{ twittox }})
