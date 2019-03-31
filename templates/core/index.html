@@ -118,11 +118,12 @@
                         src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png"
                         alt="sign in with twitter"
                     /></a>
-                    <fb:login-button
-                      scope="public_profile,email"
-                      onlogin="checkLoginState();"
+                    <button
+                      class="loginBtn loginBtn--facebook"
+                      onclick="loginfb()"
                     >
-                    </fb:login-button>
+                      Login with Facebook
+                    </button>
                   </p>
                   <table style="width:90%" class="mx-auto table p-3 my-4">
                     <thead>
@@ -182,24 +183,26 @@
     });
   };
 
-  // FB.login(
-  //   function(response) {
-  //     console.log(response);
-  //     axios
-  //       .post("/dashboard/usertoken", {
-  //         token: response.authResponse.accessToken
-  //       })
-  //       .then(resp => {
-  //         console.log(resp);
-  //       })
-  //       .catch(resp => {
-  //         console.log(resp.response);
-  //       });
-  //   },
-  //   {
-  //     scope: "public_profile,email,manage_pages,read_insights,publish_pages"
-  //   }
-  // );
+  function loginfb() {
+    FB.login(
+      function(response) {
+        console.log(response);
+        axios
+          .post("/dashboard/usertoken", {
+            token: response.authResponse.accessToken
+          })
+          .then(resp => {
+            console.log(resp);
+          })
+          .catch(resp => {
+            console.log(resp.response);
+          });
+      },
+      {
+        scope: "public_profile,email,manage_pages,read_insights,publish_pages"
+      }
+    );
+  }
 
   // FB.login(function (response) {
   //     console.log(response);
