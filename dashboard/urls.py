@@ -5,7 +5,7 @@ from dashboard import views
 urlpatterns = [
     path('', views.HomePageView, name='dashboard'),
     re_path(r'^main/(?P<pid>\d+)/$', views.MainView, name='main'),
-    path('sentiment', views.SentimentView, name='sentiment'),
+    re_path(r'^sentiment/(?P<pid>\d+)/$', views.SentimentView, name='sentiment'),
     re_path(r'^crisis/(?P<pid>\d+)/$', views.CrisisPageView, name='crisis'),
     re_path(r'^intent/(?P<pid>\d+)/$', views.IntentPageView, name='intent'),
     re_path(r'^guard/(?P<pid>\d+)/$', views.GuardPageView, name='guard'),

@@ -39,11 +39,19 @@ def getIntent(text):
     resp = requests.get(requrl).json()
     return resp['is_intent'] 
 
+def getCrisis(text,lang):
+    if lang == 'ar' or lang=='arz' or lang=='fr':
+        requrl = "http://95.216.2.224:5033/crisis?text={}&language={}".format(text,lang)
+        resp = requests.get(requrl).json()
+        return resp['output'] 
+    else:
+        return 'Not Available'
+
 
 def getSentiment(text,lang):
     requrl = "http://95.216.2.224:9000/sentiment/?comment={}&format=json&lan={}".format(text,lang)
     resp = requests.get(requrl).json()    
-    if lang == 'en' :
+    if lang == 'en' or lang == 'arz':
         sent = float(resp['Comment:Class'])
         if sent < 0:
             return 'Negative'

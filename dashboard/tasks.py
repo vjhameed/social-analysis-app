@@ -8,7 +8,8 @@ import requests
 from aylienapiclient import textapi
 import json
 import datetime
-from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender, getIntent,getToxic
+import tweepy
+from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender, getIntent,getToxic, getCrisis
 import re
 
 @shared_task
@@ -16,13 +17,18 @@ def fetchTwitterData(userid,proid):
     #read tweet from home_timeline
     twit = Usertwittertoken.objects.get(user_id=userid)
     api = get_api(twit.access_key,twit.access_secret) #Oauth user
-    public_tweets = api.home_timeline() #get homepage tweets
+    public_tweets = api.user_timeline() #get homepage tweets
     pro = Project.objects.get(id=proid)
-    for twit in public_tweets:
+
+    replies = list()
+    for full_tweets in public_tweets:
+        for tweet in tweepy.Cursor(api.search,q='to:'+full_tweets.user.screen_name,result_type='recent',timeout=999999).items(1000):
+            if hasattr(tweet, 'in_reply_to_status_id_str'):
+                if (tweet.in_reply_to_status_id_str==full_tweets.id_str):
+                    replies.append(tweet)
+
+    for twit in replies:
         obj = twit._json
-
-
-        print(obj['text'])
         
         newcom = Comment()
         newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', obj['text'])
@@ -38,6 +44,7 @@ def fetchTwitterData(userid,proid):
         newcom.user_followers = obj['user']['followers_count']
         newcom.is_toxic = getToxic(newcom.message)
         newcom.is_intent = getIntent(newcom.message)
+        newcom.is_crisis = getCrisis(newcom.message,newcom.language)
 
         newcom.save()
 
@@ -68,7 +75,7 @@ def fetchUserData(userid,proid):
                 d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
                 d2 = datetime.datetime.now()
                 delta = d2 - d1
-                # if 1 == 1 :
+
                 newcom = Comment()
                 newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', com['message'])
                 newcom.source = 'fb'
@@ -83,6 +90,7 @@ def fetchUserData(userid,proid):
                 newcom.user_followers = '123'
                 newcom.is_toxic = getToxic(newcom.message)
                 newcom.is_intent = getIntent(newcom.message)
+                newcom.is_crisis = getCrisis(newcom.message,newcom.language)
 
                 newcom.save()
                            

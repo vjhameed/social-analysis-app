@@ -2,21 +2,19 @@ from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-# from dashboard.utils import *
-from django.shortcuts import render
-import datetime
-from dateutil.parser import parse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-import json
-from django.shortcuts import redirect, render
 from django.urls import reverse
-from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
-import requests
-from .tasks import fetchUserData, fetchTwitterData
-import time
 from django.core import serializers
+from datetime import datetime,timedelta
+from dateutil.parser import parse
+from email.utils import parsedate_tz
+import json
+import requests
+import time
 import tweepy #API for twitter
-from django.shortcuts import get_object_or_404
+from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
+from .tasks import fetchUserData, fetchTwitterData
 
 CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
 CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
@@ -24,7 +22,7 @@ CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
 
 def MainView(request,pid):
     pro = Project.objects.get(id=pid)
-    projects = Project.objects.all()
+    projects = Project.objects.filter(user=request.user)
     comments = Comment.objects.filter(project=pro)  
     nomale = Comment.objects.filter(gender='male').count()
     nofemale = Comment.objects.filter(gender='female').count()
@@ -38,27 +36,30 @@ def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
     return render(request,'core/index.html',{"projects":projects})
 
-def SentimentView(request):
+def SentimentView(request,pid):
+    pro = Project.objects.get(id=pid)
+    projects = Project.objects.filter(user=request.user)
+    comments = Comment.objects.filter(project=pro)  
     
 
-    return render(request,'core/sentiment.html')
+    return render(request,'core/sentiment.html',{'comments':comments,'project':pro,'projects':projects})
 
 def CrisisPageView(request,pid):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(user=request.user)
 
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
-    crisiscomments = comments.filter(toxic='Crisis')  
-    notoxcomments = comments.filter(toxic='Not Crisis')    
-    numnotoxcomments = comments.filter(toxic='Not Crisis').count()  
-    numtoxcomments = comments.filter(toxic='Crisis').count()  
-    fbtoxcomments = toxcomments.filter(source='fb').count()
-    twittoxcomments = toxcomments.filter(source='twit').count()
+    crisiscomments = comments.filter(is_crisis='Problematic')  
+    nocrisiscomments = comments.filter(is_crisis='Non Problematic')    
+    numnocrisiscomments = comments.filter(is_crisis='Non Problematic').count()  
+    numcrisiscomments = comments.filter(is_crisis='Problematic').count()  
+    fbcrisiscomments = crisiscomments.filter(source='fb').count()
+    twitcrisiscomments = crisiscomments.filter(source='twit').count()
 
-    return render(request,'core/crisis.html',{'project':pro,'projects':projects,'Crisiss':crisiscomments,'NoToxics':notoxcomments,'numcricomments':numtoxcomments,'numnocricomments':numnotoxcomments,'fbtox':fbtoxcomments,'twittox':twittoxcomments})
+    return render(request,'core/crisis.html',{'project':pro,'projects':projects,'comments':crisiscomments,'noncricom':nocrisiscomments,'numcricomments':numcrisiscomments,'numnocricomments':numnocrisiscomments,'fbtox':fbcrisiscomments,'twittox':twitcrisiscomments})
 
 def IntentPageView(request,pid):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(user=request.user)
 
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
@@ -72,7 +73,7 @@ def IntentPageView(request,pid):
     return render(request,'core/intent.html',{'project':pro,'projects':projects,'comments':intcoms,'nonintcom':nonintcoms,'numnointcomments':num_non_int_com,'numintcomments':num_int_com,'fbtox':fb_tox_com,'twittox':twit_tox_com})
 
 def GuardPageView(request,pid):
-    projects = Project.objects.all()
+    projects = Project.objects.filter(user=request.user)
 
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
@@ -148,12 +149,29 @@ def FilterView(request):
     if len(params['gen']) > 0:
         comments = comments.filter(gender__in=params['gen'])
 
-    # if len(params['date']) > 0:
-    #     comments = comments.filter(source__in=params['lng'])
+    if params['sent'] != '':
+        comments = comments.filter(sentiment=params['sent'])
+
+    if len(params['date']) > 0:
+        tempcoms = list()
+        for com in comments:
+            d1 = to_datetime(com.created_at)
+            d2 = datetime.now()
+            delta = d2 - d1
+            for date in params['date']:
+                print(delta.days)
+                if delta.days <= int(date):
+                    tempcoms.append(com)
+        comments = tempcoms
 
     data = serializers.serialize("json", comments)
     return JsonResponse(data,safe=False)
 
+def to_datetime(datestring):
+    time_tuple = parsedate_tz(datestring.strip())
+    dt = datetime(*time_tuple[:6])
+    return dt - timedelta(seconds=time_tuple[-1])
+    
 def callback(request):
     verifier = request.GET.get('oauth_verifier')
     oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -166,7 +184,7 @@ def callback(request):
     oauth.get_access_token(verifier)    
     try:
         twit = Usertwittertoken.objects.get(user=request.user.id)
-        newtwit.user = request.user
+        twit.user = request.user
         twit.access_key = oauth.access_token
         twit.access_secret = oauth.access_token_secret
         twit.save()

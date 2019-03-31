@@ -48,9 +48,9 @@
                       <div class="col-md-12 text-center">
                         <!-- <canvas id="barChart" height="80"></canvas> -->
                         <div class="negative crisis-btn">
-                          Intent <br />
+                          Crisis <br />
                           <span class="no-tox-com">
-                            {{ numintcomments }}
+                            {{ numcricomments }}
                           </span>
                         </div>
                         <div id="linechart" class="chart"></div>
@@ -62,7 +62,7 @@
                       <div class="row">
                         <div class="col-md-6 col-sm-12">
                           <div class="widget-body card card-2 p-3">
-                            <h6 class="sec-heads">Intent Analysis</h6>
+                            <h6 class="sec-heads">Crisis Analysis</h6>
                             <canvas
                               id="doughnutChartSentiment"
                               height="220"
@@ -73,7 +73,7 @@
                         <div class="col-md-6 col-sm-12">
                           <div class="widget-body card card-2 p-3">
                             <h6 class="sec-heads">
-                              Intent analysis by channel
+                              Crisis analysis by channel
                             </h6>
                             <canvas id="doughnutChart" height="220"></canvas>
                           </div>
@@ -250,73 +250,6 @@
 {% endblock 'content' %} {% block foot_js %}
 <script>
 
-  $('.hash-section').click(function () {
-    $('.hash-section').removeClass('selected')
-    $(this).addClass('selected')
-  })
-
-  var filterdata = {
-    lang: [],
-    gender: [],
-    social: [],
-    date: []
-  };
-
-  $(".lang-check").change(function () {
-    $(this).val();
-    if ($(this).is(":checked")) filterdata.lang.push($(this).val());
-    else {
-      var tempvar = filterdata.lang.filter(item => {
-        return item !== $(this).val();
-      });
-
-      filterdata.lang = tempvar.map(item => item);
-    }
-
-    makeFilterRequest();
-  });
-
-  $(".gender-check").change(function () {
-    $(this).val();
-    if ($(this).is(":checked")) filterdata.gender.push($(this).val());
-    else {
-      var tempvar = filterdata.gender.filter(item => {
-        return item !== $(this).val();
-      });
-
-      filterdata.gender = tempvar.map(item => item);
-    }
-
-    makeFilterRequest();
-  });
-
-  $(".social-check").change(function () {
-    $(this).val();
-    if ($(this).is(":checked")) filterdata.social.push($(this).val());
-    else {
-      var tempvar = filterdata.social.filter(item => {
-        return item !== $(this).val();
-      });
-
-      filterdata.social = tempvar.map(item => item);
-    }
-
-    makeFilterRequest();
-  });
-
-  $(".date-check").change(function () {
-    $(this).val();
-    if ($(this).is(":checked")) filterdata.date.push($(this).val());
-    else {
-      var tempvar = filterdata.date.filter(item => {
-        return item !== $(this).val();
-      });
-
-      filterdata.date = tempvar.map(item => item);
-    }
-
-    makeFilterRequest();
-  });
 
   function makeFilterRequest() {
     const project_id = $("input[name=pro_id]").val();
@@ -328,18 +261,20 @@
         social: filterdata.social,
         date: filterdata.date,
         pro_id: project_id,
+        sent: filterdata.sent
       })
       .then(resp => {
         $(".loader").addClass("d-none");
         $(".comment-container").empty();
         var data = JSON.parse(resp.data);
-        var nointent = 0;
-        var nonointent = 0;
+        var notoxic = 0;
+        var nonotoxic = 0;
         var fbtox = 0;
         var twittox = 0;
+        console.log(data)
         $(data).each(function (index, el) {
-          if (el.fields.is_intent == "True") {
-            nointent = nointent + 1
+          if (el.fields.is_crisis == "Problematic") {
+            notoxic = notoxic + 1
 
             var newcom = $(".com-clone").clone();
             $(newcom).removeClass("d-none");
@@ -377,11 +312,11 @@
               twittox = twittox + 1
             }
           } else {
-            nonointent = nonointent + 1
+            nonotoxic = nonotoxic + 1
           };
         });
 
-        createCharts(nointent, nonointent, fbtox, twittox)
+        createCharts(notoxic, nonotoxic, fbtox, twittox)
       })
       .catch(resp => {
         $(".loader").addClass("d-none");
@@ -484,8 +419,8 @@
           ],
         }],
         labels: [
-          "Toxic ",
-          "Non Toxic ",
+          "Problematic",
+          "Non Problematic",
         ]
       },
       options: {
