@@ -24,11 +24,11 @@ def MainView(request,pid):
     pro = Project.objects.get(id=pid)
     projects = Project.objects.filter(user=request.user)
     comments = Comment.objects.filter(project=pro)  
-    nomale = Comment.objects.filter(gender='male').count()
-    nofemale = Comment.objects.filter(gender='female').count()
-    nopositive = Comment.objects.filter(sentiment='Positive').count()
-    nonegative = Comment.objects.filter(sentiment='Negative').count()
-    nonuetral = Comment.objects.filter(sentiment='Nuetral').count()
+    nomale = comments.filter(gender='male').count()
+    nofemale = comments.filter(gender='female').count()
+    nopositive = comments.filter(sentiment='Positive').count()
+    nonegative = comments.filter(sentiment='Negative').count()
+    nonuetral = comments.filter(sentiment='Nuetral').count()
     
     return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
