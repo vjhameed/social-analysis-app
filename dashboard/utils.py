@@ -14,7 +14,7 @@ CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
 
 def get_api(access_token,access_secret):
 	# set up and return a twitter api object
-	oauth = tweepy.OAuthHandler(access_token, access_secret)
+	oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 	access_key = access_token
 	access_secret = access_secret
 	oauth.set_access_token(access_key, access_secret)
