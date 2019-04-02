@@ -144,7 +144,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'searchapp',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'mynewpassword',
         'HOST': 'localhost',
         'PORT': '',
     }
