@@ -27,6 +27,7 @@ def getLanguage(text):
     newstr = resp.content
     newstr = newstr.decode()
     newstr = newstr[1:-1]
+
     return newstr 
 
 def getToxic(text):
@@ -64,7 +65,7 @@ def getSentiment(text,lang):
     
 
 def getUserPages(accessToken):
-    pages = requests.get('https://graph.facebook.com/me/accounts?access_token='+accessToken+'&fields=id,name,category,cover,single_line_address,access_token').json()
+    pages = requests.get('https://graph.facebook.com/me/accounts?access_token='+accessToken).json()
     if pages.get('error', False):
         raise Exception('facebook')
     return pages.get('data')

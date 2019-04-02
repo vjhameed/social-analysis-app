@@ -16,6 +16,7 @@ import tweepy #API for twitter
 from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
 from .tasks import fetchUserData, fetchTwitterData
 
+
 CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
 CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
 
@@ -29,7 +30,8 @@ def MainView(request,pid):
     nopositive = comments.filter(sentiment='Positive').count()
     nonegative = comments.filter(sentiment='Negative').count()
     nonuetral = comments.filter(sentiment='Nuetral').count()
-    
+
+
     return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
 def HomePageView(request):
@@ -126,20 +128,34 @@ def UserTokenView(request):
 
     tok = json.loads(request.body.decode('utf-8'))
     token = tok['token']
-    tokenurl = "https://graph.facebook.com/v3.2/oauth/access_token?grant_type=fb_exchange_token&client_id=250604469198313&client_secret=b08af79b04bffcd4d55671cdabc61b43&fb_exchange_token={}".format(token)
-    r = requests.get(tokenurl)
-    pk = json.loads(r.content)
+    tokenurl = "https://graph.facebook.com/v3.2/oauth/access_token?grant_type=fb_exchange_token&client_id=188312881935144&client_secret=57ee2101ea55a4e93b6ce36a6cdee00b&fb_exchange_token={}".format(token)
+    r = requests.get(tokenurl).json()
+    pk = r
     newtoken = pk['access_token']
+
+    pages = requests.get('https://graph.facebook.com/me/accounts?access_token='+newtoken).json()
+    if pages.get('error', False):
+        raise Exception('facebook')
+    twits = pages.get('data')
+    Pagetoken.objects.filter(user=request.user.id).delete()
+    
+    for twit in twits:
+        newtwit = Pagetoken()
+        newtwit.user = request.user
+        newtwit.page_id = twit['id']
+        newtwit.page_access_token = twit['access_token']
+        newtwit.save()
+
     try:
         twit = Usertoken.objects.get(user=request.user.id)
         twit.user = request.user
-        twit.access_token = oauth.access_token
+        twit.access_token = newtoken
         twit.save()
 
     except Usertoken.DoesNotExist:
         newtwit = Usertoken()
         newtwit.user = request.user
-        newtwit.access_token = oauth.access_token
+        newtwit.access_token = newtoken
         newtwit.save()
     return JsonResponse('success',safe=False)
     

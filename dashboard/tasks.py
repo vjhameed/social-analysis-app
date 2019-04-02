@@ -31,20 +31,20 @@ def fetchTwitterData(userid,proid):
         obj = twit._json
         
         newcom = Comment()
-        newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', obj['text'])
+        newcom.message = obj['text'].encode('utf-8')
         newcom.source = 'twit'
         newcom.gender = getUserGender(obj['user']['name'])
         newcom.comment_id = obj['id']
         newcom.created_at = obj['created_at']                        
-        newcom.language = getLanguage(newcom.message) 
-        newcom.sentiment = getSentiment(newcom.message,newcom.language)  
+        newcom.language = getLanguage(obj['text']) 
+        newcom.sentiment = getSentiment(obj['text'],newcom.language)  
         newcom.project = pro
         newcom.user_name = obj['user']['screen_name']
         newcom.user_image = obj['user']['profile_image_url_https']
         newcom.user_followers = obj['user']['followers_count']
-        newcom.is_toxic = getToxic(newcom.message)
-        newcom.is_intent = getIntent(newcom.message)
-        newcom.is_crisis = getCrisis(newcom.message,newcom.language)
+        newcom.is_toxic = getToxic(obj['text'])
+        newcom.is_intent = getIntent(obj['text'])
+        newcom.is_crisis = getCrisis(obj['text'],newcom.language)
 
         newcom.save()
 
@@ -58,8 +58,8 @@ def fetchUserData(userid,proid):
     pages = Pagetoken.objects.filter(user_id=userid)
     for page in pages:
         tokenurl = "https://graph.facebook.com/{0}/feed?access_token={1}".format(page.page_id,page.page_access_token)
-        r = requests.get(tokenurl)
-        pk = json.loads(r.content)        
+        r = requests.get(tokenurl).json()
+        pk = r        
         for post in pk['data']:
             date = post['created_time'].split('T')
             d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
@@ -68,29 +68,30 @@ def fetchUserData(userid,proid):
             # if 1 ==1 :
             post_id = post['id']            
             tokenurl = "https://graph.facebook.com/{0}/comments?access_token={1}&fields=from,message,attachment,created_time".format(post['id'],page.page_access_token)
-            r = requests.get(tokenurl)
-            comments = json.loads(r.content)
+            r = requests.get(tokenurl).json()
+            comments = r
             for com in comments['data']:
                 date = com['created_time'].split('T')
                 d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
                 d2 = datetime.datetime.now()
                 delta = d2 - d1
-
+                
                 newcom = Comment()
-                newcom.message = re.sub('[^a-zA-Z0-9 \n\.]', '', com['message'])
+                msg = com['message'].encode('utf-8')
+                newcom.message = msg
                 newcom.source = 'fb'
                 newcom.gender = 'male'
                 newcom.comment_id = com['id']
                 newcom.created_at = com['created_time']                        
-                newcom.language = getLanguage(newcom.message)  
-                newcom.sentiment = getSentiment(newcom.message ,newcom.language)  
+                newcom.language = getLanguage(com['message'])  
+                newcom.sentiment = getSentiment(com['message'] ,newcom.language)  
                 newcom.project = pro
                 newcom.user_name = 'name'
                 newcom.user_image = 'img'
                 newcom.user_followers = '123'
-                newcom.is_toxic = getToxic(newcom.message)
-                newcom.is_intent = getIntent(newcom.message)
-                newcom.is_crisis = getCrisis(newcom.message,newcom.language)
+                newcom.is_toxic = getToxic(com['message'])
+                newcom.is_intent = getIntent(com['message'])
+                newcom.is_crisis = getCrisis(com['message'],newcom.language)
 
                 newcom.save()
                            
