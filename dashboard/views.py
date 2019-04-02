@@ -130,6 +130,17 @@ def UserTokenView(request):
     r = requests.get(tokenurl)
     pk = json.loads(r.content)
     newtoken = pk['access_token']
+    try:
+        twit = Usertoken.objects.get(user=request.user.id)
+        twit.user = request.user
+        twit.access_token = oauth.access_token
+        twit.save()
+
+    except Usertoken.DoesNotExist:
+        newtwit = Usertoken()
+        newtwit.user = request.user
+        newtwit.access_token = oauth.access_token
+        newtwit.save()
     return JsonResponse('success',safe=False)
     
 def sentimentAnalysis(request,pid):
