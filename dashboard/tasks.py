@@ -30,23 +30,26 @@ def fetchTwitterData(userid,proid):
     for twit in replies:
         obj = twit._json
         
-        newcom = Comment()
-        newcom.message = obj['text'].encode('utf-8')
-        newcom.source = 'twit'
-        newcom.gender = getUserGender(obj['user']['name'])
-        newcom.comment_id = obj['id']
-        newcom.created_at = obj['created_at']                        
-        newcom.language = getLanguage(obj['text']) 
-        newcom.sentiment = getSentiment(obj['text'],newcom.language)  
-        newcom.project = pro
-        newcom.user_name = obj['user']['screen_name']
-        newcom.user_image = obj['user']['profile_image_url_https']
-        newcom.user_followers = obj['user']['followers_count']
-        newcom.is_toxic = getToxic(obj['text'])
-        newcom.is_intent = getIntent(obj['text'])
-        newcom.is_crisis = getCrisis(obj['text'],newcom.language)
+        if not obj['text']:
+            return
+        else:
+            newcom = Comment()
+            newcom.message = obj['text'].encode('utf-8')
+            newcom.source = 'twit'
+            newcom.gender = getUserGender(obj['user']['name'])
+            newcom.comment_id = obj['id']
+            newcom.created_at = obj['created_at']                        
+            newcom.language = 'en' 
+            newcom.sentiment = getSentiment(obj['text'],newcom.language)  
+            newcom.project = pro
+            newcom.user_name = obj['user']['screen_name'].encode('utf-8')
+            newcom.user_image = obj['user']['profile_image_url_https']
+            newcom.user_followers = obj['user']['followers_count']
+            newcom.is_toxic = getToxic(obj['text'])
+            newcom.is_intent = getIntent(obj['text'])
+            newcom.is_crisis = getCrisis(obj['text'],newcom.language)
 
-        newcom.save()
+            newcom.save()
 
     return True
     # print(public_tweets)
@@ -71,30 +74,33 @@ def fetchUserData(userid,proid):
             r = requests.get(tokenurl).json()
             comments = r
             for com in comments['data']:
-                date = com['created_time'].split('T')
-                d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
-                d2 = datetime.datetime.now()
-                delta = d2 - d1
-                
-                newcom = Comment()
-                msg = com['message'].encode('utf-8')
-                newcom.message = msg
-                newcom.source = 'fb'
-                newcom.gender = 'male'
-                newcom.comment_id = com['id']
-                newcom.created_at = com['created_time']                        
-                newcom.language = getLanguage(com['message'])  
-                newcom.sentiment = getSentiment(com['message'] ,newcom.language)  
-                newcom.project = pro
-                newcom.user_name = 'name'
-                newcom.user_image = 'img'
-                newcom.user_followers = '123'
-                newcom.is_toxic = getToxic(com['message'])
-                newcom.is_intent = getIntent(com['message'])
-                newcom.is_crisis = getCrisis(com['message'],newcom.language)
+                if not com['message']:
+                    pass
+                else:
+                    date = com['created_time'].split('T')
+                    d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
+                    d2 = datetime.datetime.now()
+                    delta = d2 - d1
+                    print(com)
+                    newcom = Comment()
+                    msg = com['message'].encode('utf-8')
+                    newcom.message = msg
+                    newcom.source = 'fb'
+                    newcom.comment_id = com['id']
+                    newcom.created_at = com['created_time']                        
+                    newcom.language = 'en'  
+                    newcom.sentiment = getSentiment(com['message'] ,newcom.language)  
+                    newcom.project = pro
+                    newcom.user_name = com['from']['name'].encode('utf-8')
+                    newcom.user_image = 'img'
+                    newcom.user_followers = '123'
+                    newcom.gender = getUserGender(com['from']['name'])
+                    newcom.is_toxic = getToxic(com['message'])
+                    newcom.is_intent = getIntent(com['message'])
+                    newcom.is_crisis = getCrisis(com['message'],newcom.language)
 
-                newcom.save()
-                           
+                    newcom.save()
+                          
     return 'fetched all data for a page'
 
 @shared_task
