@@ -36,8 +36,7 @@ def MainView(request,pid):
 
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
-   
-    return render(request,'core/index.html',{"projects":projects,'test':testing})
+    return render(request,'core/index.html',{"projects":projects})
 
 def SentimentView(request,pid):
     pro = Project.objects.get(id=pid)

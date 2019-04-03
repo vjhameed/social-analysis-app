@@ -35,7 +35,6 @@
                     <canvas id="genderanalysis" height="240"></canvas>
                   </div>
                 </div>
-
                 <div class="col-md-12 comment-container">
                   {% for comment in comments %}
                   <div
@@ -78,7 +77,7 @@
                               {%endif%} {%if comment.source == 'twit'%}
                               <i class="fa fa-twitter"></i> {%endif%}
 
-                              {{ comment.user_name.decode }}
+                              {{ comment.get_user_name }}
                             </a>
                           </div>
                           <p class="followers-count">
@@ -149,7 +148,7 @@
                           class="mention_text w-75"
                           id="mention_text_34364582556"
                         >
-                          {{ comment.message.decode }}
+                          {{ comment._message }}
                         </p>
                         <a
                           id="groupButtonResult_34364582556"

@@ -34,7 +34,7 @@ def fetchTwitterData(userid,proid):
             return
         else:
             newcom = Comment()
-            newcom.message = obj['text'].encode('utf-8')
+            newcom._message = obj['text'].encode('utf-8')
             newcom.source = 'twit'
             newcom.gender = getUserGender(obj['user']['name'])
             newcom.comment_id = obj['id']
@@ -42,7 +42,7 @@ def fetchTwitterData(userid,proid):
             newcom.language = 'en' 
             newcom.sentiment = getSentiment(obj['text'],newcom.language)  
             newcom.project = pro
-            newcom.user_name = obj['user']['screen_name'].encode('utf-8')
+            newcom._user_name = obj['user']['screen_name'].encode('utf-8')
             newcom.user_image = obj['user']['profile_image_url_https']
             newcom.user_followers = obj['user']['followers_count']
             newcom.is_toxic = getToxic(obj['text'])
@@ -84,14 +84,14 @@ def fetchUserData(userid,proid):
                     print(com)
                     newcom = Comment()
                     msg = com['message'].encode('utf-8')
-                    newcom.message = msg
+                    newcom._message = msg
                     newcom.source = 'fb'
                     newcom.comment_id = com['id']
                     newcom.created_at = com['created_time']                        
                     newcom.language = 'en'  
                     newcom.sentiment = getSentiment(com['message'] ,newcom.language)  
                     newcom.project = pro
-                    newcom.user_name = com['from']['name'].encode('utf-8')
+                    newcom._user_name = com['from']['name'].encode('utf-8')
                     newcom.user_image = 'img'
                     newcom.user_followers = '123'
                     newcom.gender = getUserGender(com['from']['name'])
