@@ -292,7 +292,7 @@
 
             $(newcom)
               .find(".com-user-name")
-              .text(el.fields.user_name);
+              .text(decodeURIComponent(escape(el.fields.user_name)));
             $(newcom)
               .find(".com-user-follow")
               .text(el.fields.user_followers);
@@ -302,7 +302,7 @@
               .text(el.fields.created_at);
             $(newcom)
               .find(".mention_text")
-              .text(el.fields.message);
+              .text(decodeURIComponent(escape(el.fields.message)));
             $(newcom).appendTo(".comment-container");
 
             if (el.fields.source == 'fb')
