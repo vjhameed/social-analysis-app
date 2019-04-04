@@ -260,6 +260,7 @@
                   social: filterdata.social,
                   date: filterdata.date,
                   pro_id: project_id,
+                  daterange: filterdata.daterange,
                   sent: filterdata.sent
               })
               .then(resp => {
@@ -292,7 +293,7 @@
 
                         $(newcom)
                           .find(".com-user-name")
-                          .text(decodeURIComponent(escape(el.fields.user_name)));
+                          .text(el.fields.user_name);
                         $(newcom)
                           .find(".com-user-follow")
                           .text(el.fields.user_followers);
@@ -302,7 +303,8 @@
                           .text(el.fields.created_at);
                         $(newcom)
                           .find(".mention_text")
-                          .text(decodeURIComponent(escape(el.fields.message)));
+                          .text(el.fields.message);
+
                           $(newcom).appendTo(".comment-container");
 
                            if(el.fields.source == 'fb')

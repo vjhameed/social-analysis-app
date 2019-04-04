@@ -4,14 +4,8 @@ from accounts.models import User
 # Create your models here
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    _title = models.CharField(max_length=255,db_column='title')    
+    title = models.CharField(max_length=255,db_column='title')    
     created_at = models.DateTimeField(auto_now_add=True)
-
-    def get_title(self):
-            return self._title.encode('itf')
-
-    def set_title(self, input):
-        self._title = input
 
 
 class Usertoken(models.Model):
@@ -31,22 +25,15 @@ class Pagetoken(models.Model):
 class Comment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     source = models.CharField(max_length=255)
-    _message = models.TextField()
+    message = models.TextField()
     comment_id = models.CharField(max_length=255)
     gender = models.CharField(max_length=255)
     language = models.CharField(max_length=255)
     sentiment = models.CharField(max_length=255)
     created_at = models.CharField(max_length=255)
-    _user_name =  models.CharField(max_length=255)
+    user_name =  models.CharField(max_length=255)
     user_image =  models.CharField(max_length=255)
     user_followers =  models.CharField(max_length=255)
     is_toxic =  models.CharField(max_length=255)
     is_intent =  models.CharField(max_length=255)
     is_crisis =  models.CharField(max_length=255)
-
-
-    def get_user_name(self):
-            return self._user_name.decode('itf')
-
-    def get_message(self):
-            return self._message.decode('itf')

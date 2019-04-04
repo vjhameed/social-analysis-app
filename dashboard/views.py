@@ -15,7 +15,8 @@ import time
 import tweepy #API for twitter
 from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
 from .tasks import fetchUserData, fetchTwitterData
-
+from django.utils.encoding import smart_bytes, smart_text, force_text
+import sys
 
 CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
 CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
@@ -30,12 +31,13 @@ def MainView(request,pid):
     nopositive = comments.filter(sentiment='Positive').count()
     nonegative = comments.filter(sentiment='Negative').count()
     nonuetral = comments.filter(sentiment='Nuetral').count()
-
+    print(to_datetime('Fri Mar 29 18:14:07 +0000 2019'))
 
     return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
+
     return render(request,'core/index.html',{"projects":projects})
 
 def SentimentView(request,pid):
@@ -167,6 +169,7 @@ def FilterView(request):
     params = json.loads(request.body)
     com = {}
     project = Project.objects.get(id=params['pro_id'])    
+
     comments = Comment.objects.filter(project_id=params['pro_id'])
     if len(params['social']) > 0:
         comments = comments.filter(source__in=params['social'])
@@ -179,14 +182,24 @@ def FilterView(request):
     if params['sent'] != '':
         comments = comments.filter(sentiment=params['sent'])
 
+    if params['daterange'] != '':
+        strarr = params['daterange'].split('-')
+        tempcoms = list()
+        for com in comments:
+            comdate = datetime.strptime(com.created_at,'%Y-%m-%d %H:%M:%S')
+            startdate = datetime.strptime(strarr[0].strip(),'%m/%d/%Y')
+            enddate = datetime.strptime(strarr[1].strip(),'%m/%d/%Y')
+            if comdate > startdate and comdate < enddate:
+                tempcoms.append(com)
+        comments = tempcoms
+
     if len(params['date']) > 0:
         tempcoms = list()
         for com in comments:
-            d1 = to_datetime(com.created_at)
+            d1 = to_datetime(com.created_at,'%Y-%m-%d %H:%M:%S')
             d2 = datetime.now()
             delta = d2 - d1
             for date in params['date']:
-                print(delta.days)
                 if delta.days <= int(date):
                     tempcoms.append(com)
         comments = tempcoms
@@ -237,5 +250,4 @@ def twitterAuth(request):
 
     # store the request token
     request.session['request_token'] = oauth.request_token
-    print(request.session['request_token'])
     return response

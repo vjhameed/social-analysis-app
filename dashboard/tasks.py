@@ -10,11 +10,11 @@ import json
 import datetime
 import tweepy
 from dashboard.utils import get_api, getLanguage, getSentiment, getUserGender, getIntent,getToxic, getCrisis
-import re
+import sys
+from email.utils import parsedate_tz
 
 @shared_task
 def fetchTwitterData(userid,proid):
-    #read tweet from home_timeline
     twit = Usertwittertoken.objects.get(user_id=userid)
     api = get_api(twit.access_key,twit.access_secret) #Oauth user
     public_tweets = api.user_timeline() #get homepage tweets
@@ -34,15 +34,15 @@ def fetchTwitterData(userid,proid):
             return
         else:
             newcom = Comment()
-            newcom._message = obj['text'].encode('utf-8')
+            newcom.message = obj['text']
             newcom.source = 'twit'
             newcom.gender = getUserGender(obj['user']['name'])
             newcom.comment_id = obj['id']
-            newcom.created_at = obj['created_at']                        
-            newcom.language = 'en' 
+            newcom.created_at = obj['created_at']                                
+            newcom.language = obj['lang']             
             newcom.sentiment = getSentiment(obj['text'],newcom.language)  
             newcom.project = pro
-            newcom._user_name = obj['user']['screen_name'].encode('utf-8')
+            newcom.user_name = obj['user']['screen_name']
             newcom.user_image = obj['user']['profile_image_url_https']
             newcom.user_followers = obj['user']['followers_count']
             newcom.is_toxic = getToxic(obj['text'])
@@ -52,8 +52,6 @@ def fetchTwitterData(userid,proid):
             newcom.save()
 
     return True
-    # print(public_tweets)
-
 
 @shared_task
 def fetchUserData(userid,proid):
@@ -81,20 +79,20 @@ def fetchUserData(userid,proid):
                     d1 = datetime.datetime.strptime(date[0],'%Y-%M-%d')
                     d2 = datetime.datetime.now()
                     delta = d2 - d1
-                    print(com)
                     newcom = Comment()
-                    msg = com['message'].encode('utf-8')
-                    newcom._message = msg
+                    newcom.message = com['message']
                     newcom.source = 'fb'
                     newcom.comment_id = com['id']
-                    newcom.created_at = com['created_time']                        
+                    newcom.created_at = d1                        
                     newcom.language = 'en'  
-                    newcom.sentiment = getSentiment(com['message'] ,newcom.language)  
-                    newcom.project = pro
-                    newcom._user_name = com['from']['name'].encode('utf-8')
+                    newcom.sentiment = getSentiment(com['message'] ,newcom.language)
+                    newcom.user_name com['from']['name']  
+                    newcom.project = pro                    
+                    newcom.user_name = 'not'
                     newcom.user_image = 'img'
                     newcom.user_followers = '123'
                     newcom.gender = getUserGender(com['from']['name'])
+                    newcom.gender = getUserGender('hameed')
                     newcom.is_toxic = getToxic(com['message'])
                     newcom.is_intent = getIntent(com['message'])
                     newcom.is_crisis = getCrisis(com['message'],newcom.language)

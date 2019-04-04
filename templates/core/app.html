@@ -114,8 +114,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js'></script>
     <script>
-      $('input[name="datefrom"]').daterangepicker();
-      $('input[name="dateto"]').daterangepicker();
+      $('input[name="datefrom"]').daterangepicker({});
+      // $('input[name="dateto"]').daterangepicker();
       axios.defaults.xsrfCookieName = 'csrftoken'
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"  
 
@@ -135,8 +135,15 @@
               gender: [],
               social: [],
               date: [],
-              sent: ''
+              sent: '',
+              daterange:''
             };
+
+            $('.date-range-filter').change(function(){
+              filterdata.daterange = $(this).val()
+              console.log(filterdata)
+              makeFilterRequest()
+            })
 
             $("input[type=range]").change(function () {
               console.log($(this).val())
