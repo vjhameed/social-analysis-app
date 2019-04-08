@@ -17,6 +17,9 @@ from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwitter
 from .tasks import fetchUserData, fetchTwitterData
 from django.utils.encoding import smart_bytes, smart_text, force_text
 import sys
+import facebooksdk as facebook
+
+graph = facebook.GraphAPI(version="2.12")
 
 CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
 CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
@@ -38,7 +41,13 @@ def MainView(request,pid):
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
 
-    return render(request,'core/index.html',{"projects":projects})
+    app_id = "1204217713050064"
+    canvas_url = "http://localhost:8000/dashboard/facebook_auth_handler/"
+    perms = ["instagram_basic", "instagram_manage_comments"]
+    fb_login_url = graph.get_auth_url(app_id, canvas_url, perms)
+    print(fb_login_url)
+
+    return render(request, 'core/index.html', {"projects": projects, 'fb_login_url': fb_login_url})
 
 def SentimentView(request,pid):
     pro = Project.objects.get(id=pid)
@@ -251,3 +260,7 @@ def twitterAuth(request):
     # store the request token
     request.session['request_token'] = oauth.request_token
     return response
+
+
+def facebook_auth_handler(request):
+    access_token = graph.get_access_token_from_code(request.get(''))
