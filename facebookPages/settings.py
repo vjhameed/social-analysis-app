@@ -190,3 +190,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+FACEBOOK_CONFIG = {
+    'app_id': '1204217713050064',
+    'app_secret': 'ef7e6acb9ef467dd10d739d51c9e6ab3',
+    'redirect_uri': 'http://localhost:8000/dashboard/facebook_auth_handler/'
+}

@@ -17,7 +17,9 @@ from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwitter
 from .tasks import fetchUserData, fetchTwitterData
 from django.utils.encoding import smart_bytes, smart_text, force_text
 import sys
+from django.conf import settings
 import facebooksdk as facebook
+import traceback
 
 graph = facebook.GraphAPI(version="2.12")
 
@@ -41,11 +43,15 @@ def MainView(request,pid):
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
 
-    app_id = "1204217713050064"
-    canvas_url = "http://localhost:8000/dashboard/facebook_auth_handler/"
-    perms = ["instagram_basic", "instagram_manage_comments"]
-    fb_login_url = graph.get_auth_url(app_id, canvas_url, perms)
-    print(fb_login_url)
+    fb_login_url = None
+
+    if 'fb_access_token' not in request.session or not request.session['fb_access_token']:
+        perms = ["instagram_basic", "instagram_manage_comments"]
+        fb_login_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
+        print(fb_login_url)
+    else:
+        graph.access_token = request.session['fb_access_token']
+        accounts = graph.request('/me/accounts')
 
     return render(request, 'core/index.html', {"projects": projects, 'fb_login_url': fb_login_url})
 
@@ -263,4 +269,19 @@ def twitterAuth(request):
 
 
 def facebook_auth_handler(request):
-    access_token = graph.get_access_token_from_code(request.get(''))
+    code = request.GET.get("code")
+    if not code:
+        return redirect('/')
+    try:
+        access_token = graph.get_access_token_from_code(code, settings.FACEBOOK_CONFIG['redirect_uri'],
+                                                        settings.FACEBOOK_CONFIG['app_id'],
+                                                        settings.FACEBOOK_CONFIG['app_secret'])
+        if not access_token:
+            return redirect('/')
+        print('access_token ', access_token)
+        graph.access_token = access_token['access_token']
+        request.session['fb_access_token'] = access_token['access_token']
+    except Exception as e:
+        print(e)
+        traceback.print_exc()
+    return redirect('/')
