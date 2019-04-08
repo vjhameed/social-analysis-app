@@ -14,15 +14,13 @@ class UserManager(BaseUserManager):
         # return self.create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
         # **extra_fields)
 
+    def create_superuser(self, email, password=None, **extra_fields):
+        return self.create_user(email, password, is_staff=True, is_superuser=True, is_active=True,
+                                **extra_fields)
 
-def create_superuser(self, email, password=None, **extra_fields):
-    return self.create_user(email, password, is_staff=True, is_superuser=True, is_active=True,
-                            **extra_fields)
-
-
-def create_business_user(self, email, password=None, **extra_fields):
-    return self.create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
-                            **extra_fields)
+    def create_business_user(self, email, password=None, **extra_fields):
+        return self.create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
+                                **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
