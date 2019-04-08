@@ -5,24 +5,28 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 
 
-
 class UserManager(BaseUserManager):
-
     def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
-                                 **extra_fields)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+        # return self.create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
+        # **extra_fields)
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, is_staff=True, is_superuser=True, is_active=True,
-                                 **extra_fields)
 
-    def create_business_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
-                                 **extra_fields)
+def create_superuser(self, email, password=None, **extra_fields):
+    return self.create_user(email, password, is_staff=True, is_superuser=True, is_active=True,
+                            **extra_fields)
+
+
+def create_business_user(self, email, password=None, **extra_fields):
+    return self.create_user(email, password, is_staff=False, is_superuser=False, is_active=True,
+                            **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(_('First name'), max_length=255, blank=True, null=True,)
+    first_name = models.CharField(_('First name'), max_length=255, blank=True, null=True, )
     last_name = models.CharField(_('Last name'), max_length=255, blank=True, null=True)
     email = models.EmailField(max_length=255, unique=True, db_index=True, verbose_name=_('email'))
 
@@ -58,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         if self.last_name:
             user_full_name = user_full_name + ' ' + self.last_name
         return user_full_name.capitalize()
+
 
     @property
     def profile_image(self):
