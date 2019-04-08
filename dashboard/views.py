@@ -48,7 +48,6 @@ def HomePageView(request):
     if 'fb_access_token' not in request.session or not request.session['fb_access_token']:
         perms = ["instagram_basic", "instagram_manage_comments"]
         insta_connect_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
-        print(insta_connect_url)
     else:
         graph.access_token = request.session['fb_access_token']
         accounts = graph.request('/me/accounts')
@@ -278,7 +277,6 @@ def facebook_auth_handler(request):
                                                         settings.FACEBOOK_CONFIG['app_secret'])
         if not access_token:
             return redirect('/')
-        print('access_token ', access_token)
         graph.access_token = access_token['access_token']
         request.session['fb_access_token'] = access_token['access_token']
     except Exception as e:
