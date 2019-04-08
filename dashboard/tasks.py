@@ -86,7 +86,11 @@ def fetchUserData(userid,proid):
                     newcom.created_at = d1                        
                     newcom.language = 'en'  
                     newcom.sentiment = getSentiment(com['message'] ,newcom.language)
+<<<<<<< HEAD
                     newcom.user_name = com['from']['name']  
+=======
+                    newcom.user_name = com['from']['name']
+>>>>>>> f3107035534172c1b9a395c39c612fb11d6d66be
                     newcom.project = pro                    
                     # newcom.user_name = 'not'
                     newcom.user_image = 'img'
