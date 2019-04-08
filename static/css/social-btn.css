@@ -175,6 +175,45 @@
   transition: all 0.3s ease;
 }
 
+#instagram-connect {
+  background: rgb(255, 255, 255) url("/static/images/instagram.svg") no-repeat scroll 5px 0px / 30px 50px padding-box border-box;
+  border: 1px solid #E33E5C;
+}
+
+#instagram-connect:hover {
+  border-color: #E33E5C;
+  background: #E33E5C url("/static/images/instagram-white.svg") no-repeat scroll 5px 0px / 30px 50px padding-box border-box;
+  -webkit-transition: all 0.8s ease-out;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease-out;
+}
+
+#instagram-connect span {
+  box-sizing: border-box;
+  color: #E33E5C;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  border: 0px none rgb(255, 255, 255);
+  outline: rgb(255, 255, 255) none 0px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#instagram-connect:hover span {
+  color: #fff;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
 #linkedin-connect {
   background: rgb(255, 255, 255)
     url("https://raw.githubusercontent.com/eswarasai/social-login/master/img/linkedin.svg?sanitize=true")
