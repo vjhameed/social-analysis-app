@@ -114,17 +114,17 @@
                 <div class="row">
                   <p>
                     <a href="#" class="social-button" id="facebook-connect">
-                      <span>Connect with Facebook</span></a
-                    >
+                      <span>Connect with Facebook</span></a>
                     <a
                       href="/dashboard/twitter-auth"
                       class="social-button"
                       id="twitter-connect"
                     >
-                      <span>Connect with Twitter</span></a
-                    >
-                      <a href="#" class="social-button" id="instagram-connect">
+                      <span>Connect with Twitter</span></a>
+                      {% if insta_connect_url %}
+                      <a href="{{ insta_connect_url }}" class="social-button" id="instagram-connect">
                           <span>Connect with Instagram</span></a>
+                      {% endif %}
                   </p>
                   <table style="width:90%" class="mx-auto table p-3 my-4">
                     <thead>

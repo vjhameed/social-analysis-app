@@ -20,6 +20,7 @@ urlpatterns = [
     path('usertoken', views.UserTokenView, name='topic'),
     path('twitter-auth', views.twitterAuth, name='twitter_auth'),
     re_path(r'^callback/$', views.callback, name='auth_return'), 		#after Oauth to Twitter it will redirect response to views.py -> callable()
+    re_path(r'^insta_callback/$', views.insta_callback, name='insta_auth_return'), 		#after Oauth to Instagram it will redirect response to views.py -> callable()
     # path('page', PageView.as_view(), name='page'),    
     # path('comment', PageView.as_view(), name='comment'),
     # path('comment', CommentView.as_view(), name='comment'),

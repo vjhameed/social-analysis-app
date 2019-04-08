@@ -190,3 +190,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+INSTAGRAM_CONFIG = {
+    'client_id': '5f84fd00b227402e9bb99822f01a55f0',
+    'client_secret': '1f03026f6d7943e186440bed0f54f951',
+    'redirect_uri': 'http://localhost:8000/dashboard/insta_callback',
+}

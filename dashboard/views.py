@@ -13,10 +13,12 @@ import json
 import requests
 import time
 import tweepy #API for twitter
+from django.conf import settings
 from dashboard.models import Project, Usertoken, Pagetoken, Comment, Usertwittertoken
 from .tasks import fetchUserData, fetchTwitterData
 from django.utils.encoding import smart_bytes, smart_text, force_text
 import sys
+import traceback
 
 CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
 CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
@@ -35,10 +37,20 @@ def MainView(request,pid):
 
     return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
 
+
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
 
-    return render(request,'core/index.html',{"projects":projects})
+    if 'insta_access_token' not in request.session or not request.session['insta_access_token']:
+        url = 'https://api.instagram.com/oauth/authorize/?client_id=%s&redirect_uri=%s&response_type=code' % (settings.INSTAGRAM_CONFIG['client_id'], settings.INSTAGRAM_CONFIG['redirect_uri'])
+    else:
+        url = None
+
+    url = 'https://api.instagram.com/oauth/authorize/?client_id=%s&redirect_uri=%s&response_type=code' % (settings.INSTAGRAM_CONFIG['client_id'], settings.INSTAGRAM_CONFIG['redirect_uri'])
+
+
+    return render(request,'core/index.html',{"projects":projects, 'insta_connect_url': url})
+
 
 def SentimentView(request,pid):
     pro = Project.objects.get(id=pid)
@@ -251,3 +263,49 @@ def twitterAuth(request):
     # store the request token
     request.session['request_token'] = oauth.request_token
     return response
+
+
+def insta_callback(request):
+    code = request.GET.get("code")
+    if not code:
+        return 'Missing code'
+    try:
+        get_access_token_url = 'https://api.instagram.com/oauth/access_token'
+        params = dict(
+            client_id=settings.INSTAGRAM_CONFIG['client_id'],
+            client_secret=settings.INSTAGRAM_CONFIG['client_secret'],
+            grant_type='authorization_code',
+            redirect_uri=settings.INSTAGRAM_CONFIG['redirect_uri'],
+            code=code
+        )
+        resp = requests.post(url=get_access_token_url, data=params)
+        data = resp.json()
+        access_token = data['access_token']
+        if not access_token:
+            return redirect('/')
+        request.session['insta_access_token'] = access_token
+        request.session['instagram'] = {}
+        request.session['instagram']['user_id'] = data['user']['id']
+        request.session['instagram']['user_id'] = data['user']['id']
+        request.session['instagram']['username'] = data['user']['username']
+        request.session['instagram']['profile_picture'] = data['user']['profile_picture']
+        request.session['instagram']['full_name'] = data['user']['full_name']
+
+        get_recent_media_url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=%s&count=50' % (request.session['insta_access_token'])
+        recent_media = requests.get(url=get_recent_media_url)
+
+        recent_media_dict = recent_media.json()
+
+        for index, media in enumerate(recent_media_dict['data']):
+            if not media['comments']['count'] == 0:
+                get_media_comments_url = 'https://api.instagram.com/v1/media/%s/comments?access_token=%s' % (media['id'], request.session['insta_access_token'])
+                media_comments = requests.get(url=get_media_comments_url)
+                print(media_comments.json())
+                recent_media_dict['data'][index]['comments']['data'] = media_comments.json()['data']
+
+        with open('tmp.json', 'w') as media_file:
+            media_file.write(json.dumps(recent_media_dict))
+    except Exception as e:
+        print(e)
+        traceback.print_exc()
+    return redirect('/')
