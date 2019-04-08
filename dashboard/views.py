@@ -43,17 +43,17 @@ def MainView(request,pid):
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
 
-    fb_login_url = None
+    insta_connect_url = None
 
     if 'fb_access_token' not in request.session or not request.session['fb_access_token']:
         perms = ["instagram_basic", "instagram_manage_comments"]
-        fb_login_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
-        print(fb_login_url)
+        insta_connect_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
+        print(insta_connect_url)
     else:
         graph.access_token = request.session['fb_access_token']
         accounts = graph.request('/me/accounts')
 
-    return render(request, 'core/index.html', {"projects": projects, 'fb_login_url': fb_login_url})
+    return render(request, 'core/index.html', {"projects": projects, 'insta_connect_url': insta_connect_url})
 
 def SentimentView(request,pid):
     pro = Project.objects.get(id=pid)
