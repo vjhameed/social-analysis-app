@@ -1,0 +1,439 @@
+{% extends 'core/app.html' %} {% load static %} {% block 'content' %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/page6.css' %}" />
+
+<div class="sa-content ">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="d-flex w-100 home-header">
+        <div>
+          <h1 class="page-header">Project 1</h1>
+          <span class="text text-danger text-bold subheading-text">
+            3250 posts in the last 12 days
+          </span>
+          <h3 class="m-0 text-muted">Facebook + twitter 29-31</h3>
+        </div>
+      </div>
+
+      <div class="d-flex w-100">
+        <section id="widget-grid" class="w-100">
+          <div
+            class="jarviswidget jarviswidget-sortable"
+            id="wid-id-0"
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            role="widget"
+          >
+            <div role="content" class="pt-0">
+              <!-- widget edit box -->
+              <!-- end widget edit box -->
+
+              <!-- widget content -->
+              <div class="row">
+                <div class="col-md-12 pr-2 ">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="card card-2">
+                        <div class="">
+                          <div class="widget-body  p-3">
+                            <h6 class="sec-heads">Classes Frequency</h6>
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th style='width:40px;border:none'>#</th>
+                                    <th style='border:none'> <i class="fa fa-building"></i> Type</th>
+                                    <th style='width:130px;border:none'> <i class="fa fa-plus"></i> Count</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="table-success">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-danger">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-warning">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-info">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-success">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-danger">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-warning">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+                                  <tr class="table-info">
+                                    <td>1</td>
+                                    <td>TB - Monthly</td>
+                                    <td>100</td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card card-2">
+                        <div class="">
+                          <div class="widget-body  p-3">
+                            <h6 class="sec-heads">Classes Breakdown</h6>
+                            <div class="chart-container">
+                              <canvas id="doughnutChart" height="300"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="col-md-12">
+                        <div class="card card-2">
+                          <div class="widget-body  p-3">
+                            <h6 class="sec-heads">Classification Frequency</h6>
+                            <canvas id="linechartcanvas" class="chart" />
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                
+
+                </div>
+
+                  <div class="col-md-12">
+                    <div class="card card-2 p-3 mb-2">
+                      <h6 class="sec-heads">Search Comments Per Class</h6>
+                      <div class="mt-2 row d-flex px-3 justify-content-center" style="">                        
+                        <div class="input-group w-100">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">Which is your favorite ?</div>
+                          </div>
+                          <select class="form-control">
+                            <option value="">Something</option>
+                          </select>
+                          <div class="input-group-append">
+                            <button class="btn sa-btn-primary" type="button">
+                              <i class="fa fa-search"></i> Search
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">                                                        
+                  <div class="widget-body card card-2 p-0 mt-2" style='position:relative'>
+                  <section class="mention mention-box mention-site-4" id="mention_result_34364582556">
+                  <div class="header">
+                  <div class="avatar" id="mention_avatar_34364582556">
+                  <a onclick="groupsTitle(34364582556,4)" target="_blank"
+                    href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
+                    <img
+                      src="https://yt3.ggpht.com/a-/AAuE7mCOOTSrYLJYDswtTHGmiJSXEjL9UP2TRmkLNA=s88-mo-c-c0xffffffff-rj-k-no"
+                      onerror="imgError(34364582556)">
+                    <span class="play-button">
+                      <i class="fa fa-youtube-play"></i>
+                    </span>
+                  </a>
+                  </div>
+                  <div class="author">
+                  <div class="mention-title-box">
+                    <a id="mention_title_34364582556" onclick="setResultAsVisited(34364582556,4)" target="_blank"
+                      href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
+                      <i class="fa fa-youtube"></i>KSIOlajidebtHD
+                    </a>
+                  </div>
+                  <p class="followers-count">
+                    <span class="followers-count-no">5.9m</span> Followers
+                  </p>
+                  <div class="visited-box" id="visited-box-34364582556">
+
+                  </div>
+                  <span class="mention-source"><i class="fa fa-calendar"></i>
+                    2019-02-01 11:49
+                  </span>
+                  </div>
+                  <ul class="mention-information" id="mention-information-34364582556">
+                  <li>
+                    <a onclick="setResultAsVisited(34364582556,4)" target="_blank"
+                      href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
+                      class="mention-source mention_source"
+                      hidden_source_url="http://www.youtube.com/channel/UCGmnsW623G1r-Chmo5RB4Yw"><i
+                        class="fa fa-share-alt"></i> youtube.com
+                    </a>
+                  </li>
+                  <li class="score">
+                    Influencer Score: <strong>10/10</strong>
+                    <div class="influence-score">
+                      <span style="width:100%"></span>
+                    </div>
+                  </li>
+                  <li id="li-mention-sentiment-34364582556">
+                    <select id="mention-sentiment-34364582556" name="mention-sentiment-34364582556" class="sentiment"
+                      onchange="javascript:setSentimentInDB(34364582556, this.value)">
+                      <option selected="" value="0">Neutral</option>
+                      <option value="1">Positive</option>
+                      <option value="2">Negative</option>
+                    </select>
+                  </li>
+                  <li class="social-stats">
+                    <p class="likes"><i class="fa fa-thumbs-o-up"></i>
+                      122422</p>
+                    <p class="likes"><i class="fa fa-thumbs-o-down"></i>
+                      2361</p>
+                    <p class="comments"><i class="fa fa-comment-o"></i> 8451
+                    </p>
+                  </li>
+                  </ul>
+                  </div>
+                  <div class="description">
+                  <p class="mention_text" id="mention_text_34364582556"> Twitter:
+                  https://twitter.com/KSIOlajidebt Instagram:
+                  https://www.instagram.com/ksi <b>Facebook</b>:
+                  https://www.<b>facebook</b>.com/KSIOlajidebt/
+                  Footasylum: ...
+                  </p>
+                  <a id="groupButtonResult_34364582556" href=",[-666]);"></a>
+                  <li class="added-groups groupsListResult" id="groupsListResult_34364582556" style="display:none;">
+                  </li>
+                  </div>
+                  </section>
+                  </div>
+
+                  <div class="widget-body card card-2 p-0 mt-2" style='position:relative'>
+                  <section class="mention mention-box mention-site-4" id="mention_result_34364582556">
+                  <div class="header">
+                  <div class="avatar" id="mention_avatar_34364582556">
+                  <a onclick="groupsTitle(34364582556,4)" target="_blank"
+                    href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
+                    <img
+                      src="https://yt3.ggpht.com/a-/AAuE7mCOOTSrYLJYDswtTHGmiJSXEjL9UP2TRmkLNA=s88-mo-c-c0xffffffff-rj-k-no"
+                      onerror="imgError(34364582556)">
+                    <span class="play-button">
+                      <i class="fa fa-youtube-play"></i>
+                    </span>
+                  </a>
+                  </div>
+                  <div class="author">
+                  <div class="mention-title-box">
+                    <a id="mention_title_34364582556" onclick="setResultAsVisited(34364582556,4)" target="_blank"
+                      href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5">
+                      <i class="fa fa-youtube"></i>KSIOlajidebtHD
+                    </a>
+                  </div>
+                  <p class="followers-count">
+                    <span class="followers-count-no">5.9m</span> Followers
+                  </p>
+                  <div class="visited-box" id="visited-box-34364582556">
+
+                  </div>
+                  <span class="mention-source"><i class="fa fa-calendar"></i>
+                    2019-02-01 11:49
+                  </span>
+                  </div>
+                  <ul class="mention-information" id="mention-information-34364582556">
+                  <li>
+                    <a onclick="setResultAsVisited(34364582556,4)" target="_blank"
+                      href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
+                      class="mention-source mention_source"
+                      hidden_source_url="http://www.youtube.com/channel/UCGmnsW623G1r-Chmo5RB4Yw"><i
+                        class="fa fa-share-alt"></i> youtube.com
+                    </a>
+                  </li>
+                  <li class="score">
+                    Influencer Score: <strong>10/10</strong>
+                    <div class="influence-score">
+                      <span style="width:100%"></span>
+                    </div>
+                  </li>
+                  <li id="li-mention-sentiment-34364582556">
+                    <select id="mention-sentiment-34364582556" name="mention-sentiment-34364582556" class="sentiment"
+                      onchange="javascript:setSentimentInDB(34364582556, this.value)">
+                      <option selected="" value="0">Neutral</option>
+                      <option value="1">Positive</option>
+                      <option value="2">Negative</option>
+                    </select>
+                  </li>
+                  <li class="social-stats">
+                    <p class="likes"><i class="fa fa-thumbs-o-up"></i>
+                      122422</p>
+                    <p class="likes"><i class="fa fa-thumbs-o-down"></i>
+                      2361</p>
+                    <p class="comments"><i class="fa fa-comment-o"></i> 8451
+                    </p>
+                  </li>
+                  </ul>
+                  </div>
+                  <div class="description">
+                  <p class="mention_text" id="mention_text_34364582556"> Twitter:
+                  https://twitter.com/KSIOlajidebt Instagram:
+                  https://www.instagram.com/ksi <b>Facebook</b>:
+                  https://www.<b>facebook</b>.com/KSIOlajidebt/
+                  Footasylum: ...
+                  </p>
+                  <a id="groupButtonResult_34364582556" href=",[-666]);"></a>
+                  <li class="added-groups groupsListResult" id="groupsListResult_34364582556" style="display:none;">
+                  </li>
+                  </div>
+                  </section>
+                  </div>
+
+
+                  </div>
+            
+
+              </div>
+              <!-- end widget content -->
+            </div>
+            <!-- end widget div -->
+          </div>
+          <!-- end row -->
+        </section>
+      </div>
+    </div>
+
+    {% include 'core/includes/search-sidebar.html' %}
+  </div>
+</div>
+{% endblock 'content' %} {% block foot_js %}
+<script>
+  var DoughtnutConfig = {
+    type: "doughnut",
+    data: {
+      datasets: [
+        {
+          data: [4, 2],
+          backgroundColor: ["#F7464A", "#46BFBD"]
+        }
+      ],
+      labels: ["Toxic ", "Non Toxic "]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        position: "top"
+      }
+    }
+  };
+
+  window.myDoughnut = new Chart(
+    document.getElementById("doughnutChart"),
+    DoughtnutConfig
+  );
+
+  var MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  var config = {
+    type: "line",
+    data: {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "red",
+          borderColor: "red",
+          data: [200,500, 100, 900, 800, 600,],
+          fill: false
+        },
+        {
+          label: "My Second dataset",
+          fill: false,
+          backgroundColor: "blue",
+          borderColor: "blue",
+          data: [1, 23, 5, 6, 7, 8, 8, 8, 64, 53, 543, 5, 34]
+        },
+         {
+          label: "My Third dataset",
+          backgroundColor: "green",
+          borderColor: "green",
+          data: [250, 550, 150, 850, 750, 650,],
+          fill: false
+        }, {
+          label: "My Fourth dataset",
+          backgroundColor: "orange",
+          borderColor: "orange",
+          data: [260, 530, 120, 620, 700, 550,],
+          fill: false
+        }, {
+          label: "My Fifth dataset",
+          backgroundColor: "brown",
+          borderColor: "brown",
+          data: [220, 290, 240, 270, 400, 540,],
+          fill: false
+        },
+      ]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: false,
+        text: "Chart.js Line Chart"
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false
+      },
+      hover: {
+        mode: "nearest",
+        intersect: true
+      },
+      scales: {
+        xAxes: [
+          {
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Month"
+            }
+          }
+        ],
+        yAxes: [
+          {
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Value"
+            }
+          }
+        ]
+      }
+    }
+  };
+
+  window.onload = function() {
+    var ctx = document.getElementById("linechartcanvas").getContext("2d");
+    window.myLine = new Chart(ctx, config);
+  };
+</script>
+
+<!-- <script src="{% static 'js/page6.js' %}"></script> -->
+{% endblock foot_js %}

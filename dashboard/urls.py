@@ -11,6 +11,7 @@ urlpatterns = [
     re_path(r'^guard/(?P<pid>\d+)/$', views.GuardPageView, name='guard'),
     path('reputation', views.ReputationView, name='reputation'),
     path('finance', views.FinanceView, name='finance'),
+    path('hotel', views.HotelView, name='finance'),
     path('arabizi', views.ArabiziView, name='arabizi'),
     path('entity', views.EntityView, name='entity'),
     path('topic', views.TopicView, name='topic'),

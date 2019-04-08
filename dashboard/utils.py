@@ -22,13 +22,9 @@ def get_api(access_token,access_secret):
 	return api
 
 def getLanguage(text):
-    requrl = "http://3.18.181.250/languageDetection/api/language/Detect?MyText={}".format(text)
-    resp = requests.get(requrl)
-    newstr = resp.content
-    newstr = newstr.decode()
-    newstr = newstr[1:-1]
-
-    return newstr 
+    requrl = "http://95.216.2.224:5033/detect-language?text={}".format(text)
+    resp = requests.get(requrl).json()
+    return  resp['output']
 
 def getToxic(text):
     requrl = "http://95.216.2.224:5033/toxic?comment={}".format(text)

@@ -94,7 +94,10 @@ def ReputationView(request):
     return render(request,'core/reputation.html')
 
 def FinanceView(request):
-    return render(request,'core/finance.html')
+    return render(request,'core/fintech.html')
+
+def HotelView(request):
+    return render(request, 'core/hotel.html')
 
 def ArabiziView(request):
     return render(request,'core/arabizi.html')
@@ -166,7 +169,7 @@ def sentimentAnalysis(request,pid):
     comments = Comment.objects.filter(project=pro)
 
 def FilterView(request):
-    params = json.loads(request.body)
+    params = json.loads(request.body.decode('utf-8'))
     com = {}
     project = Project.objects.get(id=params['pro_id'])    
 
@@ -186,7 +189,10 @@ def FilterView(request):
         strarr = params['daterange'].split('-')
         tempcoms = list()
         for com in comments:
-            comdate = datetime.strptime(com.created_at,'%Y-%m-%d %H:%M:%S')
+            if(com.source == 'twit'):
+                comdate = to_datetime(com.created_at)                
+            else:
+                comdate = datetime.strptime(com.created_at,'%Y-%m-%d %H:%M:%S')
             startdate = datetime.strptime(strarr[0].strip(),'%m/%d/%Y')
             enddate = datetime.strptime(strarr[1].strip(),'%m/%d/%Y')
             if comdate > startdate and comdate < enddate:

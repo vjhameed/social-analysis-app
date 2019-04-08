@@ -118,10 +118,7 @@
                                 target="_blank"
                                 href="/result/open/?id=34364582556&amp;h=b584e2f1667bd8abec130248b096299b9c220bb5"
                               >
-                                <img
-                                  src="{{ comment.user_image }}"
-                                  onerror="imgError(34364582556)"
-                                />
+                                <img src="{{ comment.user_image }}" />
                                 <span class="play-button">
                                   {%if comment.source == 'fb'%}
                                   <i class="fa fa-facebook"></i>
@@ -143,7 +140,7 @@
                                   {%endif%} {%if comment.source == 'twit'%}
                                   <i class="fa fa-twitter"></i> {%endif%}
 
-                                  {{ comment.user_name.decode }}
+                                  {{ comment.user_name }}
                                 </a>
                               </div>
                               <p class="followers-count">
@@ -214,7 +211,7 @@
                               class="mention_text w-75"
                               id="mention_text_34364582556"
                             >
-                              {{ comment.message.decode }}
+                              {{ comment.message }}
                             </p>
                             <a
                               id="groupButtonResult_34364582556"
