@@ -91,44 +91,54 @@ $(function () {
 
 
     function createComment(el){
-var newcom = $(".com-clone").clone();
-$(newcom).removeClass("d-none");
-$(newcom).removeClass("com-clone");
-$(newcom)
-.find(".com-user-img")
-.attr("src", el.fields.user_image);
-if (el.fields.source == "fb") {
+      console.log(el.fields)
+      console.log('crate com called')
+  var newcom = $(".com-clone").clone();
+  $(newcom).removeClass("d-none");
+  $(newcom).removeClass("com-clone");
   $(newcom)
-    .find(".com-source")
-    .addClass("fa-facebook");
-  $(newcom).find('.social-source-name').text('facebook.com')
-} else if (el.fields.source == "twit") {
+  .find(".com-user-img")
+  .attr("src", el.fields.user_image);
+  if (el.fields.source == "fb") {
+    $(newcom)
+      .find(".com-source")
+      .addClass("fa-facebook");
+    $(newcom).find('.social-source-name').text('facebook.com')
+  } else if (el.fields.source == "twit") {
+    $(newcom)
+      .find(".com-source")
+      .addClass("fa-twitter");
+    $(newcom).find('.social-source-name').text('twitter.com')
+  }
   $(newcom)
-    .find(".com-source")
-    .addClass("fa-twitter");
-  $(newcom).find('.social-source-name').text('twitter.com')
-}
-$(newcom)
-  .find(".com-user-name")
-  .text(el.fields.user_name);
-$(newcom)
-  .find(".com-user-follow")
-  .text(el.fields.user_followers);
+    .find(".com-user-name")
+    .text(el.fields.user_name);
+  $(newcom)
+    .find(".com-user-follow")
+    .text(el.fields.user_followers);
 
-$(newcom)
-  .find(".com-date")
-  .text(el.fields.created_at);
-$(newcom)
-  .find(".mention_text")
-  .text(el.fields.message);
+  $(newcom)
+    .find(".com-date")
+    .text(el.fields.created_at);
+  $(newcom)
+    .find(".mention_text")
+    .text(el.fields.message);
 
-$(newcom).appendTo(".comment-container");
+  $(newcom).appendTo(".comment-container");
 }
 
 
 function assignSidebar(data){
 
-  var nomale,nofemale,nopositive,nonegative,nonuetral,noen,nofr,noar,noarz = ' '
+  var nomale = 0
+  var nofemale = 0
+  var nopositive= 0
+  var nonegative= 0
+  var nonegative= 0
+  var noen= 0
+  var nofr= 0
+  var noar= 0
+  var noarz= 0
 
   $(data).each(function(index, el) {
     if (el.fields.sentiment == "Positive") nopositive = nopositive + 1;
@@ -141,7 +151,6 @@ function assignSidebar(data){
     else if (el.fields.language == "ar") noar = noar + 1;
     else if (el.fields.language == "arz") noarz = noarz + 1;
   })
-
 
   $("#filter-neg-count").text(nonegative)
   $("#filter-pos-count").text(nopositive)

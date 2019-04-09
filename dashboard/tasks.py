@@ -86,13 +86,13 @@ def fetchUserData(userid,proid):
                     newcom.created_at = d1                        
                     newcom.language = getLanguage(com['message'])  
                     newcom.sentiment = getSentiment(com['message'] ,newcom.language)
-                    # newcom.user_name = com['from']['name']  
+                    newcom.user_name = com['from']['name']  
                     newcom.project = pro                    
-                    newcom.user_name = 'something'
+                    # newcom.user_name = 'something'
                     newcom.user_image = 'img'
                     newcom.user_followers = '123'
-                    # newcom.gender = getUserGender(com['from']['name'])
-                    newcom.gender = getUserGender('hameed')
+                    newcom.gender = getUserGender(com['from']['name'])
+                    # newcom.gender = getUserGender('hameed')
                     newcom.is_toxic = getToxic(com['message'])
                     newcom.is_intent = getIntent(com['message'])
                     newcom.is_crisis = getCrisis(com['message'],newcom.language)

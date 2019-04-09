@@ -44,6 +44,16 @@
                           </div>
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="sentiment-widget" id="wid-id-0">
+                          <div class="widget-body p-3">
+                            <h6 class="sec-heads">Top 10 Words</h6>
+                            <div class="chart-container">
+                              <div id="wordcloud"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -298,61 +308,26 @@
   </div>
 </div>
 {% endblock 'content' %} {% block foot_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
+
 <script>
-  $(".hash-section").click(function() {
-    $(".hash-section").removeClass("selected");
-    $(this).addClass("selected");
+ 
+ var words = [
+    {text: "Lorem", weight: 13},
+    {text: "Ipsum", weight: 10.5},
+    {text: "Dolor", weight: 9.4},
+    {text: "Sit", weight: 8},
+    {text: "Amet", weight: 6.2},
+    {text: "Consectetur", weight: 5},
+    {text: "Adipiscing", weight: 5},    
+  ];
+
+  $('#wordcloud').jQCloud(words, {
+    width: 500,
+    height: 350
   });
-
-  var randomScalingFactor = function() {
-    return Math.round(Math.random() * 100);
-    //return 0;
-  };
-  var randomColorFactor = function() {
-    return Math.round(Math.random() * 255);
-  };
-  var randomColor = function(opacity) {
-    return (
-      "rgba(" +
-      randomColorFactor() +
-      "," +
-      randomColorFactor() +
-      "," +
-      randomColorFactor() +
-      "," +
-      (opacity || ".3") +
-      ")"
-    );
-  };
-
-  var myRandomNumber = function() {
-    return Math.floor(Math.random() * 80 + 400);
-  };
-
-  var randomScalingFactor = function() {
-    return Math.round(Math.random() * 100);
-    //return 0;
-  };
-  var randomColorFactor = function() {
-    return Math.round(Math.random() * 255);
-  };
-  var randomColor = function(opacity) {
-    return (
-      "rgba(" +
-      randomColorFactor() +
-      "," +
-      randomColorFactor() +
-      "," +
-      randomColorFactor() +
-      "," +
-      (opacity || ".3") +
-      ")"
-    );
-  };
-
-  var myRandomNumber = function() {
-    return Math.floor(Math.random() * 80 + 400);
-  };
 
   window.myBar = new Chart(document.getElementById("barChart"), {
     type: "horizontalBar",
