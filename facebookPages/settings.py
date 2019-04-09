@@ -19,7 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-CELERY_BROKER_URL = 'amqp://localhost'
+
+CELERY_BROKER_URL = 'amqp://127.0.0.1'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=0@@tm@ph-$6d-oae883lcn-1gx2hz)02&s&$*0k9xkyj#(lj^'
 
@@ -144,7 +145,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'searchapp',
         'USER': 'root',
-        'PASSWORD': 'qwerty12345',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -190,6 +191,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CONSUMER_KEY= 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
+
+CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
 
 FACEBOOK_CONFIG = {
     'app_id': '1204217713050064',

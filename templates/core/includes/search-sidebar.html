@@ -14,6 +14,7 @@
       </span>
     </div>
   </div>
+  
 
   <div class="widget-body search-sidebar card card-2 px-3 pb-3 pl-4 pt-0 mt-0">
     <div class="row" style="">
@@ -23,102 +24,57 @@
         <h5 class="filter-heading">Social Channel</h5>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 social-check"
-              name="social-channel"
-              value="fb"
-            />
-            <span>Facebook</span>
+            <input type="checkbox" class="checkbox style-0 social-check" name="social-channel" value="fb" />
+            <span>Facebook (<span id='filter-fb-count'>{{filterdata.nofb}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 social-check"
-              name="social-channel"
-              value="twit"
-            />
-            <span>Twitter</span>
+            <input type="checkbox" class="checkbox style-0 social-check" name="social-channel" value="twit" />
+            <span>Twitter (<span id='filter-twit-count'>{{filterdata.notwit}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 social-check"
-              name="social-channel"
-              value="insta"
-            />
-            <span>Instagram</span>
+            <input type="checkbox" class="checkbox style-0 social-check" name="social-channel" value="insta" />
+            <span>Instagram (<span id='filter-ins-count'>{{filterdata.noins}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 social-check"
-              name="social-channel"
-              value="youtube"
-            />
-            <span>Youtube</span>
+            <input type="checkbox" class="checkbox style-0 social-check" name="social-channel" value="youtube" />
+            <span>Youtube (<span id='filter-you-count'>{{filterdata.noyou}}</span>)</span>
           </label>
         </div>
 
         <h5 class="filter-heading">Date</h5>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 date-check"
-              name="timeframe"
-              value="1"
-            />
+            <input type="checkbox" class="checkbox style-0 date-check" name="timeframe" value="1" />
             <span>Last Day</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 date-check"
-              name="timeframe"
-              value="3"
-            />
+            <input type="checkbox" class="checkbox style-0 date-check" name="timeframe" value="3" />
             <span>Last 3 Days</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 date-check"
-              name="timeframe"
-              value="7"
-            />
+            <input type="checkbox" class="checkbox style-0 date-check" name="timeframe" value="7" />
             <span>Last Week</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 date-check"
-              name="timeframe"
-              value="10"
-            />
+            <input type="checkbox" class="checkbox style-0 date-check" name="timeframe" value="10" />
             <span>Last 10 Days</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 date-check"
-              name="timeframe"
-              value="30"
-            />
+            <input type="checkbox" class="checkbox style-0 date-check" name="timeframe" value="30" />
             <span>Last Month</span>
           </label>
         </div>
@@ -126,11 +82,7 @@
         <h5 class="filter-heading">Date Range</h5>
         <div class="row">
           <div class="col-md-10">
-            <input
-              type="text"
-              name="datefrom"
-              class="date-range-filter form-control"
-            />
+            <input type="text" name="datefrom" class="date-range-filter form-control" />
           </div>
           <!-- <div class="col-md-6">
             <label for="">To</label>
@@ -141,78 +93,48 @@
         <h5 class="filter-heading">Language</h5>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 lang-check"
-              name="language"
-              value="en"
-            />
-            <span>English</span>
+            <input type="checkbox" class="checkbox style-0 lang-check" name="language" value="en" />
+            <span>English (<span id='filter-en-count'>{{filterdata.encom}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 lang-check"
-              name="language"
-              value="fr"
-            />
-            <span>French</span>
+            <input type="checkbox" class="checkbox style-0 lang-check" name="language" value="fr" />
+            <span>French (<span id='filter-fr-count'>{{filterdata.frcom}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 lang-check"
-              name="language"
-              value="ar"
-            />
-            <span>Arabic</span>
+            <input type="checkbox" class="checkbox style-0 lang-check" name="language" value="ar" />
+            <span>Arabic (<span id='filter-ar-count'>{{filterdata.arcom}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 lang-check"
-              name="language"
-              value="az"
-            />
-            <span>Arabizi</span>
+            <input type="checkbox" class="checkbox style-0 lang-check" name="language" value="arz" />
+            <span>Arabizi (<span id='filter-arz-count'>{{filterdata.arzcom}}</span>)</span>
           </label>
         </div>
 
         <h5 class="filter-heading">Gender</h5>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 gender-check"
-              value="male"
-              name="gender"
-            />
-            <span>Male</span>
+            <input type="checkbox" class="checkbox style-0 gender-check" value="male" name="gender" />
+            <span>Male (<span id='filter-male-count'>{{filterdata.nomale}}</span>)</span>
           </label>
         </div>
         <div class="vcheck">
           <label>
-            <input
-              type="checkbox"
-              class="checkbox style-0 gender-check"
-              value="female"
-              name="gender"
-            />
-            <span>Female</span>
+            <input type="checkbox" class="checkbox style-0 gender-check" value="female" name="gender" />
+            <span>Female (<span id='filter-female-count'>{{filterdata.nofemale}}</span>)</span>
           </label>
         </div>
 
         <h5 class="filter-heading">Sentiment</h5>
         <div class="" style="display:flex;justify-content: space-between">
-          <span class="text-center">Negative</span>
-          <span class="text-center">NEUTRAL</span>
-          <span class="text-center">Positive</span>
+          <span class="text-center">Negative (<span id='filter-neg-count'>{{filterdata.noneg}}</span>)</span>
+          <span class="text-center">Neutral (<span id='filter-neu-count'>{{filterdata.nonue}}</span>)</span>
+          <span class="text-center">Positive (<span id='filter-pos-count'>{{filterdata.nopos}}</span>)</span>
         </div>
         <input type="range" min="1" max="3" value="2" step="1" class="n n3" />
       </div>

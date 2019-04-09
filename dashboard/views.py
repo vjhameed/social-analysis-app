@@ -23,22 +23,30 @@ import traceback
 
 graph = facebook.GraphAPI(version="2.12")
 
-CONSUMER_KEY = 'mqjmf3Tp4D8NGNDd5AR9dHKrT'
-CONSUMER_SECRET = 'd3uPKttcEBYLPeyyrLIFRi45KzPCKcgeEMYs8kAo00gFk5egDD'
-
-
+ 
 def MainView(request,pid):
     pro = Project.objects.get(id=pid)
     projects = Project.objects.filter(user=request.user)
     comments = Comment.objects.filter(project=pro)  
-    nomale = comments.filter(gender='male').count()
-    nofemale = comments.filter(gender='female').count()
-    nopositive = comments.filter(sentiment='Positive').count()
-    nonegative = comments.filter(sentiment='Negative').count()
-    nonuetral = comments.filter(sentiment='Nuetral').count()
-    print(to_datetime('Fri Mar 29 18:14:07 +0000 2019'))
+    filtercounts = dict()
+    filtercounts['nomale'] = comments.filter(gender='Male').count()
+    filtercounts['nofemale'] = comments.filter(gender='Female').count()
 
-    return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'nomale':nomale,'nofemale':nofemale,'nonegative':nonegative,'nopositive':nopositive,'nonuetral':nonuetral})
+    filtercounts['nofb'] = comments.filter(source='fb').count()
+    filtercounts['notwit'] = comments.filter(source='twit').count()
+    filtercounts['noyou'] = comments.filter(source='youtube').count()
+    filtercounts['noins'] = comments.filter(source='insta').count()
+
+    filtercounts['nopos'] = comments.filter(sentiment='Positive').count()
+    filtercounts['noneg'] = comments.filter(sentiment='Negative').count()
+    filtercounts['nonue'] = comments.filter(sentiment='Neutral').count()
+
+    filtercounts['encom'] = comments.filter(language='en').count()
+    filtercounts['frcom'] = comments.filter(language='fr').count()
+    filtercounts['arcom'] = comments.filter(language='ar').count()
+    filtercounts['arzcom'] = comments.filter(language='arz').count()
+
+    return render(request,'core/main.html',{'comments':comments,'project':pro,'projects':projects,'filterdata':filtercounts})
 
 def HomePageView(request):
     projects = Project.objects.filter(user=request.user)
@@ -46,11 +54,15 @@ def HomePageView(request):
     insta_connect_url = None
 
     if 'fb_access_token' not in request.session or not request.session['fb_access_token']:
-        perms = ["instagram_basic", "instagram_manage_comments"]
-        insta_connect_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
+        perms = ["instagram_basic", "instagram_manage_comments","manage_pages"]
+        insta_connect_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)        
     else:
         graph.access_token = request.session['fb_access_token']
         accounts = graph.request('/me/accounts')
+        print(accounts)
+
+    perms = ["instagram_basic", "instagram_manage_comments","manage_pages"]
+    insta_connect_url = graph.get_auth_url(settings.FACEBOOK_CONFIG['app_id'], settings.FACEBOOK_CONFIG['redirect_uri'], perms)
 
     return render(request, 'core/index.html', {"projects": projects, 'insta_connect_url': insta_connect_url})
 
@@ -58,9 +70,26 @@ def SentimentView(request,pid):
     pro = Project.objects.get(id=pid)
     projects = Project.objects.filter(user=request.user)
     comments = Comment.objects.filter(project=pro)  
-    
+    filtercounts = dict()
+    filtercounts['nomale'] = comments.filter(gender='Male').count()
+    filtercounts['nofemale'] = comments.filter(gender='Female').count()
 
-    return render(request,'core/sentiment.html',{'comments':comments,'project':pro,'projects':projects})
+    filtercounts['nofb'] = comments.filter(source='fb').count()
+    filtercounts['notwit'] = comments.filter(source='twit').count()
+    filtercounts['noyou'] = comments.filter(source='youtube').count()
+    filtercounts['noins'] = comments.filter(source='insta').count()
+
+    filtercounts['nopos'] = comments.filter(sentiment='Positive').count()
+    filtercounts['noneg'] = comments.filter(sentiment='Negative').count()
+    filtercounts['nonue'] = comments.filter(sentiment='Neutral').count()
+
+    filtercounts['encom'] = comments.filter(language='en').count()
+    filtercounts['frcom'] = comments.filter(language='fr').count()
+    filtercounts['arcom'] = comments.filter(language='ar').count()
+    filtercounts['arzcom'] = comments.filter(language='arz').count()
+
+
+    return render(request,'core/sentiment.html',{'comments':comments,'project':pro,'projects':projects,'filterdata':filtercounts})
 
 def CrisisPageView(request,pid):
     projects = Project.objects.filter(user=request.user)
@@ -71,10 +100,29 @@ def CrisisPageView(request,pid):
     nocrisiscomments = comments.filter(is_crisis='Non Problematic')    
     numnocrisiscomments = comments.filter(is_crisis='Non Problematic').count()  
     numcrisiscomments = comments.filter(is_crisis='Problematic').count()  
-    fbcrisiscomments = crisiscomments.filter(source='fb').count()
-    twitcrisiscomments = crisiscomments.filter(source='twit').count()
+    filtercounts = dict()
 
-    return render(request,'core/crisis.html',{'project':pro,'projects':projects,'comments':crisiscomments,'noncricom':nocrisiscomments,'numcricomments':numcrisiscomments,'numnocricomments':numnocrisiscomments,'fbtox':fbcrisiscomments,'twittox':twitcrisiscomments})
+    filtercounts['nocrisis'] = numnocrisiscomments
+    filtercounts['crisis'] = numcrisiscomments
+
+    filtercounts['nomale'] = comments.filter(gender='Male').count()
+    filtercounts['nofemale'] = comments.filter(gender='Female').count()
+
+    filtercounts['nofb'] = comments.filter(source='fb').count()
+    filtercounts['notwit'] = comments.filter(source='twit').count()
+    filtercounts['noyou'] = comments.filter(source='youtube').count()
+    filtercounts['noins'] = comments.filter(source='insta').count()
+
+    filtercounts['nopos'] = comments.filter(sentiment='Positive').count()
+    filtercounts['noneg'] = comments.filter(sentiment='Negative').count()
+    filtercounts['nonue'] = comments.filter(sentiment='Neutral').count()
+
+    filtercounts['encom'] = comments.filter(language='en').count()
+    filtercounts['frcom'] = comments.filter(language='fr').count()
+    filtercounts['arcom'] = comments.filter(language='ar').count()
+    filtercounts['arzcom'] = comments.filter(language='arz').count()
+
+    return render(request,'core/crisis.html',{'project':pro,'projects':projects,'comments':crisiscomments,'filterdata':filtercounts})
 
 def IntentPageView(request,pid):
     projects = Project.objects.filter(user=request.user)
@@ -82,13 +130,31 @@ def IntentPageView(request,pid):
     pro = Project.objects.get(id=pid)
     comments = Comment.objects.filter(project=pro)
     intcoms = comments.filter(is_intent='True')  
-    nonintcoms = comments.filter(is_intent='False')    
     num_non_int_com = comments.filter(is_intent='False').count()  
     num_int_com = comments.filter(is_intent='True').count()  
-    fb_tox_com = intcoms.filter(source='fb').count()
-    twit_tox_com = intcoms.filter(source='twit').count()
 
-    return render(request,'core/intent.html',{'project':pro,'projects':projects,'comments':intcoms,'nonintcom':nonintcoms,'numnointcomments':num_non_int_com,'numintcomments':num_int_com,'fbtox':fb_tox_com,'twittox':twit_tox_com})
+    filtercounts = dict()
+    filtercounts['nointent'] = num_non_int_com
+    filtercounts['intent'] = num_int_com
+
+    filtercounts['nomale'] = comments.filter(gender='Male').count()
+    filtercounts['nofemale'] = comments.filter(gender='Female').count()
+
+    filtercounts['nofb'] = comments.filter(source='fb').count()
+    filtercounts['notwit'] = comments.filter(source='twit').count()
+    filtercounts['noyou'] = comments.filter(source='youtube').count()
+    filtercounts['noins'] = comments.filter(source='insta').count()
+
+    filtercounts['nopos'] = comments.filter(sentiment='Positive').count()
+    filtercounts['noneg'] = comments.filter(sentiment='Negative').count()
+    filtercounts['nonue'] = comments.filter(sentiment='Neutral').count()
+
+    filtercounts['encom'] = comments.filter(language='en').count()
+    filtercounts['frcom'] = comments.filter(language='fr').count()
+    filtercounts['arcom'] = comments.filter(language='ar').count()
+    filtercounts['arzcom'] = comments.filter(language='arz').count()
+
+    return render(request,'core/intent.html',{'project':pro,'projects':projects,'comments':intcoms,'filterdata':filtercounts})
 
 def GuardPageView(request,pid):
     projects = Project.objects.filter(user=request.user)
@@ -99,10 +165,29 @@ def GuardPageView(request,pid):
     nontoxcoms = comments.filter(is_toxic='False')    
     num_non_tox_com = comments.filter(is_toxic='False').count()  
     num_tox_com = comments.filter(is_toxic='True').count()  
-    fb_tox_com = toxcoms.filter(source='fb').count()
-    twit_tox_com = toxcoms.filter(source='twit').count()
 
-    return render(request,'core/guard.html',{'project':pro,'projects':projects,'comments':toxcoms,'nontoxcom':nontoxcoms,'numnotoxcomments':num_non_tox_com,'numtoxcomments':num_tox_com,'fbtox':fb_tox_com,'twittox':twit_tox_com})
+    filtercounts = dict()
+    filtercounts['notoxic'] = num_non_tox_com
+    filtercounts['toxic'] = num_tox_com
+
+    filtercounts['nomale'] = comments.filter(gender='Male').count()
+    filtercounts['nofemale'] = comments.filter(gender='Female').count()
+
+    filtercounts['nofb'] = comments.filter(source='fb').count()
+    filtercounts['notwit'] = comments.filter(source='twit').count()
+    filtercounts['noyou'] = comments.filter(source='youtube').count()
+    filtercounts['noins'] = comments.filter(source='insta').count()
+
+    filtercounts['nopos'] = comments.filter(sentiment='Positive').count()
+    filtercounts['noneg'] = comments.filter(sentiment='Negative').count()
+    filtercounts['nonue'] = comments.filter(sentiment='Neutral').count()
+
+    filtercounts['encom'] = comments.filter(language='en').count()
+    filtercounts['frcom'] = comments.filter(language='fr').count()
+    filtercounts['arcom'] = comments.filter(language='ar').count()
+    filtercounts['arzcom'] = comments.filter(language='arz').count()
+
+    return render(request,'core/guard.html',{'project':pro,'projects':projects,'comments':toxcoms,'filterdata':filtercounts})
 
 def ReputationView(request):
     return render(request,'core/reputation.html')
@@ -147,7 +232,7 @@ def UserTokenView(request):
 
     tok = json.loads(request.body.decode('utf-8'))
     token = tok['token']
-    tokenurl = "https://graph.facebook.com/v3.2/oauth/access_token?grant_type=fb_exchange_token&client_id=188312881935144&client_secret=57ee2101ea55a4e93b6ce36a6cdee00b&fb_exchange_token={}".format(token)
+    tokenurl = "https://graph.facebook.com/v3.2/oauth/access_token?grant_type=fb_exchange_token&client_id=250604469198313&client_secret=b08af79b04bffcd4d55671cdabc61b43&fb_exchange_token={}".format(token)
     r = requests.get(tokenurl).json()
     pk = r
     newtoken = pk['access_token']
@@ -234,7 +319,7 @@ def to_datetime(datestring):
     
 def callback(request):
     verifier = request.GET.get('oauth_verifier')
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    oauth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
     token = request.session['request_token']
 
     request.session.delete('request_token')
@@ -262,7 +347,7 @@ def callback(request):
 def twitterAuth(request):   
     request.session.delete('request_token')
     # start the OAuth process, set up a handler with our details
-    oauth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    oauth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
     # direct the user to the authentication url
     # if user is logged-in and authorized then transparently goto the callback URL
     auth_url = oauth.get_authorization_url(True)

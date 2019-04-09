@@ -39,7 +39,7 @@ def fetchTwitterData(userid,proid):
             newcom.gender = getUserGender(obj['user']['name'])
             newcom.comment_id = obj['id']
             newcom.created_at = obj['created_at']                                
-            newcom.language = obj['lang']             
+            newcom.language = getLanguage(obj['text'])             
             newcom.sentiment = getSentiment(obj['text'],newcom.language)  
             newcom.project = pro
             newcom.user_name = obj['user']['screen_name']
@@ -84,18 +84,14 @@ def fetchUserData(userid,proid):
                     newcom.source = 'fb'
                     newcom.comment_id = com['id']
                     newcom.created_at = d1                        
-                    newcom.language = 'en'  
+                    newcom.language = getLanguage(com['message'])  
                     newcom.sentiment = getSentiment(com['message'] ,newcom.language)
-<<<<<<< HEAD
-                    newcom.user_name = com['from']['name']  
-=======
-                    newcom.user_name = com['from']['name']
->>>>>>> f3107035534172c1b9a395c39c612fb11d6d66be
+                    # newcom.user_name = com['from']['name']  
                     newcom.project = pro                    
-                    # newcom.user_name = 'not'
+                    newcom.user_name = 'something'
                     newcom.user_image = 'img'
                     newcom.user_followers = '123'
-                    newcom.gender = getUserGender(com['from']['name'])
+                    # newcom.gender = getUserGender(com['from']['name'])
                     newcom.gender = getUserGender('hameed')
                     newcom.is_toxic = getToxic(com['message'])
                     newcom.is_intent = getIntent(com['message'])
